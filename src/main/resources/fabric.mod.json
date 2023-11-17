@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "ranged_weapon_api",
+  "version": "${version}",
+  "name": "RangedWeaponAPI",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/zsoltmolnar/RangedWeaponAPI"
+  },
+  "license": "MIT",
+  "icon": "assets/ranged_weapon_api/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.fabric_extras.ranged_weapon_api.client.RangedWeaponAPIClient"
+    ],
+    "main": [
+      "net.fabric_extras.ranged_weapon_api.RangedWeaponAPI"
+    ]
+  },
+  "mixins": [
+    "ranged_weapon_api.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

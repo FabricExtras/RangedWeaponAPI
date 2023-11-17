@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "testmod",
+  "version": "${version}",
+  "name": "Test Mod",
+  "description": "Test Mod",
+  "authors": [ ],
+  "contact": { },
+  "license": "None",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+    ],
+    "main": [
+      "net.testmod.TestMod"
+    ]
+  },
+  "mixins": [
+  ],
+  "depends": {
+  },
+  "custom": {
+  }
+}
