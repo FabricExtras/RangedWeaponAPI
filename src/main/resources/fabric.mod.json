@@ -3,20 +3,20 @@
   "id": "ranged_weapon_api",
   "version": "${version}",
   "name": "RangedWeaponAPI",
-  "description": "",
+  "description": "Allows creating bows and crossbows, with just a few line of code",
   "authors": [],
   "contact": {
-    "repo": "https://github.com/zsoltmolnar/RangedWeaponAPI"
+    "repo": "https://github.com/FabricExtras/RangedWeaponAPI"
   },
   "license": "MIT",
   "icon": "assets/ranged_weapon_api/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.fabric_extras.ranged_weapon_api.client.RangedWeaponAPIClient"
+      "net.fabric_extras.ranged_weapon.client.RangedWeaponAPIClient"
     ],
     "main": [
-      "net.fabric_extras.ranged_weapon_api.RangedWeaponAPI"
+      "net.fabric_extras.ranged_weapon.RangedWeaponAPI"
     ]
   },
   "mixins": [

@@ -1,4 +1,4 @@
-package net.fabric_extras.ranged_weapon_api;
+package net.fabric_extras.ranged_weapon;
 
 import net.fabricmc.api.ModInitializer;
 
