@@ -94,11 +94,12 @@ if(project.hasProperty('release_type')) {
 
     publishing {
         publications {
-            register {
+            mavenJava(MavenPublication) {
+                from components.java
+
                 name = project.archives_base_name
                 groupId = project.maven_group
                 artifactId = project.archives_base_name
-                from components.java
             }
         }
 
