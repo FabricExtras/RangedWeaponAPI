@@ -4,8 +4,14 @@
   "package": "net.fabric_extras.ranged_weapon.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "item.BowItemMixin",
+    "item.CrossbowItemMixin"
   ],
   "client": [
+    "client.AbstractClientPlayerEntityMixin",
+    "client.HeldItemRendererMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.compat.ProjectileDamageTooltipMixin"
   ],
   "injectors": {
     "defaultRequire": 1

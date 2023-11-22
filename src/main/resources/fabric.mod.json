@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "RangedWeaponAPI",
   "description": "Allows creating bows and crossbows, with just a few line of code",
-  "authors": [],
+  "authors": [
+    "Daedelus"
+  ],
   "contact": {
     "repo": "https://github.com/FabricExtras/RangedWeaponAPI"
   },
