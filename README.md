@@ -8,6 +8,7 @@
 - [x] Bows and Crossbow construction
 - [x] Customizable weapon properties: damage, pull time, projectile velocity (optional)
 - [x] Automatic item model predicate registration (matching vanilla model predicates)
+- [x] Tooltip includes weapon properties
 - [x] Correct rendering first and third person rendering
 - [x] Correct pull FOV
 - [ ] AI can use these weapons

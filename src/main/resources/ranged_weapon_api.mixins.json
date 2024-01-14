@@ -10,6 +10,7 @@
   "client": [
     "client.AbstractClientPlayerEntityMixin",
     "client.HeldItemRendererMixin",
+    "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
     "client.compat.ProjectileDamageTooltipMixin"
   ],

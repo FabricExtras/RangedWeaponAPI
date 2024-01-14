@@ -3,6 +3,7 @@ package net.fabric_extras.ranged_weapon.client;
 import net.fabric_extras.ranged_weapon.api.CustomBow;
 import net.fabric_extras.ranged_weapon.api.CustomCrossbow;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.mixin.registry.sync.client.MinecraftClientMixin;
 
 public class RangedWeaponAPIClient implements ClientModInitializer {
     /**
@@ -10,11 +11,12 @@ public class RangedWeaponAPIClient implements ClientModInitializer {
      */
     @Override
     public void onInitializeClient() {
-        for (var bow: CustomBow.instances) {
-            ModelPredicateHelper.registerBowModelPredicates(bow);
-        }
-        for (var crossbow: CustomCrossbow.instances) {
-            ModelPredicateHelper.registerCrossbowModelPredicates(crossbow);
-        }
+        // Calling these from MinecraftClient run, so all mod registrations are done
+//        for (var bow: CustomBow.instances) {
+//            ModelPredicateHelper.registerBowModelPredicates(bow);
+//        }
+//        for (var crossbow: CustomCrossbow.instances) {
+//            ModelPredicateHelper.registerCrossbowModelPredicates(crossbow);
+//        }
     }
 }
