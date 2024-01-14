@@ -3,7 +3,7 @@ package net.fabric_extras.ranged_weapon.mixin.item;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fabric_extras.ranged_weapon.api.CustomRangedWeaponProperties;
+import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.BowItem;
@@ -12,28 +12,28 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(BowItem.class)
-public class BowItemMixin implements CustomRangedWeaponProperties {
+public class BowItemMixin implements CustomRangedWeapon {
     private int customPullTime = 0;
     @Override
-    public int getCustomPullTime_RPGS() {
+    public int getPullTime_RWA() {
         return customPullTime;
     }
     @Override
-    public void setCustomPullTime_RPGS(int pullTime) {
+    public void setPullTime_RWA(int pullTime) {
         customPullTime = pullTime;
     }
 
     private float customVelocity = 0;
     @Override
-    public float getCustomVelocity_RPGS() {
+    public float getVelocity_RWA() {
         return customVelocity;
     }
     @Override
-    public void setCustomVelocity_RPGS(float velocity) {
+    public void setVelocity_RWA(float velocity) {
         customVelocity = velocity;
     }
 
-    public float getCustomPullProgress(int useTicks) {
+    public float getPullProgress_RWA(int useTicks) {
         float pullTime = this.customPullTime > 0 ? this.customPullTime : 20;
         float f = (float)useTicks / pullTime;
         f = (f * f + f * 2.0F) / 3.0F;
@@ -43,14 +43,13 @@ public class BowItemMixin implements CustomRangedWeaponProperties {
         return f;
     }
 
-
     /**
      * Apply custom pull time
      */
     @WrapOperation(method = "onStoppedUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BowItem;getPullProgress(I)F"))
     private float applyCustomPullTime(int ticks, Operation<Float> original) {
         if (customPullTime > 0) {
-            return getCustomPullProgress(ticks);
+            return getPullProgress_RWA(ticks);
         } else {
             return original.call(ticks);
         }

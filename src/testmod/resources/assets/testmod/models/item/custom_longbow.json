@@ -1,0 +1,28 @@
+{
+  "parent": "testmod:item/base/bow_18",
+  "textures": {
+    "layer0": "testmod:item/custom_longbow"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "pulling": 1
+      },
+      "model": "testmod:item/custom_longbow_pulling_0"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "testmod:item/custom_longbow_pulling_1"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "testmod:item/custom_longbow_pulling_2"
+    }
+  ]
+}

@@ -115,6 +115,7 @@ if(project.hasProperty('release_type')) {
 
             relations {
                 requiredDependency 'fabric-api'
+                requiredDependency 'projectile-damage-attribute'
             }
 
             mainArtifact(remapJar)
@@ -142,6 +143,7 @@ if(project.hasProperty('release_type')) {
             // The scope can be `required`, `optional`, `incompatible`, or `embedded`
             // The type can either be `project` or `version`
             required.project 'fabric-api'
+            required.project 'projectile-damage-attribute'
         }
     }
 

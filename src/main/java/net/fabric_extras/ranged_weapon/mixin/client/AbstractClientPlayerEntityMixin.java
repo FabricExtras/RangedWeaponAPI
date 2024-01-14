@@ -2,7 +2,7 @@ package net.fabric_extras.ranged_weapon.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fabric_extras.ranged_weapon.api.CustomRangedWeaponProperties;
+import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
 import net.fabric_extras.ranged_weapon.api.CustomBow;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.item.Item;
@@ -33,7 +33,7 @@ public class AbstractClientPlayerEntityMixin {
         var item = ((AbstractClientPlayerEntity)(Object)this).getActiveItem().getItem();
         if (CustomBow.instances.contains(item)) {
             // Override hardcoded pull time
-            return ((CustomRangedWeaponProperties)item).getCustomPullTime_RPGS();
+            return ((CustomRangedWeapon)item).getPullTime_RWA();
         } else {
             return value;
         }

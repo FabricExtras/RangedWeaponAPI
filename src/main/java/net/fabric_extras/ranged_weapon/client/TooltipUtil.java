@@ -1,7 +1,7 @@
 package net.fabric_extras.ranged_weapon.client;
 
 import com.ibm.icu.text.DecimalFormat;
-import net.fabric_extras.ranged_weapon.api.CustomRangedWeaponProperties;
+import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -53,8 +53,8 @@ public class TooltipUtil {
         } else {
             if (itemStack.isOf(Items.BOW)) {
                 return 20;
-            } else if (item instanceof CustomRangedWeaponProperties customBow) {
-                return customBow.getCustomPullTime_RPGS();
+            } else if (item instanceof CustomRangedWeapon customBow) {
+                return customBow.getPullTime_RWA();
             }
         }
         return 0;

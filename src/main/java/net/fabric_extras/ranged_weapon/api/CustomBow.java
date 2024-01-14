@@ -20,7 +20,7 @@ public class CustomBow extends BowItem {
 
 
     public void config(RangedConfig config) {
-        ((CustomRangedWeaponProperties) this).configure(config);
+        ((CustomRangedWeapon) this).configure(config);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class CustomCrossbow extends CrossbowItem {
     }
 
     public void config(RangedConfig config) {
-        ((CustomRangedWeaponProperties) this).configure(config);
+        ((CustomRangedWeapon) this).configure(config);
     }
 
     private final Supplier<Ingredient> repairIngredientSupplier;

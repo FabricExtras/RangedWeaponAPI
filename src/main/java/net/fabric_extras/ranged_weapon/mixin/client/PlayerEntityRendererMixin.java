@@ -21,7 +21,7 @@ public class PlayerEntityRendererMixin {
             require = 0, // For Sinytra Connector, Forge replaces the `isOf` check with `instanceof`
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z")
     )
-    private static boolean armPose_crossbowHold_SpellEngine(ItemStack itemStack, Item item, Operation<Boolean> original) {
+    private static boolean armPose_crossbowHold_RWA(ItemStack itemStack, Item item, Operation<Boolean> original) {
         if (item == Items.CROSSBOW) {
             if (CustomCrossbow.instances.contains(itemStack.getItem())) {
                 return true;
