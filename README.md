@@ -60,7 +60,10 @@ var bow = new CustomBow(
         new FabricItemSettings().maxDamage(300),
         () -> Ingredient.ofItems(Items.GOLD_INGOT)
 );
-bow.config(new RangedConfig(30, 9, null));
+bow.config(new RangedConfig(
+        30,     // Pull time in ticks 
+        9,      // Damage
+        null)); // Projectile velocity (optional)
 Registry.register(
         Registries.ITEM,
         new Identifier(NAMESPACE, "custom_longbow"),
