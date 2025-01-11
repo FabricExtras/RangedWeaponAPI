@@ -1,3 +1,8 @@
+# 2.0.5
+
+- Update some translations
+- Add function for potion registration
+
 # 2.0.4
 
 - Lower Fabric API version requirement

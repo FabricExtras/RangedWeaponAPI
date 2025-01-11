@@ -4,7 +4,13 @@ import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.StatusEffects_RangedWeapon;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.potion.Potion;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class RangedWeaponMod implements ModInitializer {
 
@@ -27,6 +33,8 @@ public class RangedWeaponMod implements ModInitializer {
                 Identifier.of(NAMESPACE, "effect.haste"),
                 boostEffectBonusPerLevel,
                 EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+
+        registerPotions();
     }
 
     public static void registerAttributes() {
@@ -39,5 +47,25 @@ public class RangedWeaponMod implements ModInitializer {
         for (var entry : StatusEffects_RangedWeapon.all) {
             entry.register();
         }
+    }
+
+    private static boolean potionRegistered = false;
+    public static void registerPotions() {
+        if (potionRegistered) {
+            return;
+        }
+        potionRegistered = true;
+        var entries = List.of(
+                StatusEffects_RangedWeapon.DAMAGE,
+                StatusEffects_RangedWeapon.HASTE
+        );
+        for (var entry : entries) {
+            var potion = new Potion(new StatusEffectInstance(entry.entry, 3600));
+            Registry.register(Registries.POTION, potionId(entry.id), potion);
+        }
+    }
+
+    public static Identifier potionId(Identifier id) {
+        return Identifier.of(id.getNamespace(), id.getNamespace() + "." + id.getPath());
     }
 }

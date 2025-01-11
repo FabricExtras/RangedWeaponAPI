@@ -6,5 +6,15 @@
   "item.modifiers.both_hands": "When Held:",
   "effect.ranged_weapon.damage": "Impact",
   "effect.ranged_weapon.haste": "Rapid Fire",
-  "item.ranged_weapon.pull_time": "%1$s sec Pull Time"
+  "item.ranged_weapon.pull_time": "%1$s sec Pull Time",
+  
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Arrow of Ranged Damage",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Potion of Ranged Damage",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Splash Potion of Ranged Damage",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Lingering Potion of Ranged Damage",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Arrow of Draw Speed",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Potion of Draw Speed",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Splash Potion of Draw Speed",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Lingering Potion of Draw Speed"
 }
