@@ -1,5 +1,6 @@
 # 2.0.6
 
+- Fine tune ranged critical strike damage multiplication
 - Update translations
 
 # 2.0.5

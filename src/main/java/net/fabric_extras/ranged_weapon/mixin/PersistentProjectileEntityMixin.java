@@ -25,7 +25,7 @@ public abstract class PersistentProjectileEntityMixin {
         if (!isCritical()) { return value; }
         var projectile = (PersistentProjectileEntity) ((Object) this);
         var velocity = projectile.getVelocity().length();
-        var critMultiplier = 1F + (0.05F + CRIT_RANDOM.nextFloat() * 0.45F);
+        var critMultiplier = 1F + (0.1F + CRIT_RANDOM.nextFloat() * 0.5F);
         // System.out.println("Critical strike! Damage: " + (velocity * this.damage) + " critMultiplier: " + critMultiplier);
         return (int) Math.round(MathHelper.clamp(velocity * this.damage * critMultiplier, 0.0, 2.147483647E9));
     }
