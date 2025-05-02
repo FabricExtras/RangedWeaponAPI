@@ -1,0 +1,20 @@
+{
+  "attribute.name.ranged_weapon.damage" : "Daño a distancia",
+  "attribute.name.ranged_weapon.haste" : "Velocidad de disparo",
+  "attribute.name.ranged_weapon.pull_time" : "Tiempo de carga (seg)",
+  "attribute.name.ranged_weapon.velocity" : "Velocidad de la flecha",
+  "item.modifiers.both_hands": "Al tenerlo equipado:",
+  "effect.ranged_weapon.damage": "Impacto",
+  "effect.ranged_weapon.haste": "Disparo rápido",
+  "item.ranged_weapon.pull_time": "Tiempo de carga: %1$s seg",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Flecha con daño a distancia",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Poción de daño a distancia",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Poción arrojadiza de daño a distancia",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Poción persistente de daño a distancia",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Flecha con velocidad de disparo",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Poción de velocidad de disparo",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Poción arrojadiza de velocidad de disparo",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Poción persistente de velocidad de disparo"
+}
