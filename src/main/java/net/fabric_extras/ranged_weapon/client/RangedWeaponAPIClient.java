@@ -10,7 +10,7 @@ public class RangedWeaponAPIClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) -> {
-            TooltipHelper.updateTooltipText(stack, lines);
+            //TooltipHelper.updateTooltipText(stack, lines);
         });
         // Calling these from MinecraftClient run, so all mod registrations are done
 //        for (var bow: CustomBow.instances) {

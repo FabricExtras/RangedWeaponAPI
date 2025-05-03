@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TooltipHelper {
+    /*
     public static void updateTooltipText(ItemStack itemStack, List<Text> lines) {
         if (itemStack.getItem() instanceof CustomRangedWeapon) {
             mergeAttributeLines_MainHandOffHand(lines);
@@ -18,6 +19,7 @@ public class TooltipHelper {
     }
 
     private static void mergeAttributeLines_MainHandOffHand(List<Text> tooltip) {
+
         List<Text> heldInHandLines = new ArrayList<>();
         List<Text> mainHandAttributes = new ArrayList<>();
         List<Text> offHandAttributes = new ArrayList<>();
@@ -65,7 +67,10 @@ public class TooltipHelper {
                 tooltip.remove(lastIndex);
             }
         }
+
     }
+
+     */
 
 //    private static void replaceAttributeLines_BlueWithGreen(List<Text> tooltip) {
 //        var attributeTranslationKey = EntityAttributes_RangedWeapon.DAMAGE.translationKey;
