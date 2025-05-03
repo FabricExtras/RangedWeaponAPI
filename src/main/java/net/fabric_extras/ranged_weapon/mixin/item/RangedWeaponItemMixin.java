@@ -52,22 +52,12 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
                 .add(
                         EntityAttributes_RangedWeapon.DAMAGE.entry,
                         damage,
-                        AttributeModifierSlot.MAINHAND
-                )
-                .add(
-                        EntityAttributes_RangedWeapon.DAMAGE.entry,
-                        damage,
-                        AttributeModifierSlot.OFFHAND
+                        AttributeModifierSlot.HAND
                 )
                 .add(
                         EntityAttributes_RangedWeapon.PULL_TIME.entry,
                         pullTime,
-                        AttributeModifierSlot.MAINHAND
-                )
-                .add(
-                        EntityAttributes_RangedWeapon.PULL_TIME.entry,
-                        pullTime,
-                        AttributeModifierSlot.OFFHAND
+                        AttributeModifierSlot.HAND
                 );
 
         if (config.velocity_bonus() > 0) {
@@ -79,11 +69,7 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
                 .add(
                         EntityAttributes_RangedWeapon.VELOCITY.entry,
                         velocity,
-                        AttributeModifierSlot.MAINHAND
-                ).add(
-                        EntityAttributes_RangedWeapon.VELOCITY.entry,
-                        velocity,
-                        AttributeModifierSlot.OFFHAND
+                        AttributeModifierSlot.HAND
                 );
         }
 
