@@ -1,3 +1,7 @@
+# 2.1.0
+
+- Clean up attribute modifier slot usage of ranged weapons, thanks to Muon #15 
+
 # 2.0.6
 
 - Fine tune ranged critical strike damage multiplication

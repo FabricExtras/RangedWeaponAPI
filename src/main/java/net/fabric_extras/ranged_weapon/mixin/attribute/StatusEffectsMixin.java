@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(StatusEffects.class)
-public class    StatusEffectsMixin {
+public class StatusEffectsMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void static_tail_RangedWeaponAPI(CallbackInfo ci) {
         RangedWeaponMod.registerStatusEffects();
