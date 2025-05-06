@@ -1,3 +1,7 @@
+# 2.1.1
+
+- Add effect description support
+
 # 2.1.0
 
 - Clean up attribute modifier slot usage of ranged weapons, thanks to Muon #15 

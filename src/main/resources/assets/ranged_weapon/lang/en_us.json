@@ -5,7 +5,9 @@
   "attribute.name.ranged_weapon.velocity" : "Arrow Velocity",
   "item.modifiers.both_hands": "When Held:",
   "effect.ranged_weapon.damage": "Impact",
+  "effect.ranged_weapon.damage.description": "Increases ranged damage",
   "effect.ranged_weapon.haste": "Rapid Fire",
+  "effect.ranged_weapon.haste.description": "Increases ranged attack speed",
   "item.ranged_weapon.pull_time": "%1$s sec Pull Time",
   
   "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Arrow of Ranged Damage",
