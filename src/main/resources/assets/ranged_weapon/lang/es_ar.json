@@ -5,7 +5,9 @@
   "attribute.name.ranged_weapon.velocity" : "Velocidad de la flecha",
   "item.modifiers.both_hands": "Al tenerlo equipado:",
   "effect.ranged_weapon.damage": "Impacto",
+  "effect.ranged_weapon.damage.description": "Aumenta el daño a distancia",
   "effect.ranged_weapon.haste": "Disparo rápido",
+  "effect.ranged_weapon.haste.description": "Aumenta la velocidad de ataque a distancia",
   "item.ranged_weapon.pull_time": "Tiempo de carga: %1$s seg",
 
   "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Flecha con daño a distancia",
