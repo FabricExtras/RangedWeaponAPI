@@ -1,17 +1,16 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+issueTrackerURL = "https://github.com/FabricExtras/RangedWeaponAPI/issues"
+license = "MIT"
 
 [[mods]]
 modId = "ranged_weapon_api"
 version = "${version}"
 displayName = "RangedWeaponAPI"
-authors = "Me!"
+authors = "Daedelus"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Allows creating bows and crossbows, with just a few line of code
 '''
-#logoFile = ""
 
 [[dependencies.ranged_weapon_api]]
 modId = "neoforge"
@@ -24,6 +23,13 @@ side = "BOTH"
 modId = "minecraft"
 type = "required"
 versionRange = "[1.21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ranged_weapon_api]]
+modId = "fabric_api_base"
+type = "required"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
