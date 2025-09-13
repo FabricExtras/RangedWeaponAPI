@@ -1,11 +1,24 @@
 {
   "required": true,
-  "package": "net.fabric_extras.mixin",
-  "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "client": [
-  ],
+  "package": "net.fabric_extras.ranged_weapon.mixin",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "PersistentProjectileEntityMixin",
+    "attribute.EntityAttributesMixin",
+    "attribute.LivingEntityMixin",
+    "attribute.StatusEffectsMixin",
+    "item.BowItemMixin",
+    "item.CrossbowItemMixin",
+    "item.ItemSettingMixin",
+    "item.RangedWeaponItemMixin"
+  ],
+  "client": [
+    "client.AbstractClientPlayerEntityMixin",
+    "client.HeldItemRendererMixin",
+    "client.MinecraftClientMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1
