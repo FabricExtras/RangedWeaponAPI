@@ -1,3 +1,8 @@
+# 2.2.0
+
+- Migrate to Architectury
+- Fix NeoForge attribute tooltips
+
 # 2.1.1
 
 - Add effect description support
