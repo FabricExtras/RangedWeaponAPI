@@ -51,7 +51,7 @@ processResources {
     inputs.property 'version', project.version
 
     filesMatching('META-INF/neoforge.mods.toml') {
-        expand version: inputs.properties.version
+        expand(project.properties)
     }
 }
 
@@ -82,7 +82,7 @@ if(project.hasProperty('release_type')) {
             addGameVersion "NeoForge"
 
             relations {
-                requiredDependency 'fabric-api'
+                requiredDependency 'forgified-fabric-api'
             }
 
             mainArtifact(remapJar)
@@ -97,16 +97,17 @@ if(project.hasProperty('release_type')) {
 
     modrinth {
         token = System.getenv("MODRINTH_API_KEY")
-        projectId = System.getenv("MODRINTH_PROJECT_ID")
-        versionName = "${version}"
-        versionNumber = "${version}-neoforge"
-        versionType = release_type
-        uploadFile = remapJar
-        gameVersions = ["${rootProject.minecraft_version}", "${rootProject.minecraft_compat_version}"]
-        loaders = ["neoforge"]
+        projectId = System.getenv("MODRINTH_PROJECT_ID") // This can be the project ID or the slug. Either will work!
         changelog = changelog_last_section()
-        dependencies {
-            required.project 'fabric-api'
+        versionName = "${version}" // You don't need to set this manually. Will fail if Modrinth has this version already
+        versionNumber = "${version}-neoforge" // You don't need to set this manually. Will fail if Modrinth has this version already
+        versionType = release_type // This is the default -- can also be `beta` or `alpha`
+        uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+        gameVersions = ["${project.minecraft_version}", "${project.minecraft_compat_version}"] // Must be an array, even with only one version
+        loaders = ["neoforge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
+        changelog = changelog_last_section()
+        dependencies { // A special DSL for creating dependencies
+            required.project 'forgified-fabric-api'
         }
     }
 }

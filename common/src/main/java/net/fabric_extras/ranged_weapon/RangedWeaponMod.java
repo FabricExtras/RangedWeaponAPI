@@ -2,7 +2,6 @@ package net.fabric_extras.ranged_weapon;
 
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.StatusEffects_RangedWeapon;
-import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.potion.Potion;
@@ -12,15 +11,15 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public class RangedWeaponMod implements ModInitializer {
+public class RangedWeaponMod {
 
     public static final String NAMESPACE = "ranged_weapon";
+    public static final String ID = NAMESPACE + "_api";
 
     /**
      * Runs the mod initializer.
      */
-    @Override
-    public void onInitialize() {
+    public static void init() {
         var boostEffectBonusPerLevel = 0.1;
 
         StatusEffects_RangedWeapon.DAMAGE.effect.addAttributeModifier(
