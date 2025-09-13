@@ -27,6 +27,23 @@ configurations {
     }
 }
 
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+}
+
+loom {
+    runs {
+        testmodClient {
+            inherit client
+            name "Test Mod Client"
+            source sourceSets.testmod
+        }
+    }
+}
+
 repositories {
     maven {
         name = 'Modrinth'
