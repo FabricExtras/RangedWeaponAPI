@@ -26,6 +26,13 @@ configurations {
     }
 }
 
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+}
+
 repositories {
     maven {
         name = 'NeoForged'
@@ -45,6 +52,16 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+}
+
+loom {
+    runs {
+        testmodClient {
+            inherit client
+            name "Test Mod Client"
+            source sourceSets.testmod
+        }
+    }
 }
 
 processResources {
