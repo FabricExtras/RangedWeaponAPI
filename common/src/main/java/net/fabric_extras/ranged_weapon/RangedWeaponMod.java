@@ -32,8 +32,6 @@ public class RangedWeaponMod {
                 Identifier.of(NAMESPACE, "effect.haste"),
                 boostEffectBonusPerLevel,
                 EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-
-        registerPotions();
     }
 
     public static void registerAttributes() {
