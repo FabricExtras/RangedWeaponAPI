@@ -1,4 +1,4 @@
-package net.fabric_extras.neoforge;
+package net.fabric_extras.ranged_weapon.neoforge;
 
 import net.fabric_extras.ranged_weapon.RangedWeaponMod;
 import net.neoforged.fml.common.Mod;

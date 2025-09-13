@@ -1,4 +1,4 @@
-package net.fabric_extras.fabric.client;
+package net.fabric_extras.ranged_weapon.fabric.client;
 
 import net.fabric_extras.ranged_weapon.client.RangedWeaponAPIClient;
 import net.fabricmc.api.ClientModInitializer;

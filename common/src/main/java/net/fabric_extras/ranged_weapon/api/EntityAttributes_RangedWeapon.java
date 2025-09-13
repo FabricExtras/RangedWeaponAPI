@@ -1,5 +1,7 @@
 package net.fabric_extras.ranged_weapon.api;
 
+import net.fabric_extras.ranged_weapon.Platform;
+import net.fabric_extras.ranged_weapon.internal.NeoAttribute;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.registry.Registries;
@@ -32,7 +34,7 @@ public class EntityAttributes_RangedWeapon {
         public Entry(String name, double minValue, double baseValue, boolean tracked) {
             this.id = Identifier.of(NAMESPACE, name);
             this.translationKey = "attribute.name." + NAMESPACE + "." + name;
-            this.attribute = new ClampedEntityAttribute(translationKey, baseValue, minValue, 2048).setTracked(tracked);
+            this.attribute = Platform.util().makeAttribute(translationKey, baseValue, minValue, 2048).setTracked(tracked);
             this.baseValue = baseValue;
         }
 
@@ -43,10 +45,19 @@ public class EntityAttributes_RangedWeapon {
         public void register() {
             entry = Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
         }
+
+        public Entry setBaseAttributeId(Identifier id) {
+            if (attribute instanceof NeoAttribute neo) {
+                neo.setBaseModifierId(id);
+            }
+            return this;
+        }
     }
 
-    public static final Entry DAMAGE = entry("damage", 0, true);
-    public static final Entry PULL_TIME = entry("pull_time", 0.1, 1.0, true);
+    public static final Entry DAMAGE = entry("damage", 0, true)
+            .setBaseAttributeId(AttributeModifierIDs.WEAPON_DAMAGE_ID);
+    public static final Entry PULL_TIME = entry("pull_time", 0.1, 1.0, true)
+            .setBaseAttributeId(AttributeModifierIDs.WEAPON_PULL_TIME_ID);
     public static final Entry HASTE = entry("haste", 100, true);
     public static final Entry VELOCITY = entry("velocity", 0, false);
 }

@@ -1,4 +1,4 @@
-package net.fabric_extras.neoforge.client;
+package net.fabric_extras.ranged_weapon.neoforge.client;
 
 import net.fabric_extras.ranged_weapon.client.RangedWeaponAPIClient;
 import net.neoforged.api.distmarker.Dist;
