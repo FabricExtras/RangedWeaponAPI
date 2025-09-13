@@ -26,13 +26,6 @@ configurations {
     }
 }
 
-sourceSets {
-    testmod {
-        compileClasspath += main.compileClasspath
-        runtimeClasspath += main.runtimeClasspath
-    }
-}
-
 repositories {
     maven {
         name = 'NeoForged'
@@ -57,16 +50,6 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     modImplementation "org.sinytra.forgified-fabric-api:forgified-fabric-api:${project.forgified_fabric_api_version}"
-}
-
-loom {
-    runs {
-        testmodClient {
-            inherit client
-            name "Test Mod Client"
-            source sourceSets.testmod
-        }
-    }
 }
 
 processResources {
