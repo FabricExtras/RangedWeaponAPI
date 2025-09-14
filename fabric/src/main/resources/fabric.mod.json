@@ -15,10 +15,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.fabric_extras.fabric.client.FabricClientMod"
+      "net.fabric_extras.ranged_weapon.fabric.client.FabricClientMod"
     ],
     "main": [
-      "net.fabric_extras.fabric.FabricMod"
+      "net.fabric_extras.ranged_weapon.fabric.FabricMod"
     ]
   },
   "mixins": [
