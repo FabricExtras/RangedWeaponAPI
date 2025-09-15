@@ -26,12 +26,5 @@ versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.ranged_weapon_api]]
-modId = "fabric_api_base"
-type = "required"
-versionRange = "*"
-ordering = "NONE"
-side = "BOTH"
-
 [[mixins]]
 config = "ranged_weapon_api.mixins.json"

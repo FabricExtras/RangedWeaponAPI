@@ -15,11 +15,12 @@
     "item.RangedWeaponItemMixin"
   ],
   "client": [
+    "ModelPredicateProviderRegistryInvoker",
     "client.AbstractClientPlayerEntityMixin",
     "client.HeldItemRendererMixin",
+    "client.ItemStackMixin",
     "client.MinecraftClientMixin",
-    "client.PlayerEntityRendererMixin",
-    "client.ItemStackMixin"
+    "client.PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

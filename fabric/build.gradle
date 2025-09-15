@@ -56,12 +56,11 @@ repositories {
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-
-    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
-    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 }
 
 processResources {
@@ -101,7 +100,7 @@ if(project.hasProperty('release_type')) {
             addGameVersion "Fabric"
 
             relations {
-                requiredDependency 'fabric-api'
+                // requiredDependency 'fabric-api'
             }
 
             mainArtifact(remapJar)
@@ -125,10 +124,7 @@ if(project.hasProperty('release_type')) {
         loaders = ["fabric"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
         changelog = changelog_last_section()
         dependencies { // A special DSL for creating dependencies
-            // scope.type
-            // The scope can be `required`, `optional`, `incompatible`, or `embedded`
-            // The type can either be `project` or `version`
-            required.project 'fabric-api'
+            //required.project 'fabric-api'
         }
     }
 
