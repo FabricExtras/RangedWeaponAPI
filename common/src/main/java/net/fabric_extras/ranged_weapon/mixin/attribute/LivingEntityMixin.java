@@ -40,10 +40,6 @@ public abstract class LivingEntityMixin extends Entity implements RangedHasteEnt
         if (Platform.NeoForge) {
             var useAction = activeItemStack.getUseAction();
             if (useAction == UseAction.BOW || useAction == UseAction.CROSSBOW) {
-                if (!this.getEntityWorld().isClient) {
-                    System.out.println("Entity age:" + this.age + " getItemUseTimeLeft called, itemUseTimeLeft: " + itemUseTimeLeft + ", partialHasteTick: " + partialHasteTick);
-                    System.out.println("-> returning: " + (int) (itemUseTimeLeft - partialHasteTick));
-                }
                 // Make sure the partial tick integer cast happens BEFORE subtracting
                 info.setReturnValue(itemUseTimeLeft - (int)partialHasteTick);
             }
@@ -53,12 +49,9 @@ public abstract class LivingEntityMixin extends Entity implements RangedHasteEnt
             if (entity.isUsingItem()) {
                 var useAction = activeItemStack.getUseAction();
                 if (useAction == UseAction.BOW || useAction == UseAction.CROSSBOW) {
-                    System.out.println("Entity age:" + this.age + " pulling " + useAction);
                     var progress = activeItemStack.getMaxUseTime(entity) - value;
                     var haste = entity.getAttributeValue(EntityAttributes_RangedWeapon.HASTE.entry);
-                    System.out.println("- Pull progress before haste: " + progress + ", haste: " + haste);
                     var newProgress = (int) (progress * EntityAttributes_RangedWeapon.HASTE.asMultiplier((float) haste));
-                    System.out.println("- Pull progress after haste: " + newProgress + " setting return value: " + (activeItemStack.getMaxUseTime(entity) - newProgress));
                     info.setReturnValue(activeItemStack.getMaxUseTime(entity) - newProgress);
                     info.cancel();
                 }

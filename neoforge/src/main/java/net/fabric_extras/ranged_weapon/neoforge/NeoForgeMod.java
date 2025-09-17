@@ -13,7 +13,6 @@ public final class NeoForgeMod {
     public NeoForgeMod() {
         RangedWeaponMod.init();
 
-
         NeoForge.EVENT_BUS.addListener(LivingEntityUseItemEvent.Start.class, (event) -> {
             var entity = event.getEntity();
             ((RangedHasteEntity)entity).resetPartialHasteTicks();
@@ -36,23 +35,17 @@ public final class NeoForgeMod {
                 var useAction = activeItemStack.getUseAction();
                 if (useAction == UseAction.BOW || useAction == UseAction.CROSSBOW) {
                     var haste = entity.getAttributeValue(EntityAttributes_RangedWeapon.HASTE.entry);
-                    var baseValue = EntityAttributes_RangedWeapon.HASTE.baseValue;
                     if (haste != EntityAttributes_RangedWeapon.HASTE.baseValue) {
-
                         // Upon calling this event, NeoForge modifies the itemUseTimeLeft already
                         // by querying it, and than setting it back to itself.
                         // Hence we step back by one partial tick
-
-                        System.out.println("Entity age:" + entity.age + " Event Handler - duration: " + event.getDuration());
                         event.setDuration((int) (event.getDuration() + ((RangedHasteEntity)entity).getPartialHasteTick()));
-                        System.out.println(" - duration: " + event.getDuration());
 
                         var time = entity.getAttributeValue(EntityAttributes_RangedWeapon.PULL_TIME.entry);
                         // var timeTicks = Math.round(time * 20);
                         var bonus = EntityAttributes_RangedWeapon.HASTE.asMultiplier(haste) - 1F;
                         var partialTick = time * bonus;
                         ((RangedHasteEntity)entity).addPartialHasteTick((float) partialTick);
-                        System.out.println("- Adding partial tick: " + partialTick + ", new partialHasteTick: " + ((RangedHasteEntity)entity).getPartialHasteTick());
                     }
                 }
             }
