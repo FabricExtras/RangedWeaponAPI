@@ -101,10 +101,6 @@ if(project.hasProperty('release_type')) {
             addGameVersion "${project.minecraft_compat_version}"
             addGameVersion "Fabric"
 
-            relations {
-                // requiredDependency 'fabric-api'
-            }
-
             mainArtifact(remapJar)
             afterEvaluate {
                 uploadTask.dependsOn(remapJar)

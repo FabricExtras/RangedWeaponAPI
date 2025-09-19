@@ -86,10 +86,6 @@ if(project.hasProperty('release_type')) {
             addGameVersion "${rootProject.minecraft_version}"
             addGameVersion "NeoForge"
 
-            relations {
-                // requiredDependency 'forgified-fabric-api'
-            }
-
             mainArtifact(remapJar)
             afterEvaluate {
                 uploadTask.dependsOn(remapJar)
