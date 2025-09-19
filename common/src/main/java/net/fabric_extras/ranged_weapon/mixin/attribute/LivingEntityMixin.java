@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -57,6 +58,11 @@ public abstract class LivingEntityMixin extends Entity implements RangedHasteEnt
                 }
             }
         }
+    }
+
+    @Inject(method = "clearActiveItem", at = @At("TAIL"))
+    private void clearActiveItem_RWA(CallbackInfo ci) {
+        this.resetPartialHasteTicks();
     }
 
     private float partialHasteTick = 0f;
