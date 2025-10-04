@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "远程伤害",
+  "attribute.name.ranged_weapon.haste" : "上弦速度",
+  "attribute.name.ranged_weapon.pull_time" : "上弦时间",
+  "attribute.name.ranged_weapon.velocity" : "箭矢速度",
+  "item.modifiers.both_hands": "手持时：",
+  "effect.ranged_weapon.damage": "冲击",
+  "effect.ranged_weapon.damage.description": "提高远程伤害",
+  "effect.ranged_weapon.haste": "速射",
+  "effect.ranged_weapon.haste.description": "减少上弦时间",
+  "item.ranged_weapon.pull_time": "%1$s 秒上弦时间",
+  
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "远程伤害之箭",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "远程伤害药水",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "溅射型远程伤害药水",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "滞留型远程伤害药水",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "上弦速度之箭",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "上弦速度药水",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "溅射型上弦速度药水",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "滞留型上弦速度药水"
+}
