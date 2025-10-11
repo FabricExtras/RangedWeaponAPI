@@ -8,6 +8,8 @@ import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedConfig;
 import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
 import net.fabric_extras.ranged_weapon.internal.ScalingUtil;
+import net.fabric_extras.ranged_weapon.internal.Utils;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.LivingEntity;
@@ -29,9 +31,19 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
 
     @ModifyVariable(method = "<init>", at = @At("HEAD"), ordinal = 0)
     private static Item.Settings applyDefaultAttributes(Item.Settings settings) {
-        var attributes = ((RangedItemSettings) settings).getRangedAttributes();
-        if (attributes != null) {
-            return settings.attributeModifiers(createAttributeModifiers(attributes));
+        var rangedSettings = ((RangedItemSettings) settings);
+        var config = rangedSettings.getRangedAttributes();
+        if (config != null) {
+            var componentBuilder = rangedSettings.rwa_getComponentBuilder();
+            var existingComponents = ((ComponentMapBuilderAccessor) componentBuilder).rwa_components();
+            AttributeModifiersComponent existingAttributes = null;
+            var existing = existingComponents.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+            if (existing instanceof AttributeModifiersComponent attributeModifiers) {
+                existingAttributes = attributeModifiers;
+            }
+            var rangedAttributes = createAttributeModifiers(config);
+            var applicableAttributes = Utils.mergeAttributeComponents(rangedAttributes, existingAttributes);
+            return settings.attributeModifiers(applicableAttributes);
         } else {
             return settings;
         }

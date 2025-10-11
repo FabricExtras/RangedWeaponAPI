@@ -1,3 +1,7 @@
+# 2.2.1
+
+- Stacking Attribute Modifier components
+
 # 2.2.0
 
 - Migrate to Architectury

@@ -9,6 +9,7 @@
     "attribute.LivingEntityMixin",
     "attribute.StatusEffectsMixin",
     "item.BowItemMixin",
+    "item.ComponentMapBuilderAccessor",
     "item.CrossbowItemMixin",
     "item.ItemSettingMixin",
     "item.RangedWeaponItemMixin"
