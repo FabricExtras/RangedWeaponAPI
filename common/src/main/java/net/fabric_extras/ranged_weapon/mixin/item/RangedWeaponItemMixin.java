@@ -8,7 +8,7 @@ import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedConfig;
 import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
 import net.fabric_extras.ranged_weapon.internal.ScalingUtil;
-import net.fabric_extras.ranged_weapon.internal.Utils;
+import net.fabric_extras.ranged_weapon.internal.AttributeUtils;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -41,52 +41,12 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
             if (existing instanceof AttributeModifiersComponent attributeModifiers) {
                 existingAttributes = attributeModifiers;
             }
-            var rangedAttributes = createAttributeModifiers(config);
-            var applicableAttributes = Utils.mergeAttributeComponents(rangedAttributes, existingAttributes);
+            var rangedAttributes = AttributeUtils.fromRangedConfig(config);
+            var applicableAttributes = AttributeUtils.mergeComponents(rangedAttributes, existingAttributes);
             return settings.attributeModifiers(applicableAttributes);
         } else {
             return settings;
         }
-    }
-
-    private static AttributeModifiersComponent createAttributeModifiers(RangedConfig config) {
-        var damage = new EntityAttributeModifier(
-                AttributeModifierIDs.WEAPON_DAMAGE_ID,
-                config.damage(),
-                EntityAttributeModifier.Operation.ADD_VALUE);
-
-        var pullTime = new EntityAttributeModifier(
-                AttributeModifierIDs.WEAPON_PULL_TIME_ID,
-                config.pull_time_bonus(),
-                EntityAttributeModifier.Operation.ADD_VALUE);
-
-        var builder = AttributeModifiersComponent.builder()
-                .add(
-                        EntityAttributes_RangedWeapon.DAMAGE.entry,
-                        damage,
-                        AttributeModifierSlot.HAND
-                )
-                .add(
-                        EntityAttributes_RangedWeapon.PULL_TIME.entry,
-                        pullTime,
-                        AttributeModifierSlot.HAND
-                );
-
-        if (config.velocity_bonus() > 0) {
-            var velocity = new EntityAttributeModifier(
-                    AttributeModifierIDs.WEAPON_VELOCITY_ID,
-                    config.velocity_bonus(),
-                    EntityAttributeModifier.Operation.ADD_VALUE);
-            builder
-                .add(
-                        EntityAttributes_RangedWeapon.VELOCITY.entry,
-                        velocity,
-                        AttributeModifierSlot.HAND
-                );
-        }
-
-
-        return builder.build();
     }
 
     // CustomRangedWeapon

@@ -1,3 +1,7 @@
+# 2.3.0
+
+- Extend RangedConfig with optional list of attribute modifiers
+
 # 2.2.1
 
 - Stacking Attribute Modifier components
