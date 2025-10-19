@@ -1,3 +1,7 @@
+# 2.3.1
+
+- Add some safeguard for mod loading compat on NeoForge
+
 # 2.3.0
 
 - Extend RangedConfig with optional list of attribute modifiers

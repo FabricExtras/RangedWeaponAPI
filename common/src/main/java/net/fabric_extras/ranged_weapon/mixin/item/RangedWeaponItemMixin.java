@@ -34,12 +34,14 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
         var rangedSettings = ((RangedItemSettings) settings);
         var config = rangedSettings.getRangedAttributes();
         if (config != null) {
-            var componentBuilder = rangedSettings.rwa_getComponentBuilder();
-            var existingComponents = ((ComponentMapBuilderAccessor) componentBuilder).rwa_components();
             AttributeModifiersComponent existingAttributes = null;
-            var existing = existingComponents.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-            if (existing instanceof AttributeModifiersComponent attributeModifiers) {
-                existingAttributes = attributeModifiers;
+            var componentBuilder = rangedSettings.rwa_getComponentBuilder();
+            if (componentBuilder != null) {
+                var existingComponents = ((ComponentMapBuilderAccessor) componentBuilder).rwa_components();
+                var existing = existingComponents.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+                if (existing instanceof AttributeModifiersComponent attributeModifiers) {
+                    existingAttributes = attributeModifiers;
+                }
             }
             var rangedAttributes = AttributeUtils.fromRangedConfig(config);
             var applicableAttributes = AttributeUtils.mergeComponents(rangedAttributes, existingAttributes);
