@@ -8,6 +8,7 @@
     "attribute.EntityAttributesMixin",
     "attribute.LivingEntityMixin",
     "attribute.StatusEffectsMixin",
+    "component.DataComponentTypesMixin",
     "item.BowItemMixin",
     "item.ComponentMapBuilderAccessor",
     "item.CrossbowItemMixin",

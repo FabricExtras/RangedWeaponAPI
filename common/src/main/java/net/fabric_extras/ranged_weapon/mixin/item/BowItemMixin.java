@@ -4,6 +4,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedConfig;
+import net.fabric_extras.ranged_weapon.api.component.RangedWeaponComponents;
+import net.fabric_extras.ranged_weapon.api.component.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BowItem;
@@ -30,6 +32,7 @@ public class BowItemMixin {
 
     @ModifyVariable(method = "<init>", at = @At("HEAD"), ordinal = 0)
     private static Item.Settings applyDefaultAttributes(Item.Settings settings) {
+        settings = settings.component(RangedWeaponComponents.BASELINE, RangedWeaponProperties.BOW_BASELINE);
         if (((RangedItemSettings) settings).getRangedAttributes() == null) {
             return ((RangedItemSettings) settings).rangedAttributes(RangedConfig.BOW);
         } else {

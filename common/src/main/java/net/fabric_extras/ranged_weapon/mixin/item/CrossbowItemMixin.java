@@ -3,6 +3,8 @@ package net.fabric_extras.ranged_weapon.mixin.item;
 import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedConfig;
+import net.fabric_extras.ranged_weapon.api.component.RangedWeaponComponents;
+import net.fabric_extras.ranged_weapon.api.component.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -14,23 +16,18 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CrossbowItem.class)
 public class CrossbowItemMixin {
     @ModifyVariable(method = "<init>", at = @At("HEAD"), ordinal = 0)
     private static Item.Settings applyDefaultAttributes(Item.Settings settings) {
+        settings = settings.component(RangedWeaponComponents.BASELINE, RangedWeaponProperties.CROSSBOW_BASELINE);
         if (((RangedItemSettings) settings).getRangedAttributes() == null) {
             return ((RangedItemSettings) settings).rangedAttributes(RangedConfig.CROSSBOW);
         } else {
             return settings;
         }
-    }
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void postInit(Item.Settings settings, CallbackInfo ci) {
-        ((CustomRangedWeapon)this).setTypeBaseline(RangedConfig.CROSSBOW);
     }
 
     /**

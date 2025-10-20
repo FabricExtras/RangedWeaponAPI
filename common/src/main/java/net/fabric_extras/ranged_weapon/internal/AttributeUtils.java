@@ -1,6 +1,6 @@
 package net.fabric_extras.ranged_weapon.internal;
 
-import net.fabric_extras.ranged_weapon.api.AttributeModifierIDs;
+import net.fabric_extras.ranged_weapon.api.attribute.AttributeModifierIDs;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedConfig;
 import net.minecraft.component.type.AttributeModifierSlot;

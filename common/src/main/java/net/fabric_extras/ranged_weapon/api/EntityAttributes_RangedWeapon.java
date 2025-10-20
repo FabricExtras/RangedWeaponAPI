@@ -1,8 +1,8 @@
 package net.fabric_extras.ranged_weapon.api;
 
 import net.fabric_extras.ranged_weapon.Platform;
+import net.fabric_extras.ranged_weapon.api.attribute.AttributeModifierIDs;
 import net.fabric_extras.ranged_weapon.internal.NeoAttribute;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

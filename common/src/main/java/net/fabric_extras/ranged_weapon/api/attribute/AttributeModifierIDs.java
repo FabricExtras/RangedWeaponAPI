@@ -1,4 +1,4 @@
-package net.fabric_extras.ranged_weapon.api;
+package net.fabric_extras.ranged_weapon.api.attribute;
 
 import net.minecraft.util.Identifier;
 

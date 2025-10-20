@@ -1,5 +1,7 @@
 package net.fabric_extras.ranged_weapon.api;
 
+import net.fabric_extras.ranged_weapon.api.attribute.AttributeModifierIDs;
+import net.fabric_extras.ranged_weapon.api.component.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.internal.ScalingUtil;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.util.Identifier;
@@ -16,8 +18,8 @@ import java.util.List;
  */
 public record RangedConfig(float damage, float pull_time_bonus, float velocity_bonus, @Nullable List<Attribute> attributes) {
     public static final RangedConfig EMPTY = new RangedConfig(0, 0, 0);
-    public static final RangedConfig BOW = new RangedConfig((float) ScalingUtil.BOW_BASELINE.damage(), 0, 0);
-    public static final RangedConfig CROSSBOW = new RangedConfig( (float) ScalingUtil.CROSSBOW_BASELINE.damage(), 0.25F, 0);
+    public static final RangedConfig BOW = new RangedConfig(RangedWeaponProperties.BOW_BASELINE.damage(), 0, 0);
+    public static final RangedConfig CROSSBOW = new RangedConfig(RangedWeaponProperties.CROSSBOW_BASELINE.damage(), 0.25F, 0);
 
     public RangedConfig(float damage, float pull_time_bonus, float velocity_bonus) {
         this(damage, pull_time_bonus, velocity_bonus, null);

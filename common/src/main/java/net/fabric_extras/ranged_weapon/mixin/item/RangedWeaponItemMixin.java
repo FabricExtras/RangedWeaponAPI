@@ -2,18 +2,17 @@ package net.fabric_extras.ranged_weapon.mixin.item;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fabric_extras.ranged_weapon.api.AttributeModifierIDs;
 import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedConfig;
+import net.fabric_extras.ranged_weapon.api.component.RangedWeaponComponents;
+import net.fabric_extras.ranged_weapon.api.component.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
 import net.fabric_extras.ranged_weapon.internal.ScalingUtil;
 import net.fabric_extras.ranged_weapon.internal.AttributeUtils;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
@@ -53,14 +52,12 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
 
     // CustomRangedWeapon
 
-    private RangedConfig typeBaseLine = RangedConfig.BOW;
-
     public void setTypeBaseline(RangedConfig config) {
-        this.typeBaseLine = config;
+        // No longer does anything, as baseline is stored in a component (set via Item.Settings)
     }
 
-    public RangedConfig getTypeBaseline() {
-        return this.typeBaseLine;
+    public RangedWeaponProperties getTypeBaseline() {
+        return this.getComponents().getOrDefault(RangedWeaponComponents.BASELINE, RangedWeaponProperties.EMPTY);
     }
 
     @WrapOperation(
@@ -69,8 +66,10 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
     private void applyCustomVelocity_RWA(
             RangedWeaponItem instance, LivingEntity shooter, ProjectileEntity projectile, int index, float speed, float divergence, float yaw, @Nullable LivingEntity target,
             Operation<Void> original) {
+
+        var typeBaseline = getTypeBaseline();
         var bonusVelocity = shooter.getAttributeValue(EntityAttributes_RangedWeapon.VELOCITY.entry);
-        var velocityMultiplier = ScalingUtil.arrowVelocityMultiplier(instance, bonusVelocity);
+        var velocityMultiplier = ScalingUtil.arrowVelocityMultiplier(typeBaseline, bonusVelocity);
 //        System.out.println("Velocity multiplier: " + velocityMultiplier);
         speed *= (float) velocityMultiplier;
         original.call(instance, shooter, projectile, index, speed, divergence, yaw, target);
@@ -78,7 +77,7 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
         if (projectile instanceof PersistentProjectileEntity projectileEntity) {
             var rangedDamage = shooter.getAttributeValue(EntityAttributes_RangedWeapon.DAMAGE.entry);
             if (rangedDamage > 0) {
-                var multiplier = ScalingUtil.arrowDamageMultiplier(getTypeBaseline().damage(), rangedDamage, velocityMultiplier);
+                var multiplier = ScalingUtil.arrowDamageMultiplier(typeBaseline, rangedDamage, velocityMultiplier);
                 var finalDamage = projectileEntity.getDamage() * multiplier;
                 projectileEntity.setDamage(finalDamage);
             }

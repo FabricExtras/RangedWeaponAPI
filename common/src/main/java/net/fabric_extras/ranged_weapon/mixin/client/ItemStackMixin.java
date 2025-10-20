@@ -1,6 +1,6 @@
 package net.fabric_extras.ranged_weapon.mixin.client;
 
-import net.fabric_extras.ranged_weapon.api.AttributeModifierIDs;
+import net.fabric_extras.ranged_weapon.api.attribute.AttributeModifierIDs;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttribute;

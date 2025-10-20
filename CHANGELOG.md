@@ -1,3 +1,7 @@
+# 2.4.0
+
+- Baseline ranged weapon properties are now stored in item specific component (with id: `ranged_weapon:baseline`) so datapacks can provide baselines 
+
 # 2.3.1
 
 - Add some safeguard for mod loading compat on NeoForge
