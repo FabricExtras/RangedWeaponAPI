@@ -25,5 +25,9 @@ public class CustomBow extends BowItem {
     public boolean canRepair(ItemStack stack, ItemStack ingredient) {
         return this.repairIngredientSupplier.get().test(ingredient) || super.canRepair(stack, ingredient);
     }
+
+    public Supplier<Ingredient> getRepairIngredientSupplier() {
+        return repairIngredientSupplier;
+    }
 }
 

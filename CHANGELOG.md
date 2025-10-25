@@ -1,3 +1,7 @@
+# 2.3.2
+
+- Add EMI repair support
+
 # 2.3.1
 
 - Add some safeguard for mod loading compat on NeoForge
