@@ -1,3 +1,7 @@
+# 2.3.3
+
+- Fix ranged weapon damage dealt by Bow using mobs (such as Skeletons, Illusioners, etc.)
+
 # 2.3.2
 
 - Add EMI repair support
