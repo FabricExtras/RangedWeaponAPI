@@ -7,6 +7,7 @@ import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedConfig;
 import net.fabric_extras.ranged_weapon.api.component.RangedWeaponComponents;
 import net.fabric_extras.ranged_weapon.api.component.RangedWeaponProperties;
+import net.fabric_extras.ranged_weapon.internal.ArrowExtension;
 import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
 import net.fabric_extras.ranged_weapon.internal.ScalingUtil;
 import net.fabric_extras.ranged_weapon.internal.AttributeUtils;
@@ -74,12 +75,14 @@ abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon 
         speed *= (float) velocityMultiplier;
         original.call(instance, shooter, projectile, index, speed, divergence, yaw, target);
 
-        if (projectile instanceof PersistentProjectileEntity projectileEntity) {
+        if (projectile instanceof PersistentProjectileEntity projectileEntity
+            && !((ArrowExtension)projectile).rwa_isModified() ) {
             var rangedDamage = shooter.getAttributeValue(EntityAttributes_RangedWeapon.DAMAGE.entry);
             if (rangedDamage > 0) {
                 var multiplier = ScalingUtil.arrowDamageMultiplier(typeBaseline, rangedDamage, velocityMultiplier);
                 var finalDamage = projectileEntity.getDamage() * multiplier;
                 projectileEntity.setDamage(finalDamage);
+                ((ArrowExtension)projectile).rwa_markModified(true);
             }
         }
     }

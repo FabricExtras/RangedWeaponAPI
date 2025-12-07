@@ -2,6 +2,14 @@
 
 - Baseline ranged weapon properties are now stored in item specific component (with id: `ranged_weapon:baseline`) so datapacks can provide baselines 
 
+# 2.3.3
+
+- Fix ranged weapon damage dealt by Bow using mobs (such as Skeletons, Illusioners, etc.)
+
+# 2.3.2
+
+- Add EMI repair support
+
 # 2.3.1
 
 - Add some safeguard for mod loading compat on NeoForge

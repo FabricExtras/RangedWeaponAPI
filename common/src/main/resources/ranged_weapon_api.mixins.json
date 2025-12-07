@@ -13,6 +13,7 @@
     "item.ComponentMapBuilderAccessor",
     "item.CrossbowItemMixin",
     "item.ItemSettingMixin",
+    "item.ProjectileUtilMixin",
     "item.RangedWeaponItemMixin"
   ],
   "client": [

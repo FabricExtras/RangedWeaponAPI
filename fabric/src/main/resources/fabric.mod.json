@@ -19,6 +19,9 @@
     ],
     "main": [
       "net.fabric_extras.ranged_weapon.fabric.FabricMod"
+    ],
+    "emi": [
+      "net.fabric_extras.ranged_weapon.compat.emi.RangedWeaponEmiPlugin"
     ]
   },
   "mixins": [
