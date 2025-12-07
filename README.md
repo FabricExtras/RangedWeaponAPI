@@ -105,7 +105,7 @@ Important note: This mod is still is an API only, for applying item components u
 
 Ranged weapon properties baseline is required for all kinds of calculations.
 
-This needs to be defined for third party items, bows and crossbows not made using this API mod.
+This needs to be defined for third party items (bows and crossbows not made using this API mod), that are hardcoded to deal do custom damage or launch velocity.
 
 Can be defined on any item using the `ranged_weapon:baseline` component, and they must correspond to the actual hardcoded properties of the item. 
 Attribute modifiers will be compared to this baseline. 
@@ -131,13 +131,14 @@ For a crossbow shooting weak arrows:
 
 Attribute modifiers can be applied to items using Minecraft's standard `attribute_modifiers` component. Available attributes: `ranged_weapon:damage`, `ranged_weapon:haste`, `ranged_weapon:pull_time`, and `ranged_weapon:velocity`.
 
+In order to get green attribute text (representing base modifier), use attribute ids defined [here](./common/src/main/java/net/fabric_extras/ranged_weapon/api/attribute/AttributeModifierIDs.java).
+
 Example - Bow with baseline and all attribute modifiers:
 ```
 /give @p minecraft:bow[attribute_modifiers={modifiers:[
-  {type:"ranged_weapon:damage",amount:3.0,slot:mainhand,id:"bonus_damage",operation:add_value},
-  {type:"ranged_weapon:haste",amount:0.5,slot:mainhand,id:"bonus_haste",operation:add_multiplied_base},
-  {type:"ranged_weapon:pull_time",amount:-0.2,slot:mainhand,id:"bonus_pull",operation:add_multiplied_base},
-  {type:"ranged_weapon:velocity",amount:1.0,slot:mainhand,id:"bonus_velocity",operation:add_value}
+  {type:"ranged_weapon:damage",amount:12.0,slot:mainhand,id:"ranged_weapon:base_damage",operation:add_value},
+  {type:"ranged_weapon:pull_time",amount:0,slot:mainhand,id:"ranged_weapon:base_pull_time",operation:add_value},
+  {type:"ranged_weapon:velocity",amount:0.15,slot:mainhand,id:"ranged_weapon:base_velocity",operation:add_value}
   ]}]
 ```
 
