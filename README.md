@@ -95,6 +95,52 @@ Registry.register(
 
 Check out the [example mod](src/testmod/java/net/testmod/TestMod.java).
 
+## Datapack Usage
+
+This section is for datapack creators who want to customize ranged weapon properties without creating mods.
+
+Important note: This mod is still is an API only, for applying item components using datapacks, you need to use something like the *Default Components* mod.
+
+### Setting Baseline Properties
+
+Ranged weapon properties baseline is required for all kinds of calculations.
+
+This needs to be defined for third party items, bows and crossbows not made using this API mod.
+
+Can be defined on any item using the `ranged_weapon:baseline` component, and they must correspond to the actual hardcoded properties of the item. 
+Attribute modifiers will be compared to this baseline. 
+
+**Component Fields** (all optional):
+- `damage` (float) - Base damage dealt by projectiles (default: 6.0)
+- `pull_time_ticks` (int) - Time in ticks to fully draw the weapon (default: 20)
+- `arrow_velocity` (float) - Speed multiplier for projectiles (default: 6.0)
+
+**Examples:**
+
+For a shoot strong arrows, like a crossbow:
+```
+/give @p minecraft:bow[ranged_weapon:baseline={damage:9.0,pull_time_ticks:20,arrow_velocity:3.15}]
+```
+
+For a crossbow shooting weak arrows:
+```
+/give @p minecraft:crossbow[ranged_weapon:baseline={damage:5.0,pull_time_ticks:25,arrow_velocity:3}]
+```
+
+### Applying Attribute Modifiers
+
+Attribute modifiers can be applied to items using Minecraft's standard `attribute_modifiers` component. Available attributes: `ranged_weapon:damage`, `ranged_weapon:haste`, `ranged_weapon:pull_time`, and `ranged_weapon:velocity`.
+
+Example - Bow with baseline and all attribute modifiers:
+```
+/give @p minecraft:bow[attribute_modifiers={modifiers:[
+  {type:"ranged_weapon:damage",amount:3.0,slot:mainhand,id:"bonus_damage",operation:add_value},
+  {type:"ranged_weapon:haste",amount:0.5,slot:mainhand,id:"bonus_haste",operation:add_multiplied_base},
+  {type:"ranged_weapon:pull_time",amount:-0.2,slot:mainhand,id:"bonus_pull",operation:add_multiplied_base},
+  {type:"ranged_weapon:velocity",amount:1.0,slot:mainhand,id:"bonus_velocity",operation:add_value}
+  ]}]
+```
+
 ## Include or depend
 
 Feel free to include this API in your mod, the license allows you to do so.

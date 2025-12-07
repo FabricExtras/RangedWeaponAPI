@@ -9,6 +9,9 @@ import net.minecraft.util.Identifier;
 import java.util.function.UnaryOperator;
 
 public class RangedWeaponComponents {
+    /**
+     * Defines ranged weapon properties for an item without any attribute modifiers applied.
+     */
     public static final ComponentType<RangedWeaponProperties> BASELINE = register(Identifier.of(RangedWeaponMod.ID, "baseline"),
             builder -> builder.codec(RangedWeaponProperties.CODEC)
     );
