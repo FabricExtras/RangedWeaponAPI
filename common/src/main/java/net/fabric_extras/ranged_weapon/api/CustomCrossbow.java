@@ -2,32 +2,42 @@ package net.fabric_extras.ranged_weapon.api;
 
 import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
 import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.item.Item;
+import net.minecraft.registry.tag.TagKey;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
-import java.util.function.Supplier;
 
 public class CustomCrossbow extends CrossbowItem {
     // Instances are kept a list of, so model predicates can be automatically registered
     public final static HashSet<CustomCrossbow> instances = new HashSet<>();
 
-    public CustomCrossbow(Settings settings, RangedConfig config, Supplier<Ingredient> repairIngredientSupplier) {
+    private final @Nullable Item repairItem;
+    private final @Nullable TagKey<Item> repairTag;
+
+    public CustomCrossbow(Settings settings, RangedConfig config, @Nullable Item repairItem) {
         super(
-                ((RangedItemSettings)settings).rangedAttributes(config)
+                ((RangedItemSettings)settings).rangedAttributes(config).repairable(repairItem)
         );
-        this.repairIngredientSupplier = repairIngredientSupplier;
+        this.repairItem = repairItem;
+        this.repairTag = null;
         instances.add(this);
     }
 
-    private final Supplier<Ingredient> repairIngredientSupplier;
-
-    @Override
-    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return this.repairIngredientSupplier.get().test(ingredient) || super.canRepair(stack, ingredient);
+    public CustomCrossbow(Settings settings, RangedConfig config, @Nullable TagKey<Item> repairTag) {
+        super(
+                ((RangedItemSettings)settings).rangedAttributes(config).repairable(repairTag)
+        );
+        this.repairItem = null;
+        this.repairTag = repairTag;
+        instances.add(this);
     }
 
-    public Supplier<Ingredient> getRepairIngredientSupplier() {
-        return repairIngredientSupplier;
+    public @Nullable Item getRepairItem() {
+        return repairItem;
+    }
+
+    public @Nullable TagKey<Item> getRepairTag() {
+        return repairTag;
     }
 }
