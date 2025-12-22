@@ -10,7 +10,6 @@ import net.fabric_extras.ranged_weapon.api.CustomBow;
 import net.fabric_extras.ranged_weapon.api.CustomCrossbow;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 @EmiEntrypoint
@@ -33,9 +32,9 @@ public class RangedWeaponEmiPlugin implements EmiPlugin {
         EmiIngredient repairMaterial;
 
         if (item instanceof CustomBow bow) {
-            repairMaterial = toRepairIngredient(bow.getRepairItem(), bow.getRepairTag());
+            repairMaterial = EmiIngredient.of(bow.getRepairTag());
         } else if (item instanceof CustomCrossbow crossbow) {
-            repairMaterial = toRepairIngredient(crossbow.getRepairItem(), crossbow.getRepairTag());
+            repairMaterial = EmiIngredient.of(crossbow.getRepairTag());
         } else {
             return;
         }
@@ -51,15 +50,5 @@ public class RangedWeaponEmiPlugin implements EmiPlugin {
                 itemId.getPath());
 
         registry.addRecipe(new EmiAnvilRecipe(EmiStack.of(item), repairMaterial, id));
-    }
-
-    private EmiIngredient toRepairIngredient(Item repairItem, TagKey<Item> repairTag) {
-        if (repairTag != null) {
-            return EmiIngredient.of(repairTag);
-        }
-        if (repairItem != null) {
-            return EmiStack.of(repairItem);
-        }
-        return EmiStack.EMPTY;
     }
 }
