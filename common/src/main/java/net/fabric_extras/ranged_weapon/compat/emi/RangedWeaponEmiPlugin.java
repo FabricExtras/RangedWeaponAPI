@@ -9,7 +9,7 @@ import dev.emi.emi.recipe.EmiAnvilRecipe;
 import net.fabric_extras.ranged_weapon.api.CustomBow;
 import net.fabric_extras.ranged_weapon.api.CustomCrossbow;
 import net.minecraft.item.Item;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 @EmiEntrypoint
@@ -29,16 +29,17 @@ public class RangedWeaponEmiPlugin implements EmiPlugin {
 
     private void registerAnvilRecipe(EmiRegistry registry, Item item) {
         // Get the repair ingredient
-        Ingredient repairIngredient;
+        EmiIngredient repairMaterial;
+
         if (item instanceof CustomBow bow) {
-            repairIngredient = bow.getRepairIngredientSupplier().get();
+            repairMaterial = EmiIngredient.of(bow.getRepairTag());
         } else if (item instanceof CustomCrossbow crossbow) {
-            repairIngredient = crossbow.getRepairIngredientSupplier().get();
+            repairMaterial = EmiIngredient.of(crossbow.getRepairTag());
         } else {
             return;
         }
 
-        var itemEntry = item.getRegistryEntry();
+        var itemEntry = Registries.ITEM.getEntry(item);
         if (itemEntry == null || itemEntry.getKey().isEmpty()) {
             return; // Item is not registered, cannot create recipe
         }
@@ -48,11 +49,6 @@ public class RangedWeaponEmiPlugin implements EmiPlugin {
         Identifier id = Identifier.of(itemId.getNamespace(), "anvil_repair_rwa/" +
                 itemId.getPath());
 
-        EmiStack input = EmiStack.of(item);
-        EmiIngredient repairMaterial = EmiIngredient.of(repairIngredient);
-
-        var recipe = new EmiAnvilRecipe(input, repairMaterial, id);
-
-        registry.addRecipe(recipe);
+        registry.addRecipe(new EmiAnvilRecipe(EmiStack.of(item), repairMaterial, id));
     }
 }

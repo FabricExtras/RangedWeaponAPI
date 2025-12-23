@@ -57,7 +57,7 @@ dependencies {
 
     // EMI integration
     modCompileOnly "dev.emi:emi-${platform}:${emi_version}"
-    modLocalRuntime "dev.emi:emi-${platform}:${emi_version}"
+    //modLocalRuntime "dev.emi:emi-${platform}:${emi_version}"
 }
 
 processResources {
