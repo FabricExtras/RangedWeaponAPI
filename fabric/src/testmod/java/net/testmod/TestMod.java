@@ -31,12 +31,12 @@ public class TestMod implements ModInitializer {
 
         var bow = new CustomBow(
                 bowSettings,
-                new RangedConfig(9, 1F, 1),
+                new RangedConfig(9, -0.5F, 1),
                 ItemTags.REPAIRS_GOLD_ARMOR
         );
         var crossbow = new CustomCrossbow(
                 crossbowSettings,
-                new RangedConfig(9, 1F, 1),
+                new RangedConfig(9, -0.5F, 1),
                 ItemTags.REPAIRS_GOLD_ARMOR
         );
 
