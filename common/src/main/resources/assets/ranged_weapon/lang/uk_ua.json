@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "Далекобійна шкода",
+  "attribute.name.ranged_weapon.haste" : "Швидкість натягування",
+  "attribute.name.ranged_weapon.pull_time" : "сек Часу натягування",
+  "attribute.name.ranged_weapon.velocity" : "Швидкість стріли",
+  "item.modifiers.both_hands": "Під час тримання:",
+  "effect.ranged_weapon.damage": "Удар",
+  "effect.ranged_weapon.damage.description": "Збільшує далекобійну шкоду",
+  "effect.ranged_weapon.haste": "Швидкострільність",
+  "effect.ranged_weapon.haste.description": "Збільшує швидкість далекобійних атак",
+  "item.ranged_weapon.pull_time": "%1$s сек Часу натягування",
+  
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Стріла далекобійної шкоди",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Зілля далекобійної шкоди",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Вибухове зілля далекобійної шкоди",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Туманне зілля далекобійної шкоди",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Стріла швидкості натягування",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Зілля швидкості натягування",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Вибухове зілля швидкості натягування",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Туманне зілля швидкості натягування"
+}
