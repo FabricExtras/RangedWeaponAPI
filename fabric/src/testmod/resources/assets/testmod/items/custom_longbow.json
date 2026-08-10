@@ -1,0 +1,28 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:using_item",
+    "on_false": { "type": "minecraft:model", "model": "testmod:item/custom_longbow" },
+    "on_true": {
+      "type": "minecraft:range_dispatch",
+      "property": "ranged_weapon:bow_pull",
+      "fallback": { "type": "minecraft:model", "model": "testmod:item/custom_longbow_pulling_0" },
+      "entries": [
+        {
+          "threshold": 0.65,
+          "model": {
+            "type": "minecraft:model",
+            "model": "testmod:item/custom_longbow_pulling_1"
+          }
+        },
+        {
+          "threshold": 0.90,
+          "model": {
+            "type": "minecraft:model",
+            "model": "testmod:item/custom_longbow_pulling_2"
+          }
+        }
+      ]
+    }
+  }
+}
