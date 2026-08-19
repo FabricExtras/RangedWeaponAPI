@@ -1,10 +1,22 @@
 {
-"attribute.name.ranged_weapon.damage": "Урон от дальнего оружия",
-"attribute.name.ranged_weapon.haste": "Скорость натяжения",
-"attribute.name.ranged_weapon.pull_time": "Время натяжения в/сек",
-"attribute.name.ranged_weapon.velocity": "Скорость стрелы",
-"item.modifiers.both_hands": "Когда удерживается:",
-"effect.ranged_weapon.damage": "Натиск",
-"effect.ranged_weapon.haste": "Беглый огонь",
-"item.ranged_weapon.pull_time": "Время натяжения %1$s секунд"
+  "attribute.name.ranged_weapon.damage": "Урон от дальнего оружия",
+  "attribute.name.ranged_weapon.haste": "Скорость натяжения",
+  "attribute.name.ranged_weapon.pull_time": "Время натяжения в/сек",
+  "attribute.name.ranged_weapon.velocity": "Скорость стрелы",
+  "item.modifiers.both_hands": "Когда удерживается:",
+  "effect.ranged_weapon.damage": "Натиск",
+  "effect.ranged_weapon.damage.description": "Увеличивает урон от дальнего оружия",
+  "effect.ranged_weapon.haste": "Беглый огонь",
+  "effect.ranged_weapon.haste.description": "Увеличивает скорость атаки дальнего оружия",
+  "item.ranged_weapon.pull_time": "Время натяжения %1$s секунд",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage": "Стрела урона от дальнего оружия",
+  "item.minecraft.potion.effect.ranged_weapon.damage": "Зелье урона от дальнего оружия",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage": "Взрывное зелье урона от дальнего оружия",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage": "Туманное зелье урона от дальнего оружия",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste": "Стрела скорости натяжения",
+  "item.minecraft.potion.effect.ranged_weapon.haste": "Зелье скорости натяжения",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste": "Взрывное зелье скорости натяжения",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste": "Туманное зелье скорости натяжения"
 }

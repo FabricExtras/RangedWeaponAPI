@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage": "Síla střelby",
+  "attribute.name.ranged_weapon.haste": "Rychlost natažení",
+  "attribute.name.ranged_weapon.pull_time": "s doby natažení",
+  "attribute.name.ranged_weapon.velocity": "Rychlost šípu",
+  "item.modifiers.both_hands": "Když v ruce:",
+  "effect.ranged_weapon.damage": "Úder",
+  "effect.ranged_weapon.damage.description": "Zvyšuje sílu střelby",
+  "effect.ranged_weapon.haste": "Rychlopalba",
+  "effect.ranged_weapon.haste.description": "Zvyšuje rychlost střelby",
+  "item.ranged_weapon.pull_time": "%1$s s doby natažení",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage": "Šíp síly střelby",
+  "item.minecraft.potion.effect.ranged_weapon.damage": "Lektvar síly střelby",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage": "Vrhací lektvar síly střelby",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage": "Doznívající lektvar síly střelby",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste": "Šíp rychlosti natažení",
+  "item.minecraft.potion.effect.ranged_weapon.haste": "Lektvar rychlosti natažení",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste": "Vrhací lektvar rychlosti natažení",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste": "Doznívající lektvar rychlosti natažení"
+}

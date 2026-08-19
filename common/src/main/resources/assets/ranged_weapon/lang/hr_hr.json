@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "Šteta na daljinu",
+  "attribute.name.ranged_weapon.haste" : "Brzina napinjanja",
+  "attribute.name.ranged_weapon.pull_time" : "s vremena napinjanja",
+  "attribute.name.ranged_weapon.velocity" : "Brzina strijele",
+  "item.modifiers.both_hands": "U ruci:",
+  "effect.ranged_weapon.damage": "Udar",
+  "effect.ranged_weapon.damage.description": "Povećava štetu na daljinu",
+  "effect.ranged_weapon.haste": "Brza paljba",
+  "effect.ranged_weapon.haste.description": "Povećava brzinu napada na daljinu",
+  "item.ranged_weapon.pull_time": "%1$s s vremena napinjanja",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Strijela štete na daljinu",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Napitak štete na daljinu",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Prskajući napitak štete na daljinu",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Dugotrajni napitak štete na daljinu",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Strijela brzine napinjanja",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Napitak brzine napinjanja",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Prskajući napitak brzine napinjanja",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Dugotrajni napitak brzine napinjanja"
+}

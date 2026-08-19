@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "távolsági sebzés",
+  "attribute.name.ranged_weapon.haste" : "felhúzási sebesség",
+  "attribute.name.ranged_weapon.pull_time" : "mp felhúzási idő",
+  "attribute.name.ranged_weapon.velocity" : "nyílsebesség",
+  "item.modifiers.both_hands": "Kézben tartva:",
+  "effect.ranged_weapon.damage": "Átütőerő",
+  "effect.ranged_weapon.damage.description": "Növeli a távolsági sebzést",
+  "effect.ranged_weapon.haste": "Gyorstüzelés",
+  "effect.ranged_weapon.haste.description": "Növeli a távolsági támadási sebességet",
+  "item.ranged_weapon.pull_time": "%1$s mp felhúzási idő",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Távolsági sebzés nyila",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Távolsági sebzés bájitala",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Távolsági sebzés robbanó bájitala",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Távolsági sebzés időző bájitala",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Felhúzási sebesség nyila",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Felhúzási sebesség bájitala",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Felhúzási sebesség robbanó bájitala",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Felhúzási sebesség időző bájitala"
+}

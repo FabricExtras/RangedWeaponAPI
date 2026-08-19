@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage": "Menzilli Hasar",
+  "attribute.name.ranged_weapon.haste": "Germe Hızı",
+  "attribute.name.ranged_weapon.pull_time": "sn Germe Süresi",
+  "attribute.name.ranged_weapon.velocity": "Ok Hızı",
+  "item.modifiers.both_hands": "Elde Tutulduğunda:",
+  "effect.ranged_weapon.damage": "Darbe",
+  "effect.ranged_weapon.damage.description": "Menzilli hasarı artırır",
+  "effect.ranged_weapon.haste": "Seri Atış",
+  "effect.ranged_weapon.haste.description": "Menzilli saldırı hızını artırır",
+  "item.ranged_weapon.pull_time": "%1$s sn Germe Süresi",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage": "Menzilli Hasar Oku",
+  "item.minecraft.potion.effect.ranged_weapon.damage": "Menzilli Hasar İksiri",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage": "Patlayıcı Menzilli Hasar İksiri",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage": "Kalıcı Menzilli Hasar İksiri",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste": "Germe Hızı Oku",
+  "item.minecraft.potion.effect.ranged_weapon.haste": "Germe Hızı İksiri",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste": "Patlayıcı Germe Hızı İksiri",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste": "Kalıcı Germe Hızı İksiri"
+}

@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "distansskada",
+  "attribute.name.ranged_weapon.haste" : "spännhastighet",
+  "attribute.name.ranged_weapon.pull_time" : "sek spänntid",
+  "attribute.name.ranged_weapon.velocity" : "pilhastighet",
+  "item.modifiers.both_hands": "I handen:",
+  "effect.ranged_weapon.damage": "Slagkraft",
+  "effect.ranged_weapon.damage.description": "Ökar distansskadan",
+  "effect.ranged_weapon.haste": "Snabbskott",
+  "effect.ranged_weapon.haste.description": "Ökar attackhastigheten på distans",
+  "item.ranged_weapon.pull_time": "%1$s sek spänntid",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Distansskadepil",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Distansskadebrygd",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Kastbar distansskadebrygd",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Kvardröjande distansskadebrygd",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Spännhastighetspil",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Spännhastighetsbrygd",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Kastbar spännhastighetsbrygd",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Kvardröjande spännhastighetsbrygd"
+}

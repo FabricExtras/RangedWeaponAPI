@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "Fernkampfschaden",
+  "attribute.name.ranged_weapon.haste" : "Spanngeschwindigkeit",
+  "attribute.name.ranged_weapon.pull_time" : "Sek. Spannzeit",
+  "attribute.name.ranged_weapon.velocity" : "Pfeilgeschwindigkeit",
+  "item.modifiers.both_hands": "In der Hand:",
+  "effect.ranged_weapon.damage": "Wucht",
+  "effect.ranged_weapon.damage.description": "Erhöht den Fernkampfschaden",
+  "effect.ranged_weapon.haste": "Schnellfeuer",
+  "effect.ranged_weapon.haste.description": "Erhöht die Angriffsgeschwindigkeit im Fernkampf",
+  "item.ranged_weapon.pull_time": "%1$s Sek. Spannzeit",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Pfeil des Fernkampfschadens",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Trank des Fernkampfschadens",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Wurftrank des Fernkampfschadens",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Verweiltrank des Fernkampfschadens",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Pfeil der Spanngeschwindigkeit",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Trank der Spanngeschwindigkeit",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Wurftrank der Spanngeschwindigkeit",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Verweiltrank der Spanngeschwindigkeit"
+}

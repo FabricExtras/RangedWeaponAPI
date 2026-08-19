@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "ดาเมจระยะไกล",
+  "attribute.name.ranged_weapon.haste" : "ความเร็วง้างธนู",
+  "attribute.name.ranged_weapon.pull_time" : "วินาทีในการง้างธนู",
+  "attribute.name.ranged_weapon.velocity" : "ความเร็วลูกธนู",
+  "item.modifiers.both_hands": "เมื่ออยู่ในมือ:",
+  "effect.ranged_weapon.damage": "ยิงแรง",
+  "effect.ranged_weapon.damage.description": "เพิ่มดาเมจระยะไกล",
+  "effect.ranged_weapon.haste": "ยิงเร็ว",
+  "effect.ranged_weapon.haste.description": "เพิ่มความเร็วโจมตีระยะไกล",
+  "item.ranged_weapon.pull_time": "%1$s วินาทีในการง้างธนู",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "ลูกธนูอาบยาดาเมจระยะไกล",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "น้ำยาดาเมจระยะไกล",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "น้ำยาดาเมจระยะไกลแบบปา",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "น้ำยาดาเมจระยะไกลแบบระเหย",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "ลูกธนูอาบยาความเร็วง้างธนู",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "น้ำยาความเร็วง้างธนู",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "น้ำยาความเร็วง้างธนูแบบปา",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "น้ำยาความเร็วง้างธนูแบบระเหย"
+}

@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "Sát thương tầm xa",
+  "attribute.name.ranged_weapon.haste" : "Tốc độ giương cung",
+  "attribute.name.ranged_weapon.pull_time" : "giây thời gian giương cung",
+  "attribute.name.ranged_weapon.velocity" : "Tốc độ mũi tên",
+  "item.modifiers.both_hands": "Khi cầm trên tay:",
+  "effect.ranged_weapon.damage": "Xung kích",
+  "effect.ranged_weapon.damage.description": "Tăng sát thương tầm xa",
+  "effect.ranged_weapon.haste": "Bắn nhanh",
+  "effect.ranged_weapon.haste.description": "Tăng tốc độ tấn công tầm xa",
+  "item.ranged_weapon.pull_time": "Thời gian giương cung: %1$s giây",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Mũi tên sát thương tầm xa",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Thuốc sát thương tầm xa",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Thuốc sát thương tầm xa có thể ném được",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Thuốc sát thương tầm xa kéo dài",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Mũi tên tốc độ giương cung",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Thuốc tốc độ giương cung",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Thuốc tốc độ giương cung có thể ném được",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Thuốc tốc độ giương cung kéo dài"
+}

@@ -2,8 +2,21 @@
   "attribute.name.ranged_weapon.damage" : "Danno a distanza",
   "attribute.name.ranged_weapon.haste" : "Velocità di scoccata",
   "attribute.name.ranged_weapon.pull_time" : "sec tempo di tiro",
+  "attribute.name.ranged_weapon.velocity" : "Velocità della freccia",
   "item.modifiers.both_hands": "Quando in mano:",
   "effect.ranged_weapon.damage": "Impatto",
+  "effect.ranged_weapon.damage.description": "Aumenta il danno a distanza",
   "effect.ranged_weapon.haste": "Fuoco rapido",
-  "item.ranged_weapon.pull_time": "%1$s sec tempo di tiro"
+  "effect.ranged_weapon.haste.description": "Aumenta la velocità d'attacco a distanza",
+  "item.ranged_weapon.pull_time": "%1$s sec tempo di tiro",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Freccia di danno a distanza",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Pozione di danno a distanza",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Pozione da lancio di danno a distanza",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Pozione persistente di danno a distanza",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Freccia di velocità di scoccata",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Pozione di velocità di scoccata",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Pozione da lancio di velocità di scoccata",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Pozione persistente di velocità di scoccata"
 }

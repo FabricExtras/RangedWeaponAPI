@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "afstandsschade",
+  "attribute.name.ranged_weapon.haste" : "spansnelheid",
+  "attribute.name.ranged_weapon.pull_time" : "sec spantijd",
+  "attribute.name.ranged_weapon.velocity" : "pijlsnelheid",
+  "item.modifiers.both_hands": "Wanneer vastgehouden:",
+  "effect.ranged_weapon.damage": "Inslag",
+  "effect.ranged_weapon.damage.description": "Verhoogt de afstandsschade",
+  "effect.ranged_weapon.haste": "Snelvuur",
+  "effect.ranged_weapon.haste.description": "Verhoogt de aanvalssnelheid van afstandswapens",
+  "item.ranged_weapon.pull_time": "%1$s sec spantijd",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Pijl der afstandsschade",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Drank der afstandsschade",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Spattende drank der afstandsschade",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Aanhoudende drank der afstandsschade",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Pijl der spansnelheid",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Drank der spansnelheid",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Spattende drank der spansnelheid",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Aanhoudende drank der spansnelheid"
+}

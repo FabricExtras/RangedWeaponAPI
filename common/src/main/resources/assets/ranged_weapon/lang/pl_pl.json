@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "Obrażenia dystansowe",
+  "attribute.name.ranged_weapon.haste" : "Szybkość naciągania",
+  "attribute.name.ranged_weapon.pull_time" : "sek. czasu naciągania",
+  "attribute.name.ranged_weapon.velocity" : "Prędkość strzały",
+  "item.modifiers.both_hands": "W ręce:",
+  "effect.ranged_weapon.damage": "Impet",
+  "effect.ranged_weapon.damage.description": "Zwiększa obrażenia dystansowe",
+  "effect.ranged_weapon.haste": "Szybkostrzelność",
+  "effect.ranged_weapon.haste.description": "Zwiększa szybkość ataków dystansowych",
+  "item.ranged_weapon.pull_time": "%1$s sek. czasu naciągania",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Strzała obrażeń dystansowych",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Mikstura obrażeń dystansowych",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Miotana mikstura obrażeń dystansowych",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Trwała mikstura obrażeń dystansowych",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Strzała szybkości naciągania",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Mikstura szybkości naciągania",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Miotana mikstura szybkości naciągania",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Trwała mikstura szybkości naciągania"
+}

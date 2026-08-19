@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "Kerusakan Jarak Jauh",
+  "attribute.name.ranged_weapon.haste" : "Kecepatan Tarik",
+  "attribute.name.ranged_weapon.pull_time" : "dtk Waktu Tarik",
+  "attribute.name.ranged_weapon.velocity" : "Kecepatan Panah",
+  "item.modifiers.both_hands": "Saat Dipegang:",
+  "effect.ranged_weapon.damage": "Hantaman",
+  "effect.ranged_weapon.damage.description": "Meningkatkan kerusakan jarak jauh",
+  "effect.ranged_weapon.haste": "Tembakan Cepat",
+  "effect.ranged_weapon.haste.description": "Meningkatkan kecepatan serangan jarak jauh",
+  "item.ranged_weapon.pull_time": "Waktu Tarik %1$s dtk",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Panah Kerusakan Jarak Jauh",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Ramuan Kerusakan Jarak Jauh",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Ramuan Ciprat Kerusakan Jarak Jauh",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Ramuan Bertahan Kerusakan Jarak Jauh",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Panah Kecepatan Tarik",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Ramuan Kecepatan Tarik",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Ramuan Ciprat Kecepatan Tarik",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Ramuan Bertahan Kecepatan Tarik"
+}

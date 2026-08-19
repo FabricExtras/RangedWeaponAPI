@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "Dégâts à distance",
+  "attribute.name.ranged_weapon.haste" : "Vitesse de tir",
+  "attribute.name.ranged_weapon.pull_time" : "s de temps de charge",
+  "attribute.name.ranged_weapon.velocity" : "Vitesse des flèches",
+  "item.modifiers.both_hands": "En main :",
+  "effect.ranged_weapon.damage": "Impact",
+  "effect.ranged_weapon.damage.description": "Augmente les dégâts à distance",
+  "effect.ranged_weapon.haste": "Tir rapide",
+  "effect.ranged_weapon.haste.description": "Augmente la vitesse d'attaque à distance",
+  "item.ranged_weapon.pull_time": "Temps de charge : %1$s s",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "Flèche de dégâts à distance",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "Potion de dégâts à distance",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "Potion de dégâts à distance jetable",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "Potion de dégâts à distance persistante",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "Flèche de vitesse de tir",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "Potion de vitesse de tir",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "Potion de vitesse de tir jetable",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "Potion de vitesse de tir persistante"
+}

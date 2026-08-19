@@ -1,0 +1,22 @@
+{
+  "attribute.name.ranged_weapon.damage" : "遠距離攻撃力",
+  "attribute.name.ranged_weapon.haste" : "引き絞り速度",
+  "attribute.name.ranged_weapon.pull_time" : "秒 引き絞り時間",
+  "attribute.name.ranged_weapon.velocity" : "矢の速度",
+  "item.modifiers.both_hands": "持っている時:",
+  "effect.ranged_weapon.damage": "衝撃",
+  "effect.ranged_weapon.damage.description": "遠距離攻撃力を上昇させる",
+  "effect.ranged_weapon.haste": "速射",
+  "effect.ranged_weapon.haste.description": "遠距離攻撃の速度を上昇させる",
+  "item.ranged_weapon.pull_time": "%1$s 秒 引き絞り時間",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "遠距離攻撃力の矢",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "遠距離攻撃力のポーション",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "遠距離攻撃力のスプラッシュポーション",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "遠距離攻撃力の残留ポーション",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "引き絞り速度の矢",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "引き絞り速度のポーション",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "引き絞り速度のスプラッシュポーション",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "引き絞り速度の残留ポーション"
+}

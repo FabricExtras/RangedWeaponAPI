@@ -2,8 +2,21 @@
   "attribute.name.ranged_weapon.damage" : "원거리 피해",
   "attribute.name.ranged_weapon.haste" : "당김 속도",
   "attribute.name.ranged_weapon.pull_time" : "초 당김 시간",
+  "attribute.name.ranged_weapon.velocity" : "화살 속도",
   "item.modifiers.both_hands": "들었을 때:",
   "effect.ranged_weapon.damage": "충격",
+  "effect.ranged_weapon.damage.description": "원거리 피해를 증가시킵니다",
   "effect.ranged_weapon.haste": "속사",
-  "item.ranged_weapon.pull_time": "%1$s초 당김 시간"
+  "effect.ranged_weapon.haste.description": "원거리 공격 속도를 증가시킵니다",
+  "item.ranged_weapon.pull_time": "%1$s초 당김 시간",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.damage" : "원거리 피해의 화살",
+  "item.minecraft.potion.effect.ranged_weapon.damage" : "원거리 피해의 물약",
+  "item.minecraft.splash_potion.effect.ranged_weapon.damage" : "투척용 원거리 피해의 물약",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.damage" : "잔류형 원거리 피해의 물약",
+
+  "item.minecraft.tipped_arrow.effect.ranged_weapon.haste" : "당김 속도의 화살",
+  "item.minecraft.potion.effect.ranged_weapon.haste" : "당김 속도의 물약",
+  "item.minecraft.splash_potion.effect.ranged_weapon.haste" : "투척용 당김 속도의 물약",
+  "item.minecraft.lingering_potion.effect.ranged_weapon.haste" : "잔류형 당김 속도의 물약"
 }
