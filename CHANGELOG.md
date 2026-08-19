@@ -1,3 +1,9 @@
+# 2.3.4
+
+- Fully translated content, now supporting 20 languages
+- Marked as library for Fabric
+- Updated project icons
+
 # 2.3.3
 
 - Fix ranged weapon damage dealt by Bow using mobs (such as Skeletons, Illusioners, etc.)
