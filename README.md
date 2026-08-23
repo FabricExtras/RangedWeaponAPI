@@ -100,6 +100,13 @@ Each attribute has a corresponding status effect.
 
 ![status_effect_haste.png](.github/status_effect_haste.png)
 
+### Enchantments
+
+This mod overrides the vanilla Power enchantment definition (`data/minecraft/enchantment/power.json`), to make it compatible with the attribute driven damage system.
+- Vanilla behaviour: flat bonus added to arrow damage on impact — bypasses the `ranged_weapon:damage` attribute, so it doesn't scale with weapon damage
+- Overridden behaviour: `+8% ranged_weapon:damage` per level (`add_multiplied_base`, mainhand) — scales correctly with any weapon integrated with this mod
+- Datapacks can override this definition, as usual
+
 ## Try it out
 
 Check out this repo, resolve dependencies, select `Testmod client` run config.
