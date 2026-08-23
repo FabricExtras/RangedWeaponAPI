@@ -1,7 +1,7 @@
 package net.fabric_extras.ranged_weapon.client;
 
 import net.fabric_extras.ranged_weapon.api.CustomCrossbow;
-import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
+import net.fabric_extras.ranged_weapon.api.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.mixin.ModelPredicateProviderRegistryInvoker;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.Item;
@@ -15,7 +15,7 @@ public class ModelPredicateHelper {
             if (entity == null) {
                 return 0.0F;
             } else {
-                return entity.getActiveItem() != stack ? 0.0F : (float)(stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / ( (float) entity.getAttributeValue(EntityAttributes_RangedWeapon.PULL_TIME.entry) * 20F);
+                return entity.getActiveItem() != stack ? 0.0F : (float)(stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / (float) RangedWeaponProperties.pullTimeTicks(stack, 20);
             }
         });
         ModelPredicateProviderRegistryInvoker.rwa_invokeRegister(bow, Identifier.of("pulling"), (stack, world, entity, seed) -> {

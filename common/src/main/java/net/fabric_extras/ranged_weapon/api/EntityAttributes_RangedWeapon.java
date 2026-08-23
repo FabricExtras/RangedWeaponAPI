@@ -56,6 +56,11 @@ public class EntityAttributes_RangedWeapon {
 
     public static final Entry DAMAGE = entry("damage", 0, true)
             .setBaseAttributeId(AttributeModifierIDs.WEAPON_DAMAGE_ID);
+    /**
+     * DISPLAY-ONLY as of 3.0.0! This attribute no longer participates in pull time calculation,
+     * it only exists so items can render an authentic tooltip line.
+     * The actual pull time is defined by the `ranged_weapon:properties` component, see {@link RangedWeaponProperties}.
+     */
     public static final Entry PULL_TIME = entry("pull_time", 0.1, 1.0, true)
             .setBaseAttributeId(AttributeModifierIDs.WEAPON_PULL_TIME_ID);
     public static final Entry HASTE = entry("haste", 100, true);

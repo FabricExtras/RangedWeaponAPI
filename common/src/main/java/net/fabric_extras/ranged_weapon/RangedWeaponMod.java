@@ -1,6 +1,7 @@
 package net.fabric_extras.ranged_weapon;
 
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
+import net.fabric_extras.ranged_weapon.api.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.api.StatusEffects_RangedWeapon;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -38,6 +39,10 @@ public class RangedWeaponMod {
         for (var entry : EntityAttributes_RangedWeapon.all) {
             entry.register();
         }
+    }
+
+    public static void registerComponents() {
+        RangedWeaponProperties.register();
     }
 
     public static void registerStatusEffects() {

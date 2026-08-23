@@ -2,6 +2,7 @@ package net.fabric_extras.ranged_weapon.neoforge;
 
 import net.fabric_extras.ranged_weapon.RangedWeaponMod;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
+import net.fabric_extras.ranged_weapon.api.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.internal.RangedHasteEntity;
 import net.minecraft.util.UseAction;
 import net.neoforged.fml.common.Mod;
@@ -44,8 +45,7 @@ public final class NeoForgeMod {
                         // Hence we step back by one partial tick
                         event.setDuration((int) (event.getDuration() + ((RangedHasteEntity)entity).getPartialHasteTick()));
 
-                        var time = entity.getAttributeValue(EntityAttributes_RangedWeapon.PULL_TIME.entry);
-                        // var timeTicks = Math.round(time * 20);
+                        var time = RangedWeaponProperties.pullTimeTicks(activeItemStack, 20) / 20F;
                         var bonus = EntityAttributes_RangedWeapon.HASTE.asMultiplier(haste) - 1F;
                         var partialTick = time * bonus;
                         ((RangedHasteEntity)entity).addPartialHasteTick((float) partialTick);

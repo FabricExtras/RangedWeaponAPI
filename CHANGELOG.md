@@ -1,3 +1,14 @@
+# 3.0.0
+
+Ranged weapon properties are now stored in the `ranged_weapon:properties` item component, instead of injected instance fields.
+
+- New `ranged_weapon:properties` item component: `pull_time` (definitive pull time, in ticks), optional `damage` (weapon-physics damage baseline, falls back to 6 for bows and 9 for crossbows) and optional `velocity` (weapon-physics launch velocity baseline, falls back to 3.0 for bows and 3.15 for crossbows). Component presence is what opts an item into the ranged weapon systems; vanilla bows and crossbows receive defaults automatically. Third-party bows/crossbows can be integrated by attaching this component - no Java integration needed.
+- BREAKING: the `ranged_weapon:pull_time` entity attribute is now display-only. It renders authentic tooltip lines but no longer participates in pull time calculation - attach the component instead to change pull time.
+- BREAKING: removed `CustomRangedWeapon` (use the component's `damage` field instead of `setTypeBaseline`), `CrossbowMechanics`, `BowMechanics` and `TooltipUtil`.
+- BREAKING: `RangedWeaponItem` subclasses other than bows and crossbows no longer receive damage scaling implicitly; they participate by carrying the component.
+- New authoring type `RangedWeaponConfig` using absolute values: `damage` (full charge), `pull_time` (ticks), optional `velocity` bonus and optional attribute list. `CustomBow`/`CustomCrossbow` gained constructors taking it.
+- DEPRECATED: `RangedConfig` (bonus-based values) and the constructors taking it. They keep working (converted via `RangedConfig.toAbsolute()`) but will be deleted in a future release — migrate to `RangedWeaponConfig`.
+
 # 2.3.4
 
 - Fully translated content, now supporting 20 languages

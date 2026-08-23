@@ -1,7 +1,7 @@
 package net.testmod;
 
 import net.fabric_extras.ranged_weapon.api.CustomBow;
-import net.fabric_extras.ranged_weapon.api.RangedConfig;
+import net.fabric_extras.ranged_weapon.api.RangedWeaponConfig;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -19,7 +19,7 @@ public class TestMod implements ModInitializer {
     public void onInitialize() {
         var bow = new CustomBow(
                 new Item.Settings().maxDamage(300),
-                new RangedConfig(9, 1F, 1),
+                new RangedWeaponConfig(9, 40, 1F, null),
                 () -> Ingredient.ofItems(Items.GOLD_INGOT)
         );
         Registry.register(

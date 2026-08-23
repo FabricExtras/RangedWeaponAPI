@@ -2,8 +2,8 @@ package net.fabric_extras.ranged_weapon.mixin.item;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
+import net.fabric_extras.ranged_weapon.api.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.internal.ArrowExtension;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -33,10 +33,11 @@ public class ProjectileUtilMixin {
         if (bow == null) {
             return;
         }
+        var properties = RangedWeaponProperties.get(bow);
         if ( !((ArrowExtension)instance).rwa_isModified()
-                && bow.getItem() instanceof CustomRangedWeapon rangedWeapon) {
+                && properties != null) {
             var currentDamage = entity.getAttributeValue(EntityAttributes_RangedWeapon.DAMAGE.entry);
-            var multiplier = currentDamage / rangedWeapon.getTypeBaseline().damage();
+            var multiplier = currentDamage / properties.damageBaseline(bow.getItem());
             instance.setDamage(instance.getDamage() * multiplier);
             ((ArrowExtension)instance).rwa_markModified(true);
         }
