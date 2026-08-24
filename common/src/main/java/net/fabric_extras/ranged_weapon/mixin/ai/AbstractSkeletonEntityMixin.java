@@ -17,10 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AbstractSkeletonEntityMixin {
 
     /**
-     * Select the bow attack goal (instead of melee) for custom bows too
+     * Select the bow attack goal (instead of melee) for custom bows too.
+     * require = 0: NeoForge patches this check to `instanceof BowItem`, which accepts custom bows natively.
      */
     @WrapOperation(
             method = "updateAttackType",
+            require = 0,
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean allowCustomBows_RWA(ItemStack stack, Item item, Operation<Boolean> original) {
         return original.call(stack, item) || MobWeaponUtil.matchesKind(stack, item);

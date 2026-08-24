@@ -14,8 +14,13 @@ import org.spongepowered.asm.mixin.injection.At;
  */
 @Mixin(CrossbowAttackTask.class)
 public class CrossbowAttackTaskMixin {
+    /**
+     * require = 0: NeoForge patches these to `isHolding(Predicate)` + `instanceof CrossbowItem`,
+     * which accepts custom crossbows natively.
+     */
     @WrapOperation(
             method = {"shouldRun", "finishRunning"},
+            require = 0,
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/MobEntity;isHolding(Lnet/minecraft/item/Item;)Z"))
     private boolean allowCustomCrossbows_RWA(MobEntity instance, Item item, Operation<Boolean> original) {
         return original.call(instance, item) || MobWeaponUtil.isHoldingKind(instance, item);

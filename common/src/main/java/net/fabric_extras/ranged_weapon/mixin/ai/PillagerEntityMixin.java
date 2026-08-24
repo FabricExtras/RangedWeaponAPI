@@ -16,10 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PillagerEntityMixin {
 
     /**
-     * `CROSSBOW_HOLD` arm pose for custom crossbows (common code: fixes both logic and rendering)
+     * `CROSSBOW_HOLD` arm pose for custom crossbows (common code: fixes both logic and rendering).
+     * require = 0: NeoForge patches this to `isHolding(Predicate)` + `instanceof CrossbowItem`,
+     * which accepts custom crossbows natively.
      */
     @WrapOperation(
             method = "getState",
+            require = 0,
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/PillagerEntity;isHolding(Lnet/minecraft/item/Item;)Z"))
     private boolean allowCustomCrossbows_RWA(PillagerEntity instance, Item item, Operation<Boolean> original) {
         return original.call(instance, item) || MobWeaponUtil.isHoldingKind(instance, item);
