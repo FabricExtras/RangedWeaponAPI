@@ -20,5 +20,12 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
     // EMI integration: loader-neutral artifact, platform jars are provided by the platform modules
-    modCompileOnly "dev.emi:emi-xplat-intermediary:${emi_version}"
+    if (rootProject.enable_emi.toBoolean()) {
+        modCompileOnly "dev.emi:emi-xplat-intermediary:${emi_version}"
+    }
+}
+
+// EMI has no 1.21.11 build: keep the plugin sources in-tree but out of the compilation unless enabled.
+if (!rootProject.enable_emi.toBoolean()) {
+    sourceSets.main.java.exclude '**/compat/emi/**'
 }

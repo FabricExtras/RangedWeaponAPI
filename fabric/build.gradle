@@ -67,7 +67,9 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
     // EMI integration (compile classpath comes from :common's xplat dependency)
-    modLocalRuntime "dev.emi:emi-${platform}:${emi_version}"
+    if (rootProject.enable_emi.toBoolean()) {
+        modLocalRuntime "dev.emi:emi-${platform}:${emi_version}"
+    }
 }
 
 processResources {
@@ -112,7 +114,7 @@ publishMods {
         projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")   // numeric id
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        minecraftVersions.add(project.minecraft_compat_version)
+        if (project.minecraft_compat_version != project.minecraft_version) minecraftVersions.add(project.minecraft_compat_version)
         client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
         server = true
         changelogType = "markdown"
@@ -125,7 +127,7 @@ publishMods {
         projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        minecraftVersions.add(project.minecraft_compat_version)
+        if (project.minecraft_compat_version != project.minecraft_version) minecraftVersions.add(project.minecraft_compat_version)
         optional { slug = "emi" }
     }
 
