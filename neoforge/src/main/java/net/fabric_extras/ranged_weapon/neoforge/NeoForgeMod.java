@@ -4,7 +4,7 @@ import net.fabric_extras.ranged_weapon.RangedWeaponMod;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedWeaponProperties;
 import net.fabric_extras.ranged_weapon.internal.RangedHasteEntity;
-import net.minecraft.util.UseAction;
+import net.minecraft.item.consume.UseAction;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;

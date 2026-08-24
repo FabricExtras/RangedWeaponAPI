@@ -7,6 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
@@ -17,14 +19,15 @@ public class TestMod implements ModInitializer {
      */
     @Override
     public void onInitialize() {
+        var id = Identifier.of(NAMESPACE, "custom_longbow");
         var bow = new CustomBow(
-                new Item.Settings().maxDamage(300),
+                new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, id)).maxDamage(300),
                 new RangedWeaponConfig(9, 40, 1F, null),
                 () -> Ingredient.ofItems(Items.GOLD_INGOT)
         );
         Registry.register(
                 Registries.ITEM,
-                Identifier.of(NAMESPACE, "custom_longbow"),
+                id,
                 bow
         );
     }

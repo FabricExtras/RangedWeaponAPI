@@ -7,7 +7,9 @@ import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.RangedWeaponItem;
+import net.minecraft.item.Items;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,20 +32,22 @@ public class PiglinEntityMixin {
     }
 
     @Inject(method = "canUseRangedWeapon", at = @At("HEAD"), cancellable = true)
-    private void canUseCustomCrossbows_RWA(RangedWeaponItem weapon, CallbackInfoReturnable<Boolean> cir) {
-        if (weapon instanceof CrossbowItem && MobWeaponUtil.hasProperties(weapon)) {
+    private void canUseCustomCrossbows_RWA(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+        if (stack.getItem() instanceof CrossbowItem && MobWeaponUtil.hasProperties(stack.getItem())) {
             cir.setReturnValue(true);
         }
     }
 
     /**
-     * Piglins value custom crossbows for pickup/equip decisions, same as vanilla ones
-     * (wraps all 3 `isOf(Items.CROSSBOW)` checks in the method)
+     * Piglins value custom crossbows for pickup/equip decisions, same as vanilla ones.
+     * Since 1.21.2 vanilla resolves this via the `minecraft:piglin_preferred_weapons` item tag,
+     * so custom crossbows are treated as members of that tag here (wraps both `isIn(tag)` checks).
      */
     @WrapOperation(
             method = "prefersNewEquipment",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
-    private boolean valueCustomCrossbows_RWA(ItemStack stack, Item item, Operation<Boolean> original) {
-        return original.call(stack, item) || MobWeaponUtil.matchesKind(stack, item);
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
+    private boolean valueCustomCrossbows_RWA(ItemStack stack, TagKey<Item> tag, Operation<Boolean> original) {
+        return original.call(stack, tag)
+                || (tag == ItemTags.PIGLIN_PREFERRED_WEAPONS && MobWeaponUtil.matchesKind(stack, Items.CROSSBOW));
     }
 }

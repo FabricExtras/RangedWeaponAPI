@@ -62,7 +62,7 @@ public class RangedWeaponMod {
                 StatusEffects_RangedWeapon.HASTE
         );
         for (var entry : entries) {
-            var potion = new Potion(new StatusEffectInstance(entry.entry, 3600));
+            var potion = new Potion(entry.id.getPath(), new StatusEffectInstance(entry.entry, 3600));
             Registry.register(Registries.POTION, potionId(entry.id), potion);
         }
     }

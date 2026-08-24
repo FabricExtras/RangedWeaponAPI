@@ -38,4 +38,7 @@ public abstract class PersistentProjectileEntityMixin implements ArrowExtension 
     public boolean rwa_isModified() {
         return this.rwa_modified;
     }
+    public double rwa_getDamage() {
+        return this.damage;
+    }
 }

@@ -38,7 +38,7 @@ public class ProjectileUtilMixin {
                 && properties != null) {
             var currentDamage = entity.getAttributeValue(EntityAttributes_RangedWeapon.DAMAGE.entry);
             var multiplier = currentDamage / properties.damageBaseline(bow.getItem());
-            instance.setDamage(instance.getDamage() * multiplier);
+            instance.setDamage(((ArrowExtension)instance).rwa_getDamage() * multiplier);
             ((ArrowExtension)instance).rwa_markModified(true);
         }
     }

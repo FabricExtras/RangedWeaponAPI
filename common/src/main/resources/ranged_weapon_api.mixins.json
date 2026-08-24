@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "net.fabric_extras.ranged_weapon.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "DataComponentTypesMixin",
     "PersistentProjectileEntityMixin",
@@ -20,16 +20,15 @@
     "item.ComponentMapBuilderAccessor",
     "item.CrossbowItemMixin",
     "item.ItemSettingsAccessor",
+    "item.ItemStackRepairMixin",
     "item.ProjectileUtilMixin",
     "item.RangedWeaponItemMixin"
   ],
   "client": [
-    "ModelPredicateProviderRegistryInvoker",
-    "ai.SkeletonEntityModelMixin",
     "client.AbstractClientPlayerEntityMixin",
+    "client.AbstractSkeletonEntityRendererMixin",
     "client.HeldItemRendererMixin",
     "client.ItemStackMixin",
-    "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin"
   ],
   "injectors": {

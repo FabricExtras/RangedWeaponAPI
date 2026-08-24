@@ -6,7 +6,6 @@ import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -19,9 +18,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Consumer;
 
-@Mixin(ItemStack.class)
+/**
+ * Custom tooltip lines for the weapon's base damage / pull time modifiers (rendered like vanilla attack damage).
+ * Since 1.21.5 the per-modifier tooltip line is produced by `AttributeModifiersComponent.Display.Default`.
+ */
+@Mixin(AttributeModifiersComponent.Display.Default.class)
 public class ItemStackMixin {
-    @Inject(method = "appendAttributeModifierTooltip", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "addTooltip", at = @At("HEAD"), cancellable = true)
     private void customFormattedAttributes_RWA(
             Consumer<Text> textConsumer, @Nullable PlayerEntity player, RegistryEntry<EntityAttribute> attribute, EntityAttributeModifier modifier,
             CallbackInfo ci) {
