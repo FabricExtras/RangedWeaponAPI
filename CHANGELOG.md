@@ -9,6 +9,7 @@ Ranged weapon properties are now stored in the `ranged_weapon:properties` item c
 - New authoring type `RangedWeaponConfig` using absolute values: `damage` (full charge), `pull_time` (ticks), optional `velocity` bonus and optional attribute list. `CustomBow`/`CustomCrossbow` gained constructors taking it.
 - DEPRECATED: `RangedConfig` (bonus-based values) and the constructors taking it. They keep working (converted via `RangedConfig.toAbsolute()`) but will be deleted in a future release — migrate to `RangedWeaponConfig`.
 - Override the vanilla Power enchantment definition: instead of flat arrow damage (which bypasses the attribute system), Power now grants +8% `ranged_weapon:damage` per level.
+- Mob AI can now use custom ranged weapons: Skeleton family + Illusioners fire custom bows (honoring their pull time), Pillagers and Piglins use custom crossbows, with correct arm poses. Works for any weapon carrying `ranged_weapon:properties`. (These mixins live in the `mixin/ai` package, so they can be temporarily disabled together during game version migrations.)
 
 # 2.3.4
 

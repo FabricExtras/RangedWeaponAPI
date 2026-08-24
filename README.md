@@ -11,7 +11,10 @@
 - [x] Tooltip includes weapon properties
 - [x] Correct rendering first and third person rendering
 - [x] Correct pull FOV
-- [ ] AI can use these weapons
+- [x] AI can use these weapons
+  - Skeletons (+ Strays, Bogged, Illusioners) use custom bows, Pillagers and Piglins use custom crossbows — including custom pull time, damage scaling and correct arm poses
+  - Applies to any weapon carrying `ranged_weapon:properties` (also third-party ones)
+  - Mobs don't spawn with custom weapons by themselves — equip them via `/summon` HandItems, datapacks or content mods
 
 ![Example](.github/custom_longbow.png)
 

@@ -6,6 +6,13 @@
   "mixins": [
     "DataComponentTypesMixin",
     "PersistentProjectileEntityMixin",
+    "ai.AbstractSkeletonEntityMixin",
+    "ai.BowAttackGoalMixin",
+    "ai.CrossbowAttackGoalMixin",
+    "ai.CrossbowAttackTaskMixin",
+    "ai.PiglinEntityMixin",
+    "ai.PillagerEntityMixin",
+    "ai.ProjectileUtilHandMixin",
     "attribute.EntityAttributesMixin",
     "attribute.LivingEntityMixin",
     "attribute.StatusEffectsMixin",
@@ -18,6 +25,7 @@
   ],
   "client": [
     "ModelPredicateProviderRegistryInvoker",
+    "ai.SkeletonEntityModelMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.HeldItemRendererMixin",
     "client.ItemStackMixin",
