@@ -20,7 +20,7 @@ public class MobWeaponUtil {
      * Intended as the `|| custom` half of wrapped `ItemStack.isOf(...)` checks.
      */
     public static boolean matchesKind(ItemStack stack, Item vanillaItem) {
-        if (!stack.contains(RangedWeaponProperties.TYPE)) {
+        if (stack.get(RangedWeaponProperties.TYPE) == null) { // not contains(): NeoForge's Yarn jar names it `has` → NoSuchMethodError
             return false;
         }
         if (vanillaItem == Items.BOW) {
@@ -44,6 +44,6 @@ public class MobWeaponUtil {
      * Whether the item carries the `ranged_weapon:properties` component as a default component.
      */
     public static boolean hasProperties(Item item) {
-        return item.getComponents().contains(RangedWeaponProperties.TYPE);
+        return item.getComponents().get(RangedWeaponProperties.TYPE) != null; // not contains(): NeoForge's Yarn jar names it `has`
     }
 }
