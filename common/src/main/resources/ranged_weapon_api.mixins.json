@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.fabric_extras.ranged_weapon.mixin",
+  "package": "net.rpg_foundation.ranged_weapon.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "DataComponentTypesMixin",

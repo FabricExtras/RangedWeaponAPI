@@ -15,13 +15,13 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.fabric_extras.ranged_weapon.fabric.client.FabricClientMod"
+      "net.rpg_foundation.ranged_weapon.fabric.client.FabricClientMod"
     ],
     "main": [
-      "net.fabric_extras.ranged_weapon.fabric.FabricMod"
+      "net.rpg_foundation.ranged_weapon.fabric.FabricMod"
     ],
     "emi": [
-      "net.fabric_extras.ranged_weapon.compat.emi.RangedWeaponEmiPlugin"
+      "net.rpg_foundation.ranged_weapon.compat.emi.RangedWeaponEmiPlugin"
     ]
   },
   "mixins": [

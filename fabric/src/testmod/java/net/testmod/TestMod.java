@@ -1,7 +1,7 @@
 package net.testmod;
 
-import net.fabric_extras.ranged_weapon.api.CustomBow;
-import net.fabric_extras.ranged_weapon.api.RangedWeaponConfig;
+import net.rpg_foundation.ranged_weapon.api.CustomBow;
+import net.rpg_foundation.ranged_weapon.api.RangedWeaponConfig;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
