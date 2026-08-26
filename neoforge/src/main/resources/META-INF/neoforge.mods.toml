@@ -22,7 +22,7 @@ side = "BOTH"
 [[dependencies.ranged_weapon_api]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.11,)"
+versionRange = "[${minecraft_min_version},)"
 ordering = "NONE"
 side = "BOTH"
 
