@@ -1,8 +1,8 @@
 package net.rpg_foundation.ranged_weapon.mixin;
 
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.rpg_foundation.ranged_weapon.internal.ArrowExtension;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,11 +10,11 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.Random;
 
-@Mixin(PersistentProjectileEntity.class)
+@Mixin(AbstractArrow.class)
 public abstract class PersistentProjectileEntityMixin implements ArrowExtension {
     private static final Random CRIT_RANDOM = new Random();
-    @Shadow private double damage;
-    @Shadow public abstract boolean isCritical();
+    @Shadow private double baseDamage;
+    @Shadow public abstract boolean isCritArrow();
 
     /**
      * Replaces vanilla's critical-hit bonus with a multiplicative 1.1x - 1.6x roll.
@@ -39,13 +39,13 @@ public abstract class PersistentProjectileEntityMixin implements ArrowExtension 
      * `d`, so any `EnchantmentHelper.getDamage` adjustment applied to `d` is not reflected on crits.
      * Long-standing behaviour - kept as is.
      */
-    @ModifyVariable(method = "onEntityHit", at = @At("STORE"), ordinal = 0)
+    @ModifyVariable(method = "onHitEntity", at = @At("STORE"), ordinal = 0)
     private int modifyCritDamage(int value) {
-        if (!isCritical()) { return value; }
-        var projectile = (PersistentProjectileEntity) ((Object) this);
-        var velocity = projectile.getVelocity().length();
+        if (!isCritArrow()) { return value; }
+        var projectile = (AbstractArrow) ((Object) this);
+        var velocity = projectile.getDeltaMovement().length();
         var critMultiplier = 1F + (0.1F + CRIT_RANDOM.nextFloat() * 0.5F);
-        return (int) Math.round(MathHelper.clamp(velocity * this.damage * critMultiplier, 0.0, 2.147483647E9));
+        return (int) Math.round(Mth.clamp(velocity * this.baseDamage * critMultiplier, 0.0, 2.147483647E9));
     }
 
     private boolean rwa_modified = false;
@@ -56,6 +56,6 @@ public abstract class PersistentProjectileEntityMixin implements ArrowExtension 
         return this.rwa_modified;
     }
     public double rwa_getDamage() {
-        return this.damage;
+        return this.baseDamage;
     }
 }

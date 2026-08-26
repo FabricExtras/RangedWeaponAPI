@@ -2,7 +2,6 @@ package net.rpg_foundation.ranged_weapon.neoforge;
 
 import net.rpg_foundation.ranged_weapon.neoforge.internal.RangedAttribute;
 import net.rpg_foundation.ranged_weapon.Platform;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.neoforged.fml.ModList;
 
 public class PlatformImpl {
@@ -17,7 +16,7 @@ public class PlatformImpl {
         }
 
         @Override
-        public ClampedEntityAttribute makeAttribute(String translationKey, double fallback, double min, double max) {
+        public net.minecraft.world.entity.ai.attributes.RangedAttribute makeAttribute(String translationKey, double fallback, double min, double max) {
             return new RangedAttribute(translationKey, fallback, min, max);
         }
     }

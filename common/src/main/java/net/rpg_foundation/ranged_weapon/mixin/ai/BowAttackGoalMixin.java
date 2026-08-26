@@ -3,21 +3,21 @@ package net.rpg_foundation.ranged_weapon.mixin.ai;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
 import net.rpg_foundation.ranged_weapon.internal.MobWeaponUtil;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.BowAttackGoal;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BowAttackGoal.class)
+@Mixin(RangedBowAttackGoal.class)
 public class BowAttackGoalMixin {
 
     /**
@@ -27,8 +27,8 @@ public class BowAttackGoalMixin {
     @WrapOperation(
             method = "isHoldingBow",
             require = 0,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/HostileEntity;isHolding(Lnet/minecraft/item/Item;)Z"))
-    private boolean allowCustomBows_RWA(HostileEntity instance, Item item, Operation<Boolean> original) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Monster;isHolding(Lnet/minecraft/world/item/Item;)Z"))
+    private boolean allowCustomBows_RWA(Monster instance, Item item, Operation<Boolean> original) {
         return original.call(instance, item) || MobWeaponUtil.isHoldingKind(instance, item);
     }
 
@@ -53,22 +53,22 @@ public class BowAttackGoalMixin {
     @WrapOperation(
             method = "tick",
             require = 0,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/HostileEntity;getItemUseTime()I"))
-    private int scaleChargeToPullTime_RWA(HostileEntity instance, Operation<Integer> original) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Monster;getTicksUsingItem()I"))
+    private int scaleChargeToPullTime_RWA(Monster instance, Operation<Integer> original) {
         return rwa_scaleToPullTime(instance, original.call(instance));
     }
 
     @WrapOperation(
             method = "tick",
             require = 0,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/MobEntity;getItemUseTime()I"))
-    private int scaleChargeToPullTime_Neo_RWA(MobEntity instance, Operation<Integer> original) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Mob;getTicksUsingItem()I"))
+    private int scaleChargeToPullTime_Neo_RWA(Mob instance, Operation<Integer> original) {
         return rwa_scaleToPullTime(instance, original.call(instance));
     }
 
     private static int rwa_scaleToPullTime(LivingEntity shooter, int useTime) {
         rwa_pullTimeHookFired = true;
-        var heldBow = shooter.getStackInHand(ProjectileUtil.getHandPossiblyHolding(shooter, Items.BOW));
+        var heldBow = shooter.getItemInHand(ProjectileUtil.getWeaponHoldingHand(shooter, Items.BOW));
         var properties = RangedWeaponProperties.get(heldBow);
         if (properties == null || properties.pull_time() <= 0) {
             return useTime;

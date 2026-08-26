@@ -1,9 +1,8 @@
 package net.rpg_foundation.ranged_weapon;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
-
 import java.nio.file.Path;
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
 public class Platform {
     public static final boolean Fabric;
@@ -26,7 +25,7 @@ public class Platform {
 
     public interface Util {
         boolean isModLoaded(String modid);
-        ClampedEntityAttribute makeAttribute(String translationKey, double fallback, double min, double max);
+        RangedAttribute makeAttribute(String translationKey, double fallback, double min, double max);
     }
 
     @ExpectPlatform

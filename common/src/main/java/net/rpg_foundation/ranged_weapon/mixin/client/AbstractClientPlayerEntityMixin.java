@@ -2,22 +2,22 @@ package net.rpg_foundation.ranged_weapon.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.rpg_foundation.ranged_weapon.api.CustomBow;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-@Mixin(AbstractClientPlayerEntity.class)
+@Mixin(AbstractClientPlayer.class)
 public class AbstractClientPlayerEntityMixin {
     @WrapOperation(
-            method = "getFovMultiplier",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z")
+            method = "getFieldOfViewModifier",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z")
     )
     private boolean getFovMultiplier_CustomBows(ItemStack itemStack, Item item, Operation<Boolean> original) {
         if (item == Items.BOW) {
@@ -28,9 +28,9 @@ public class AbstractClientPlayerEntityMixin {
         return original.call(itemStack, item);
     }
 
-    @ModifyConstant(method = "getFovMultiplier", constant = @Constant(floatValue = 20.0F))
+    @ModifyConstant(method = "getFieldOfViewModifier", constant = @Constant(floatValue = 20.0F))
     private float getFovMultiplier_CustomBows_PullTime(float value) {
-        var player = (AbstractClientPlayerEntity)(Object)this;
-        return RangedWeaponProperties.pullTimeTicks(player.getActiveItem(), 20);
+        var player = (AbstractClientPlayer)(Object)this;
+        return RangedWeaponProperties.pullTimeTicks(player.getUseItem(), 20);
     }
 }

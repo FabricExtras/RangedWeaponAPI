@@ -1,11 +1,11 @@
 package net.rpg_foundation.ranged_weapon.api;
 
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 /**
  * Authoring/config surface for ranged weapons, using absolute values.
@@ -29,19 +29,19 @@ public record RangedWeaponConfig(float damage, float pull_time, @Nullable Float 
     }
 
     public record Attribute(String attributeId, Modifier modifier) { }
-    public record Modifier(String modifierId, EntityAttributeModifier.Operation operation, double value) { }
+    public record Modifier(String modifierId, AttributeModifier.Operation operation, double value) { }
 
     public RangedWeaponConfig withAttributes(@Nullable List<Attribute> attributes) {
         return new RangedWeaponConfig(damage, pull_time, velocity, attributes);
     }
 
-    public RangedWeaponConfig withAttribute(Identifier attributeId, Identifier modifierId, EntityAttributeModifier.Operation operation, double value) {
+    public RangedWeaponConfig withAttribute(Identifier attributeId, Identifier modifierId, AttributeModifier.Operation operation, double value) {
         var list = new ArrayList<>(attributes != null ? attributes : List.of());
         list.add(new Attribute(attributeId.toString(), new Modifier(modifierId.toString(), operation, value)));
         return new RangedWeaponConfig(damage, pull_time, velocity, list);
     }
 
-    public RangedWeaponConfig withAttribute(Identifier attributeId, EntityAttributeModifier.Operation operation, double value) {
+    public RangedWeaponConfig withAttribute(Identifier attributeId, AttributeModifier.Operation operation, double value) {
         return withAttribute(attributeId, AttributeModifierIDs.OTHER_BONUS_ID, operation, value);
     }
 

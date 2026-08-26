@@ -2,16 +2,16 @@ package net.rpg_foundation.ranged_weapon.api;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.rpg_foundation.ranged_weapon.internal.ScalingUtil;
-import net.minecraft.component.ComponentType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -41,7 +41,7 @@ import java.util.Optional;
  *                  does not participate in the calculation.
  */
 public record RangedWeaponProperties(Optional<Float> damage, Optional<Float> velocity, int pull_time) {
-    public static final Identifier ID = Identifier.of(EntityAttributes_RangedWeapon.NAMESPACE, "properties");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(EntityAttributes_RangedWeapon.NAMESPACE, "properties");
 
     public static final Codec<RangedWeaponProperties> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.FLOAT.optionalFieldOf("damage").forGetter(RangedWeaponProperties::damage),
@@ -49,23 +49,23 @@ public record RangedWeaponProperties(Optional<Float> damage, Optional<Float> vel
             Codec.INT.fieldOf("pull_time").forGetter(RangedWeaponProperties::pull_time)
     ).apply(instance, RangedWeaponProperties::new));
 
-    public static final PacketCodec<RegistryByteBuf, RangedWeaponProperties> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.optional(PacketCodecs.FLOAT), RangedWeaponProperties::damage,
-            PacketCodecs.optional(PacketCodecs.FLOAT), RangedWeaponProperties::velocity,
-            PacketCodecs.VAR_INT, RangedWeaponProperties::pull_time,
+    public static final StreamCodec<RegistryFriendlyByteBuf, RangedWeaponProperties> PACKET_CODEC = StreamCodec.composite(
+            ByteBufCodecs.optional(ByteBufCodecs.FLOAT), RangedWeaponProperties::damage,
+            ByteBufCodecs.optional(ByteBufCodecs.FLOAT), RangedWeaponProperties::velocity,
+            ByteBufCodecs.VAR_INT, RangedWeaponProperties::pull_time,
             RangedWeaponProperties::new
     );
 
-    public static ComponentType<RangedWeaponProperties> TYPE;
+    public static DataComponentType<RangedWeaponProperties> TYPE;
 
     /**
      * Called from `DataComponentTypes` static initializer (via mixin), do not call.
      */
     public static void register() {
-        TYPE = Registry.register(Registries.DATA_COMPONENT_TYPE, ID,
-                ComponentType.<RangedWeaponProperties>builder()
-                        .codec(CODEC)
-                        .packetCodec(PACKET_CODEC)
+        TYPE = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ID,
+                DataComponentType.<RangedWeaponProperties>builder()
+                        .persistent(CODEC)
+                        .networkSynchronized(PACKET_CODEC)
                         .build());
     }
 

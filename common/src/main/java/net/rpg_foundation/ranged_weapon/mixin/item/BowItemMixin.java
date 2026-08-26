@@ -2,14 +2,14 @@ package net.rpg_foundation.ranged_weapon.mixin.item;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponConfig;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
 import net.rpg_foundation.ranged_weapon.internal.AttributeUtils;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class BowItemMixin {
 
     @ModifyVariable(method = "<init>", at = @At("HEAD"), ordinal = 0)
-    private static Item.Settings applyDefaultProperties(Item.Settings settings) {
+    private static Item.Properties applyDefaultProperties(Item.Properties settings) {
         if (!AttributeUtils.hasProperties(settings)) {
             return AttributeUtils.configure(settings, RangedWeaponConfig.BOW);
         } else {
@@ -30,14 +30,14 @@ public class BowItemMixin {
      * Apply custom pull time
      */
     @WrapOperation(
-            method = "onStoppedUsing",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BowItem;getPullProgress(I)F")
+            method = "releaseUsing",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BowItem;getPowerForTime(I)F")
     )
     private float applyCustomPullTime(
             // Mixin parameters
             int ticks, Operation<Float> original,
             // Context parameters
-            ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+            ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
         var properties = RangedWeaponProperties.get(stack);
         if (properties == null) {
             return original.call(ticks);

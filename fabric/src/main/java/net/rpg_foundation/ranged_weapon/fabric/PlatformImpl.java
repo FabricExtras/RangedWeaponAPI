@@ -2,8 +2,7 @@ package net.rpg_foundation.ranged_weapon.fabric;
 
 import net.rpg_foundation.ranged_weapon.Platform;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
-
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import java.nio.file.Path;
 
 public class PlatformImpl {
@@ -18,8 +17,8 @@ public class PlatformImpl {
         }
 
         @Override
-        public ClampedEntityAttribute makeAttribute(String translationKey, double fallback, double min, double max) {
-            return new ClampedEntityAttribute(translationKey, fallback, min, max);
+        public RangedAttribute makeAttribute(String translationKey, double fallback, double min, double max) {
+            return new RangedAttribute(translationKey, fallback, min, max);
         }
     }
     private static final Platform.Util UTIL = new FabricUtil();

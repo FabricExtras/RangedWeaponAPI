@@ -1,13 +1,13 @@
 package net.rpg_foundation.ranged_weapon.mixin.item;
 
 import it.unimi.dsi.fastutil.objects.Reference2ObjectMap;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.ComponentType;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(ComponentMap.Builder.class)
+@Mixin(DataComponentMap.Builder.class)
 public interface ComponentMapBuilderAccessor {
-    @Accessor("components")
-    Reference2ObjectMap<ComponentType<?>, Object> rwa_components();
+    @Accessor("map")
+    Reference2ObjectMap<DataComponentType<?>, Object> rwa_components();
 }

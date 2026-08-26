@@ -1,21 +1,20 @@
 package net.rpg_foundation.ranged_weapon.internal;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.rpg_foundation.ranged_weapon.api.AttributeModifierIDs;
 import net.rpg_foundation.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponConfig;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
 import net.rpg_foundation.ranged_weapon.mixin.item.ComponentMapBuilderAccessor;
 import net.rpg_foundation.ranged_weapon.mixin.item.ItemSettingsAccessor;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +25,10 @@ public class AttributeUtils {
      * - the `ranged_weapon:properties` component (carrying the pull time)
      * - the attribute modifiers derived from the config (merged with any already present)
      */
-    public static Item.Settings configure(Item.Settings settings, RangedWeaponConfig config) {
+    public static Item.Properties configure(Item.Properties settings, RangedWeaponConfig config) {
         var generatedAttributes = fromConfig(config);
         var applicableAttributes = mergeComponents(generatedAttributes, existingAttributes(settings));
-        settings.attributeModifiers(applicableAttributes);
+        settings.attributes(applicableAttributes);
         settings.component(RangedWeaponProperties.TYPE, new RangedWeaponProperties(config.pullTimeTicks()));
         return settings;
     }
@@ -37,7 +36,7 @@ public class AttributeUtils {
     /**
      * Whether the settings already carry a `ranged_weapon:properties` component.
      */
-    public static boolean hasProperties(Item.Settings settings) {
+    public static boolean hasProperties(Item.Properties settings) {
         var componentBuilder = ((ItemSettingsAccessor) settings).rwa_getComponents();
         if (componentBuilder == null) {
             return false;
@@ -46,19 +45,19 @@ public class AttributeUtils {
         return components.get(RangedWeaponProperties.TYPE) instanceof RangedWeaponProperties;
     }
 
-    private static AttributeModifiersComponent existingAttributes(Item.Settings settings) {
+    private static ItemAttributeModifiers existingAttributes(Item.Properties settings) {
         var componentBuilder = ((ItemSettingsAccessor) settings).rwa_getComponents();
         if (componentBuilder != null) {
             var existingComponents = ((ComponentMapBuilderAccessor) componentBuilder).rwa_components();
-            var existing = existingComponents.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-            if (existing instanceof AttributeModifiersComponent attributeModifiers) {
+            var existing = existingComponents.get(DataComponents.ATTRIBUTE_MODIFIERS);
+            if (existing instanceof ItemAttributeModifiers attributeModifiers) {
                 return attributeModifiers;
             }
         }
         return null;
     }
 
-    public static AttributeModifiersComponent mergeComponents(AttributeModifiersComponent target, AttributeModifiersComponent source) {
+    public static ItemAttributeModifiers mergeComponents(ItemAttributeModifiers target, ItemAttributeModifiers source) {
         if (source == null && target == null) {
             return null;
         } else if (source == null) {
@@ -66,7 +65,7 @@ public class AttributeUtils {
         } else if (target == null) {
             return source;
         }
-        var builder =  AttributeModifiersComponent.builder();
+        var builder =  ItemAttributeModifiers.builder();
         for (var entry: source.modifiers()) {
             builder.add(entry.attribute(), entry.modifier(), entry.slot());
         }
@@ -77,29 +76,29 @@ public class AttributeUtils {
     }
 
     // Matching the interface of `add(...)` in AttributeModifiersComponent.Builder
-    public record ComponentEntry(RegistryEntry<EntityAttribute> attribute, EntityAttributeModifier modifier, AttributeModifierSlot slot) { }
+    public record ComponentEntry(Holder<Attribute> attribute, AttributeModifier modifier, EquipmentSlotGroup slot) { }
 
-    public static AttributeModifiersComponent fromConfig(RangedWeaponConfig config) {
-        var slot = AttributeModifierSlot.HAND;
+    public static ItemAttributeModifiers fromConfig(RangedWeaponConfig config) {
+        var slot = EquipmentSlotGroup.HAND;
 
-        var damage = new EntityAttributeModifier(
+        var damage = new AttributeModifier(
                 AttributeModifierIDs.WEAPON_DAMAGE_ID,
                 config.damage(),
-                EntityAttributeModifier.Operation.ADD_VALUE);
+                AttributeModifier.Operation.ADD_VALUE);
         // The pull time modifier is display-only, actual pull time is driven by `RangedWeaponProperties`.
         // Value is the bonus over the attribute base (1 sec), tooltip rendering adds the base back.
-        var pullTime = new EntityAttributeModifier(
+        var pullTime = new AttributeModifier(
                 AttributeModifierIDs.WEAPON_PULL_TIME_ID,
                 (config.pull_time() / 20F) - 1.0F,
-                EntityAttributeModifier.Operation.ADD_VALUE);
-        var builder = AttributeModifiersComponent.builder()
+                AttributeModifier.Operation.ADD_VALUE);
+        var builder = ItemAttributeModifiers.builder()
                 .add(EntityAttributes_RangedWeapon.DAMAGE.entry, damage, slot)
                 .add(EntityAttributes_RangedWeapon.PULL_TIME.entry, pullTime, slot);
         if (config.velocity() != null && config.velocity() != 0) {
-            var velocity = new EntityAttributeModifier(
+            var velocity = new AttributeModifier(
                     AttributeModifierIDs.WEAPON_VELOCITY_ID,
                     config.velocity(),
-                    EntityAttributeModifier.Operation.ADD_VALUE);
+                    AttributeModifier.Operation.ADD_VALUE);
             builder.add(EntityAttributes_RangedWeapon.VELOCITY.entry, velocity, slot);
         }
 
@@ -111,7 +110,7 @@ public class AttributeUtils {
     }
 
 
-    public static List<ComponentEntry> componentEntriesFrom(List<RangedWeaponConfig.Attribute> attributes, AttributeModifierSlot slot) {
+    public static List<ComponentEntry> componentEntriesFrom(List<RangedWeaponConfig.Attribute> attributes, EquipmentSlotGroup slot) {
         var list = new ArrayList<ComponentEntry>();
         if (attributes == null || attributes.isEmpty()) {
             return list;
@@ -123,7 +122,7 @@ public class AttributeUtils {
             } catch (Exception e) {
                 continue;
             }
-            var entityAttribute = Registries.ATTRIBUTE.getEntry(entityAttributeId);
+            var entityAttribute = BuiltInRegistries.ATTRIBUTE.get(entityAttributeId);
             if (entityAttribute.isEmpty() || attr.modifier() == null) { continue; }
             Identifier modifierId;
             try {
@@ -133,7 +132,7 @@ public class AttributeUtils {
             }
             list.add(new ComponentEntry(
                     entityAttribute.get(),
-                    new EntityAttributeModifier(
+                    new AttributeModifier(
                             modifierId,
                             attr.modifier().value(),
                             attr.modifier().operation()

@@ -2,9 +2,9 @@ package net.rpg_foundation.ranged_weapon.mixin.ai;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.world.entity.monster.illager.Pillager;
+import net.minecraft.world.item.Item;
 import net.rpg_foundation.ranged_weapon.internal.MobWeaponUtil;
-import net.minecraft.entity.mob.PillagerEntity;
-import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
  * are goal-driven (`initGoals`, no brain), so an override there would be dead code.
  * (`PiglinEntityMixin` does hook it — piglins are brain-driven.)
  */
-@Mixin(PillagerEntity.class)
+@Mixin(Pillager.class)
 public class PillagerEntityMixin {
 
     /**
@@ -23,10 +23,10 @@ public class PillagerEntityMixin {
      * which accepts custom crossbows natively.
      */
     @WrapOperation(
-            method = "getState",
+            method = "getArmPose",
             require = 0,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/PillagerEntity;isHolding(Lnet/minecraft/item/Item;)Z"))
-    private boolean allowCustomCrossbows_RWA(PillagerEntity instance, Item item, Operation<Boolean> original) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/illager/Pillager;isHolding(Lnet/minecraft/world/item/Item;)Z"))
+    private boolean allowCustomCrossbows_RWA(Pillager instance, Item item, Operation<Boolean> original) {
         return original.call(instance, item) || MobWeaponUtil.isHoldingKind(instance, item);
     }
 }

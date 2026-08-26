@@ -1,12 +1,12 @@
 package net.rpg_foundation.ranged_weapon.internal;
 
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 
 /**
  * Helpers for the AI mixins (`mixin/ai`), letting mob AI recognize custom ranged weapons
@@ -36,14 +36,14 @@ public class MobWeaponUtil {
      * `LivingEntity.isHolding(...)` counterpart of {@link #matchesKind}.
      */
     public static boolean isHoldingKind(LivingEntity entity, Item vanillaItem) {
-        return matchesKind(entity.getMainHandStack(), vanillaItem)
-                || matchesKind(entity.getOffHandStack(), vanillaItem);
+        return matchesKind(entity.getMainHandItem(), vanillaItem)
+                || matchesKind(entity.getOffhandItem(), vanillaItem);
     }
 
     /**
      * Whether the item carries the `ranged_weapon:properties` component as a default component.
      */
     public static boolean hasProperties(Item item) {
-        return item.getComponents().get(RangedWeaponProperties.TYPE) != null; // not contains(): NeoForge's Yarn jar names it `has`
+        return item.components().get(RangedWeaponProperties.TYPE) != null; // not contains(): NeoForge's Yarn jar names it `has`
     }
 }

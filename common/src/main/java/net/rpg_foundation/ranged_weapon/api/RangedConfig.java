@@ -1,8 +1,8 @@
 package net.rpg_foundation.ranged_weapon.api;
 
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.rpg_foundation.ranged_weapon.internal.ScalingUtil;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -27,17 +27,17 @@ public record RangedConfig(float damage, float pull_time_bonus, float velocity_b
     }
 
     public record Attribute(String attributeId, Modifier modifier) { }
-    public record Modifier(String modifierId, EntityAttributeModifier.Operation operation, double value) {  }
+    public record Modifier(String modifierId, AttributeModifier.Operation operation, double value) {  }
     public RangedConfig withAttributes(@Nullable List<Attribute> attributes) {
         return new RangedConfig(damage, pull_time_bonus, velocity_bonus, attributes);
     }
-    public RangedConfig withAttribute(Identifier attributeId, Identifier modifierId, EntityAttributeModifier.Operation operation, double value) {
+    public RangedConfig withAttribute(Identifier attributeId, Identifier modifierId, AttributeModifier.Operation operation, double value) {
         var list = new ArrayList<>(attributes != null ? attributes : List.of());
         var newEntry = new Attribute(attributeId.toString(), new Modifier(modifierId.toString(), operation, value));
         list.add(newEntry);
         return new RangedConfig(damage, pull_time_bonus, velocity_bonus, list);
     }
-    public RangedConfig withAttribute(Identifier attributeId, EntityAttributeModifier.Operation operation, double value) {
+    public RangedConfig withAttribute(Identifier attributeId, AttributeModifier.Operation operation, double value) {
         return withAttribute(attributeId, AttributeModifierIDs.OTHER_BONUS_ID, operation, value);
     }
 

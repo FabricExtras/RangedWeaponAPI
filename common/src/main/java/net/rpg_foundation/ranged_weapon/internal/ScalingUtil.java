@@ -1,8 +1,8 @@
 package net.rpg_foundation.ranged_weapon.internal;
 
-import net.minecraft.item.BowItem;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Item;
 
 public class ScalingUtil {
 

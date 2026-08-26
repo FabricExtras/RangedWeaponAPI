@@ -1,13 +1,13 @@
 package net.rpg_foundation.ranged_weapon.mixin.item;
 
-import net.minecraft.component.ComponentMap;
-import net.minecraft.item.Item;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(Item.Settings.class)
+@Mixin(Item.Properties.class)
 public interface ItemSettingsAccessor {
     @Accessor("components")
-    @Nullable ComponentMap.Builder rwa_getComponents();
+    @Nullable DataComponentMap.Builder rwa_getComponents();
 }

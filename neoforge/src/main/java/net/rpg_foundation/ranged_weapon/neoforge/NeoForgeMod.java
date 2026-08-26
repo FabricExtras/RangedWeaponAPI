@@ -4,7 +4,7 @@ import net.rpg_foundation.ranged_weapon.RangedWeaponMod;
 import net.rpg_foundation.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
 import net.rpg_foundation.ranged_weapon.internal.RangedHasteEntity;
-import net.minecraft.item.consume.UseAction;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
@@ -34,10 +34,10 @@ public final class NeoForgeMod {
 
         NeoForge.EVENT_BUS.addListener(LivingEntityUseItemEvent.Tick.class, (event) -> {
             var entity = event.getEntity();
-            var activeItemStack = entity.getActiveItem();
+            var activeItemStack = entity.getUseItem();
             if (entity.isUsingItem())  {
-                var useAction = activeItemStack.getUseAction();
-                if (useAction == UseAction.BOW || useAction == UseAction.CROSSBOW) {
+                var useAction = activeItemStack.getUseAnimation();
+                if (useAction == ItemUseAnimation.BOW || useAction == ItemUseAnimation.CROSSBOW) {
                     var haste = entity.getAttributeValue(EntityAttributes_RangedWeapon.HASTE.entry);
                     if (haste != EntityAttributes_RangedWeapon.HASTE.baseValue) {
                         // Upon calling this event, NeoForge modifies the itemUseTimeLeft already

@@ -1,11 +1,11 @@
 package net.rpg_foundation.ranged_weapon.mixin.client;
 
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
+import net.minecraft.world.entity.ItemOwner;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
-import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.HeldItemContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,15 +23,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * Only applies while the entity is actively using the stack; anything else (e.g. Spell Engine
  * reporting a spell-cast-driven draw) falls through to vanilla and other mixins.
  */
-@Mixin(UseDurationProperty.class)
+@Mixin(UseDuration.class)
 public class UseDurationPropertyMixin {
     private static final float VANILLA_PULL_TICKS = 20F;
 
-    @Inject(method = "getValue", at = @At("HEAD"), cancellable = true)
-    private void rangedWeapon_normalizePull(ItemStack stack, ClientWorld world, HeldItemContext context, int seed,
+    @Inject(method = "get", at = @At("HEAD"), cancellable = true)
+    private void rangedWeapon_normalizePull(ItemStack stack, ClientLevel world, ItemOwner context, int seed,
                                             CallbackInfoReturnable<Float> cir) {
-        var entity = context == null ? null : context.getEntity();
-        if (entity == null || entity.getActiveItem() != stack) {
+        var entity = context == null ? null : context.asLivingEntity();
+        if (entity == null || entity.getUseItem() != stack) {
             return;
         }
         if (stack.getItem() instanceof CrossbowItem || RangedWeaponProperties.get(stack) == null) {
@@ -41,8 +41,8 @@ public class UseDurationPropertyMixin {
         if (pullTime <= 0) {
             return;
         }
-        float used = UseDurationProperty.getTicksUsedSoFar(stack, entity);
-        var remaining = ((UseDurationProperty) (Object) this).remaining();
+        float used = UseDuration.useDuration(stack, entity);
+        var remaining = ((UseDuration) (Object) this).remaining();
         float value = remaining ? Math.max(0F, pullTime - used) : used;
         cir.setReturnValue(value * VANILLA_PULL_TICKS / pullTime);
     }

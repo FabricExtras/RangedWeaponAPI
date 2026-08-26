@@ -1,15 +1,14 @@
 package net.rpg_foundation.ranged_weapon;
 
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.alchemy.Potion;
 import net.rpg_foundation.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
 import net.rpg_foundation.ranged_weapon.api.StatusEffects_RangedWeapon;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
 
 public class RangedWeaponMod {
@@ -25,14 +24,14 @@ public class RangedWeaponMod {
 
         StatusEffects_RangedWeapon.DAMAGE.effect.addAttributeModifier(
                 EntityAttributes_RangedWeapon.DAMAGE.entry,
-                Identifier.of(NAMESPACE, "effect.damage"),
+                Identifier.fromNamespaceAndPath(NAMESPACE, "effect.damage"),
                 boostEffectBonusPerLevel,
-                EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         StatusEffects_RangedWeapon.HASTE.effect.addAttributeModifier(
                 EntityAttributes_RangedWeapon.HASTE.entry,
-                Identifier.of(NAMESPACE, "effect.haste"),
+                Identifier.fromNamespaceAndPath(NAMESPACE, "effect.haste"),
                 boostEffectBonusPerLevel,
-                EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
 
     public static void registerAttributes() {
@@ -68,12 +67,12 @@ public class RangedWeaponMod {
             // Use the potion registry id path (`ranged_weapon.damage`) so the derived keys stay
             // identical to the ones produced by 1.21.1 (where `Potion.finishTranslationKey`
             // fell back to the registry key path), keeping all existing translations valid.
-            var potion = new Potion(potionId.getPath(), new StatusEffectInstance(entry.entry, 3600));
-            Registry.register(Registries.POTION, potionId, potion);
+            var potion = new Potion(potionId.getPath(), new MobEffectInstance(entry.entry, 3600));
+            Registry.register(BuiltInRegistries.POTION, potionId, potion);
         }
     }
 
     public static Identifier potionId(Identifier id) {
-        return Identifier.of(id.getNamespace(), id.getNamespace() + "." + id.getPath());
+        return Identifier.fromNamespaceAndPath(id.getNamespace(), id.getNamespace() + "." + id.getPath());
     }
 }
