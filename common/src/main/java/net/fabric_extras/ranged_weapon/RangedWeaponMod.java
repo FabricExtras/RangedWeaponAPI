@@ -62,8 +62,14 @@ public class RangedWeaponMod {
                 StatusEffects_RangedWeapon.HASTE
         );
         for (var entry : entries) {
-            var potion = new Potion(entry.id.getPath(), new StatusEffectInstance(entry.entry, 3600));
-            Registry.register(Registries.POTION, potionId(entry.id), potion);
+            var potionId = potionId(entry.id);
+            // The `baseName` is used verbatim by `PotionContentsComponent.getName(prefix)` to build
+            // the item name key: `item.minecraft.<potion_item>.effect.<baseName>`.
+            // Use the potion registry id path (`ranged_weapon.damage`) so the derived keys stay
+            // identical to the ones produced by 1.21.1 (where `Potion.finishTranslationKey`
+            // fell back to the registry key path), keeping all existing translations valid.
+            var potion = new Potion(potionId.getPath(), new StatusEffectInstance(entry.entry, 3600));
+            Registry.register(Registries.POTION, potionId, potion);
         }
     }
 
