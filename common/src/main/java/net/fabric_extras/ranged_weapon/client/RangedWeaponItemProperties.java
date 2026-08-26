@@ -16,13 +16,18 @@ import org.jetbrains.annotations.Nullable;
  * Item model properties (`assets/<ns>/items/<id>.json`) for ranged weapons.
  * Replaces the pre-1.21.4 model predicates (`pull` / `pulling`), which were registered in code.
  *
+ * Ranged weapons should use the <b>vanilla</b> item model shape: bows dispatch on
+ * `minecraft:use_duration` with {@code "scale": 0.05} (see `assets/minecraft/items/bow.json`),
+ * crossbows on `minecraft:crossbow/pull` (`crossbow.json`). For stacks carrying the
+ * `ranged_weapon:properties` component, `use_duration` is re-expressed against the stack's real
+ * pull time (see `mixin.client.UseDurationPropertyMixin`), so the vanilla definition animates
+ * correctly whatever the pull time is — and anything else hooking the vanilla properties
+ * (e.g. Spell Engine's cast-driven draw) covers these weapons too.
  * <ul>
- *   <li>{@code ranged_weapon:pull} — numeric, the charge progress of the weapon in {@code [0, 1]},
- *       resolved against the pull time of the `ranged_weapon:properties` component
- *       (for crossbows: `CrossbowItem.getPullTime`, so Quick Charge composes on top).
- *       Use it instead of `minecraft:use_duration` + a hardcoded `scale`.</li>
+ *   <li>{@code ranged_weapon:pull} — <b>deprecated</b>, kept so existing definitions keep loading:
+ *       numeric charge progress in {@code [0, 1]} against the component's pull time
+ *       (crossbows: `CrossbowItem.getPullTime`). Equivalent to the vanilla shape above.</li>
  * </ul>
- * `pulling` is `minecraft:using_item`, and crossbow `charged`/`firework` are `minecraft:charge_type`.
  */
 public class RangedWeaponItemProperties {
     public static final Identifier PULL_ID = Identifier.of(RangedWeaponProperties.ID.getNamespace(), "pull");
@@ -31,6 +36,8 @@ public class RangedWeaponItemProperties {
         NumericProperties.ID_MAPPER.put(PULL_ID, PullProperty.CODEC);
     }
 
+    /** @deprecated use `minecraft:use_duration` (bows) / `minecraft:crossbow/pull` (crossbows), see class doc. */
+    @Deprecated
     public static class PullProperty implements NumericProperty {
         public static final MapCodec<PullProperty> CODEC = MapCodec.unit(new PullProperty());
 

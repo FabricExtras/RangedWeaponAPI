@@ -29,7 +29,8 @@
     "client.AbstractSkeletonEntityRendererMixin",
     "client.HeldItemRendererMixin",
     "client.ItemStackMixin",
-    "client.PlayerEntityRendererMixin"
+    "client.PlayerEntityRendererMixin",
+    "client.UseDurationPropertyMixin"
   ],
   "injectors": {
     "defaultRequire": 1
