@@ -14,18 +14,17 @@ dependencies {
     // We depend on Fabric Loader here to use the Fabric @Environment annotations,
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    // Required so Loom's remapper can resolve Fabric API supertypes of mod dependencies
-    // remapped in this module (else their overriding method names stay intermediary)
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    // Fabric API on the common classpath (26.1+ jars are unobfuscated, plain dependency)
+    implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
     // EMI integration: loader-neutral artifact, platform jars are provided by the platform modules
     if (rootProject.enable_emi.toBoolean()) {
-        modCompileOnly "dev.emi:emi-xplat-intermediary:${emi_version}"
+        compileOnly "dev.emi:emi-xplat-intermediary:${emi_version}"
     }
 }
 
-// EMI has no 1.21.11 build: keep the plugin sources in-tree but out of the compilation unless enabled.
+// EMI has no 26.x build: keep the plugin sources in-tree but out of the compilation unless enabled.
 if (!rootProject.enable_emi.toBoolean()) {
     sourceSets.main.java.exclude '**/compat/emi/**'
 }
