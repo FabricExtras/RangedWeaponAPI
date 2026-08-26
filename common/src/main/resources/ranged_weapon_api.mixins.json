@@ -20,7 +20,6 @@
     "item.ComponentMapBuilderAccessor",
     "item.CrossbowItemMixin",
     "item.ItemSettingsAccessor",
-    "item.ItemStackRepairMixin",
     "item.ProjectileUtilMixin",
     "item.RangedWeaponItemMixin"
   ],
