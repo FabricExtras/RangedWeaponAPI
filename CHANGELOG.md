@@ -1,4 +1,4 @@
-# 4.1.0
+# 4.0.0
 
 Package and maven group reworked, no functional change.
 
@@ -6,9 +6,6 @@ Package and maven group reworked, no functional change.
 - Maven group is now `net.rpg_foundation` (was `net.foundation`), artifact `ranged_weapon_api-<loader>` unchanged
 - Mod id, resource namespaces and every `ranged_weapon:` attribute/effect/component/property id are unchanged
 - Migration: update imports and the Gradle coordinate
-
-# 4.0.0
-
 - BREAKING: `CustomBow`/`CustomCrossbow` no longer take a repair ingredient supplier; repairability is the vanilla `minecraft:repairable` component (`Item.Settings.repairable(tag)`)
 - Ranged weapon item models use the vanilla properties: bows `minecraft:use_duration` (scale 0.05, re-expressed against the item's real pull time), crossbows `minecraft:crossbow/pull`; `ranged_weapon:pull` is deprecated
 - Fix potion and tipped arrow names on 1.21.11

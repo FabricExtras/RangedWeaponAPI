@@ -4,8 +4,7 @@ import net.rpg_foundation.ranged_weapon.api.CustomBow;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponConfig;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -21,9 +20,11 @@ public class TestMod implements ModInitializer {
     public void onInitialize() {
         var id = Identifier.of(NAMESPACE, "custom_longbow");
         var bow = new CustomBow(
-                new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, id)).maxDamage(300),
-                new RangedWeaponConfig(9, 40, 1F, null),
-                () -> Ingredient.ofItems(Items.GOLD_INGOT)
+                new Item.Settings()
+                        .registryKey(RegistryKey.of(RegistryKeys.ITEM, id))
+                        .maxDamage(300)
+                        .repairable(ItemTags.GOLD_TOOL_MATERIALS), // repair is the vanilla component now
+                new RangedWeaponConfig(9, 40, 1F, null)
         );
         Registry.register(
                 Registries.ITEM,
