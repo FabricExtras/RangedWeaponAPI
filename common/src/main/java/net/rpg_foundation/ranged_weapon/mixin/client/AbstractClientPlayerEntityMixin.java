@@ -17,9 +17,9 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public class AbstractClientPlayerEntityMixin {
     @WrapOperation(
             method = "getFieldOfViewModifier",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z")
     )
-    private boolean getFovMultiplier_CustomBows(ItemStack itemStack, Item item, Operation<Boolean> original) {
+    private boolean getFovMultiplier_CustomBows(ItemStack itemStack, Object item, Operation<Boolean> original) {
         if (item == Items.BOW) {
             if (CustomBow.instances.contains(itemStack.getItem())) {
                 return true;

@@ -19,11 +19,8 @@ public class BowItemMixin {
 
     @ModifyVariable(method = "<init>", at = @At("HEAD"), ordinal = 0)
     private static Item.Properties applyDefaultProperties(Item.Properties settings) {
-        if (!AttributeUtils.hasProperties(settings)) {
-            return AttributeUtils.configure(settings, RangedWeaponConfig.BOW);
-        } else {
-            return settings;
-        }
+        // Delayed (reload-time) step: only applies if no explicit `ranged_weapon:properties` was configured
+        return AttributeUtils.configureDefaults(settings, RangedWeaponConfig.BOW);
     }
 
     /**

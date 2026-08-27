@@ -18,8 +18,8 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ProjectileUtilHandMixin {
     @WrapOperation(
             method = "getWeaponHoldingHand",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
-    private static boolean matchCustomRanged_RWA(ItemStack stack, Item item, Operation<Boolean> original) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z"))
+    private static boolean matchCustomRanged_RWA(ItemStack stack, Object item, Operation<Boolean> original) {
         return original.call(stack, item) || MobWeaponUtil.matchesKind(stack, item);
     }
 }

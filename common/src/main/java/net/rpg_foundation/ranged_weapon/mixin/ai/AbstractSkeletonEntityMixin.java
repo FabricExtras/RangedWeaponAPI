@@ -24,8 +24,8 @@ public class AbstractSkeletonEntityMixin {
     @WrapOperation(
             method = "reassessWeaponGoal",
             require = 0,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
-    private boolean allowCustomBows_RWA(ItemStack stack, Item item, Operation<Boolean> original) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z"))
+    private boolean allowCustomBows_RWA(ItemStack stack, Object item, Operation<Boolean> original) {
         return original.call(stack, item) || MobWeaponUtil.matchesKind(stack, item);
     }
 }

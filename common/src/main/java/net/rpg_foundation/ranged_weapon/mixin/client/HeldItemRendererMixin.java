@@ -21,9 +21,9 @@ public class HeldItemRendererMixin {
 
     @WrapOperation(
             method = "evaluateWhichHandsToRender",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z")
     )
-    private static boolean getHandRenderType_ItemStack_IsOf_Ranged(ItemStack itemStack, Item item, Operation<Boolean> original) {
+    private static boolean getHandRenderType_ItemStack_IsOf_Ranged(ItemStack itemStack, Object item, Operation<Boolean> original) {
         if (item == Items.CROSSBOW) {
             if (CustomCrossbow.instances.contains(itemStack.getItem())) {
                 return true;
@@ -40,9 +40,9 @@ public class HeldItemRendererMixin {
 
     @WrapOperation(
             method = "selectionUsingItemWhileHoldingBowLike",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z")
     )
-    private static boolean getUsingItemHandRenderType_ItemStack_IsOf_Ranged(ItemStack itemStack, Item item, Operation<Boolean> original) {
+    private static boolean getUsingItemHandRenderType_ItemStack_IsOf_Ranged(ItemStack itemStack, Object item, Operation<Boolean> original) {
         if (item == Items.CROSSBOW) {
             if (CustomCrossbow.instances.contains(itemStack.getItem())) {
                 return true;
@@ -59,9 +59,9 @@ public class HeldItemRendererMixin {
 
     @WrapOperation(
             method = "isChargedCrossbow",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z")
     )
-    private static boolean isChargedCrossbow_ItemStack_IsOf_Crossbow(ItemStack itemStack, Item item, Operation<Boolean> original) {
+    private static boolean isChargedCrossbow_ItemStack_IsOf_Crossbow(ItemStack itemStack, Object item, Operation<Boolean> original) {
         if (item == Items.CROSSBOW) {
             if (CustomCrossbow.instances.contains(itemStack.getItem())) {
                 return true;
@@ -73,9 +73,9 @@ public class HeldItemRendererMixin {
     @WrapOperation(
             method = "renderArmWithItem",
             require = 0, // For Sinytra Connector, Forge replaces the `isOf` check with `instanceof`
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z")
     )
-    private boolean renderFirstPersonItem_ItemStack_IsOf_Crossbow(ItemStack itemStack, Item item, Operation<Boolean> original) {
+    private boolean renderFirstPersonItem_ItemStack_IsOf_Crossbow(ItemStack itemStack, Object item, Operation<Boolean> original) {
         if (item == Items.CROSSBOW) {
             if (CustomCrossbow.instances.contains(itemStack.getItem())) {
                 return true;

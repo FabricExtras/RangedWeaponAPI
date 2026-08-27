@@ -1,6 +1,10 @@
 package net.rpg_foundation.ranged_weapon.internal;
 
+import it.unimi.dsi.fastutil.objects.Reference2ObjectMap;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentInitializers;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -15,49 +19,72 @@ import net.rpg_foundation.ranged_weapon.api.RangedWeaponConfig;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
 import net.rpg_foundation.ranged_weapon.mixin.item.ComponentMapBuilderAccessor;
 import net.rpg_foundation.ranged_weapon.mixin.item.ItemSettingsAccessor;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AttributeUtils {
 
     /**
-     * Applies the given config to the item settings, by attaching:
+     * Applies the given config to the item settings.
+     * Since 26.1 item components are bound to the registry holder during resource reload
+     * (`DataComponentInitializers`), so the config is translated into a delayed initializer step,
+     * appended to the settings' initializer chain, attaching:
      * - the `ranged_weapon:properties` component (carrying the pull time)
-     * - the attribute modifiers derived from the config (merged with any already present)
+     * - the attribute modifiers derived from the config (merged with any set by earlier steps,
+     *   e.g. `Item.Properties#attributes`)
+     * Attribute ids listed in the config are resolved at reload time, not at item construction.
      */
     public static Item.Properties configure(Item.Properties settings, RangedWeaponConfig config) {
-        var generatedAttributes = fromConfig(config);
-        var applicableAttributes = mergeComponents(generatedAttributes, existingAttributes(settings));
-        settings.attributes(applicableAttributes);
-        settings.component(RangedWeaponProperties.TYPE, new RangedWeaponProperties(config.pullTimeTicks()));
+        append(settings, (components, context, key) -> apply(components, config));
         return settings;
     }
 
     /**
-     * Whether the settings already carry a `ranged_weapon:properties` component.
+     * Like {@link #configure}, but the step only applies the config if no earlier step attached a
+     * `ranged_weapon:properties` component. Used to give vanilla bows/crossbows (and third-party
+     * subclasses) their defaults without overriding an explicit configuration.
      */
-    public static boolean hasProperties(Item.Properties settings) {
-        var componentBuilder = ((ItemSettingsAccessor) settings).rwa_getComponents();
-        if (componentBuilder == null) {
-            return false;
-        }
-        var components = ((ComponentMapBuilderAccessor) componentBuilder).rwa_components();
-        return components.get(RangedWeaponProperties.TYPE) instanceof RangedWeaponProperties;
+    public static Item.Properties configureDefaults(Item.Properties settings, RangedWeaponConfig config) {
+        append(settings, (components, context, key) -> {
+            if (!hasProperties(components)) {
+                apply(components, config);
+            }
+        });
+        return settings;
     }
 
-    private static ItemAttributeModifiers existingAttributes(Item.Properties settings) {
-        var componentBuilder = ((ItemSettingsAccessor) settings).rwa_getComponents();
-        if (componentBuilder != null) {
-            var existingComponents = ((ComponentMapBuilderAccessor) componentBuilder).rwa_components();
-            var existing = existingComponents.get(DataComponents.ATTRIBUTE_MODIFIERS);
-            if (existing instanceof ItemAttributeModifiers attributeModifiers) {
-                return attributeModifiers;
-            }
+    /**
+     * Whether the component builder already carries a `ranged_weapon:properties` component.
+     */
+    public static boolean hasProperties(DataComponentMap.Builder components) {
+        return componentsOf(components).get(RangedWeaponProperties.TYPE) instanceof RangedWeaponProperties;
+    }
+
+    private static void append(Item.Properties settings, DataComponentInitializers.Initializer<Item> step) {
+        var accessor = (ItemSettingsAccessor) settings;
+        accessor.rwa_setComponentInitializer(accessor.rwa_getComponentInitializer().andThen(step));
+    }
+
+    private static void apply(DataComponentMap.Builder components, RangedWeaponConfig config) {
+        var applicableAttributes = mergeComponents(fromConfig(config), existingAttributes(components));
+        components.set(DataComponents.ATTRIBUTE_MODIFIERS, applicableAttributes);
+        components.set(RangedWeaponProperties.TYPE, new RangedWeaponProperties(config.pullTimeTicks()));
+    }
+
+    private static Reference2ObjectMap<DataComponentType<?>, Object> componentsOf(DataComponentMap.Builder components) {
+        return ((ComponentMapBuilderAccessor) components).rwa_components();
+    }
+
+    private static @Nullable ItemAttributeModifiers existingAttributes(DataComponentMap.Builder components) {
+        var existing = componentsOf(components).get(DataComponents.ATTRIBUTE_MODIFIERS);
+        if (existing instanceof ItemAttributeModifiers attributeModifiers) {
+            return attributeModifiers;
         }
         return null;
     }
 
-    public static ItemAttributeModifiers mergeComponents(ItemAttributeModifiers target, ItemAttributeModifiers source) {
+    public static @Nullable ItemAttributeModifiers mergeComponents(@Nullable ItemAttributeModifiers target, @Nullable ItemAttributeModifiers source) {
         if (source == null && target == null) {
             return null;
         } else if (source == null) {

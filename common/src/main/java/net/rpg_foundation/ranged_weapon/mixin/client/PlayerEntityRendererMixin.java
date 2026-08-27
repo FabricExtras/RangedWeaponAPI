@@ -23,9 +23,9 @@ public class PlayerEntityRendererMixin {
     @WrapOperation(
             method = "getArmPose",
             require = 0, // For Sinytra Connector, Forge replaces the `isOf` check with `instanceof`
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z")
     )
-    private static boolean armPose_crossbowHold_RWA(ItemStack itemStack, Item item, Operation<Boolean> original) {
+    private static boolean armPose_crossbowHold_RWA(ItemStack itemStack, Object item, Operation<Boolean> original) {
         if (item == Items.CROSSBOW && CustomCrossbow.instances.contains(itemStack.getItem())) {
             return true;
         }

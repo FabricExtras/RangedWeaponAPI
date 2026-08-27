@@ -33,6 +33,15 @@ public class MobWeaponUtil {
     }
 
     /**
+     * Erased-descriptor variant for the `@WrapOperation` hooks on `ItemStack.is(...)`: since 26.1 that
+     * overload is the generic `TypedInstance#is(T)`, so the wrapped call site is `is(Ljava/lang/Object;)Z`
+     * and the handler receives the argument as `Object`.
+     */
+    public static boolean matchesKind(ItemStack stack, Object vanillaItem) {
+        return vanillaItem instanceof Item item && matchesKind(stack, item);
+    }
+
+    /**
      * `LivingEntity.isHolding(...)` counterpart of {@link #matchesKind}.
      */
     public static boolean isHoldingKind(LivingEntity entity, Item vanillaItem) {
