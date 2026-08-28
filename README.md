@@ -151,19 +151,22 @@ dependencies {
 5. Done!
 
 ```java
+var id = Identifier.fromNamespaceAndPath(NAMESPACE, "custom_longbow");
 var bow = new CustomBow(
-    new Item.Settings().maxDamage(300),
-    new RangedWeaponConfig(12, 30),   // 12 damage at full charge, 1.5 sec pull time
-    () -> Ingredient.ofItems(Items.GOLD_INGOT)
+    new Item.Properties()
+        .setId(ResourceKey.create(Registries.ITEM, id))
+        .durability(300)
+        .repairable(ItemTags.GOLD_TOOL_MATERIALS),   // repair is the vanilla component
+    new RangedWeaponConfig(12, 30)                   // 12 damage at full charge, 1.5 sec pull time
 );
 Registry.register(
-    Registries.ITEM,
-    Identifier.of(NAMESPACE, "custom_longbow"), 
+    BuiltInRegistries.ITEM,
+    id,
     bow
 );
 ```
 
-Check out the [example mod](src/testmod/java/net/testmod/TestMod.java).
+Check out the [example mod](fabric/src/testmod/java/net/testmod/TestMod.java).
 
 ## Include or depend
 
