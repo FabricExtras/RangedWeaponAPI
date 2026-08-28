@@ -1,15 +1,11 @@
-# 4.0.1
-
-Minecraft 26.1 port, no functional change.
-
-- Built for Minecraft 26.1+ (Java 25); jars are no longer remapped, the shipped jar is the shaded platform jar
-- `ranged_weapon:properties` and the config-derived attribute modifiers are attached through the item's delayed component initializer (bound at resource reload), the attribute ids in `RangedWeaponConfig` resolve at reload
-- Removed the `assets/minecraft/items/bow.json` override: vanilla's `use_duration` definition already animates custom pull times
-
 # 4.0.0
 
 Package and maven group reworked, no functional change.
 
+- Minecraft 26.1.2 support (Java 25).
+- Jars are no longer remapped: the shipped jar is the shaded platform jar
+- `ranged_weapon:properties` and the config-derived attribute modifiers now bind at resource reload (components are empty until the first reload)
+- Removed the `assets/minecraft/items/bow.json` override: vanilla's `use_duration` definition already animates custom pull times
 - Java package is now `net.rpg_foundation.ranged_weapon` (was `net.fabric_extras.ranged_weapon`)
 - Maven group is now `net.rpg_foundation` (was `net.foundation`), artifact `ranged_weapon_api-<loader>` unchanged
 - Mod id, resource namespaces and every `ranged_weapon:` attribute/effect/component/property id are unchanged
