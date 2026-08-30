@@ -12,8 +12,10 @@ Package and maven group reworked, no functional change.
 - Migration: update imports and the Gradle coordinate
 - BREAKING: `CustomBow`/`CustomCrossbow` no longer take a repair ingredient supplier; repairability is the vanilla `minecraft:repairable` component (`Item.Properties#repairable(tag)`)
 - Ranged weapon item models use the vanilla properties: bows `minecraft:use_duration` (scale 0.05, re-expressed against the item's real pull time), crossbows `minecraft:crossbow/pull`; `ranged_weapon:pull` is deprecated
+- Mobs now prefer the stronger ranged weapon when picking up a dropped one: a skeleton upgrades from its vanilla bow to a dropped custom bow, and no longer trades a custom bow away for a vanilla one. Candidates are ranked by ranged damage first, then by pull time (shorter wins). Applies to any weapon carrying `ranged_weapon:properties`, and only between weapons of the same kind — bow vs crossbow stays vanilla's call.
 - Fix potion and tipped arrow names on 1.21.11
 - Trimmed mob-AI injects that vanilla no longer reaches
+- Internal mixin cleanup: dead code removed, stale comments corrected, mixin-private members made `@Unique`, injector match counts pinned where a partial miss used to degrade silently, and the two `ProjectileUtil` mixins merged into one
 
 # 3.0.0
 
