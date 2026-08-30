@@ -12,6 +12,7 @@ import net.rpg_foundation.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.rpg_foundation.ranged_weapon.internal.RangedHasteEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -54,7 +55,6 @@ public abstract class LivingEntityMixin extends Entity implements RangedHasteEnt
                     var haste = entity.getAttributeValue(EntityAttributes_RangedWeapon.HASTE.entry);
                     var newProgress = (int) (progress * EntityAttributes_RangedWeapon.HASTE.asMultiplier((float) haste));
                     info.setReturnValue(useItem.getUseDuration(entity) - newProgress);
-                    info.cancel();
                 }
             }
         }
@@ -65,7 +65,7 @@ public abstract class LivingEntityMixin extends Entity implements RangedHasteEnt
         this.resetPartialHasteTicks();
     }
 
-    private float partialHasteTick = 0f;
+    @Unique private float partialHasteTick = 0f;
     public void addPartialHasteTick(float tick) {
         this.partialHasteTick += tick;
     }

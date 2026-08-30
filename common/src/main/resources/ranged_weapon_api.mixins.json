@@ -12,7 +12,6 @@
     "ai.CrossbowAttackTaskMixin",
     "ai.PiglinEntityMixin",
     "ai.PillagerEntityMixin",
-    "ai.ProjectileUtilHandMixin",
     "attribute.EntityAttributesMixin",
     "attribute.LivingEntityMixin",
     "attribute.StatusEffectsMixin",
@@ -26,8 +25,8 @@
   "client": [
     "client.AbstractClientPlayerEntityMixin",
     "client.AbstractSkeletonEntityRendererMixin",
+    "client.AttributeDisplayMixin",
     "client.HeldItemRendererMixin",
-    "client.ItemStackMixin",
     "client.PlayerEntityRendererMixin",
     "client.UseDurationPropertyMixin"
   ],

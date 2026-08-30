@@ -12,6 +12,7 @@ import net.rpg_foundation.ranged_weapon.api.AttributeModifierIDs;
 import net.rpg_foundation.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -20,10 +21,11 @@ import java.util.function.Consumer;
 
 /**
  * Custom tooltip lines for the weapon's base damage / pull time modifiers (rendered like vanilla attack damage).
- * Since 1.21.5 the per-modifier tooltip line is produced by `AttributeModifiersComponent.Display.Default`.
+ * Since 1.21.5 the per-modifier tooltip line is produced by `ItemAttributeModifiers$Display$Default#apply`,
+ * which is this mixin's target (the class was named `ItemStackMixin` until 26.1 for historical reasons).
  */
 @Mixin(ItemAttributeModifiers.Display.Default.class)
-public class ItemStackMixin {
+public class AttributeDisplayMixin {
     @Inject(method = "apply", at = @At("HEAD"), cancellable = true)
     private void customFormattedAttributes_RWA(
             Consumer<Component> textConsumer, @Nullable Player player, Holder<Attribute> attribute, AttributeModifier modifier,
@@ -46,6 +48,7 @@ public class ItemStackMixin {
     }
 
 
+    @Unique
     private void addGreenText(Consumer<Component> textConsumer, Holder<Attribute> attribute, AttributeModifier modifier, double decimalValue) {
         textConsumer.accept(
                 CommonComponents.space()

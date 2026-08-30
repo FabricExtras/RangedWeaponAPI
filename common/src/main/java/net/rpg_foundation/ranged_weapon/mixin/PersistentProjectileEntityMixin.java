@@ -5,6 +5,7 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.rpg_foundation.ranged_weapon.internal.ArrowExtension;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -12,7 +13,7 @@ import java.util.Random;
 
 @Mixin(AbstractArrow.class)
 public abstract class PersistentProjectileEntityMixin implements ArrowExtension {
-    private static final Random CRIT_RANDOM = new Random();
+    @Unique private static final Random CRIT_RANDOM = new Random();
     @Shadow private double baseDamage;
     @Shadow public abstract boolean isCritArrow();
 
@@ -39,7 +40,7 @@ public abstract class PersistentProjectileEntityMixin implements ArrowExtension 
      * `d`, so any `EnchantmentHelper.getDamage` adjustment applied to `d` is not reflected on crits.
      * Long-standing behaviour - kept as is.
      */
-    @ModifyVariable(method = "onHitEntity", at = @At("STORE"), ordinal = 0)
+    @ModifyVariable(method = "onHitEntity", at = @At("STORE"), ordinal = 0, require = 2, allow = 2)
     private int modifyCritDamage(int value) {
         if (!isCritArrow()) { return value; }
         var projectile = (AbstractArrow) ((Object) this);
@@ -48,7 +49,7 @@ public abstract class PersistentProjectileEntityMixin implements ArrowExtension 
         return (int) Math.round(Mth.clamp(velocity * this.baseDamage * critMultiplier, 0.0, 2.147483647E9));
     }
 
-    private boolean rwa_modified = false;
+    @Unique private boolean rwa_modified = false;
     public void rwa_markModified(boolean modified) {
         this.rwa_modified = modified;
     }

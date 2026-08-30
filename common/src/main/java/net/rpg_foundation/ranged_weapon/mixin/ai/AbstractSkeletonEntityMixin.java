@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Note: `AbstractSkeletonEntity.canUseRangedWeapon` is NOT hooked here. On 1.21.11 that method is
- * only ever called from brain tasks (`MeleeAttackTask`, `TargetUtil.isTargetWithinAttackRange`),
- * and skeletons are goal-driven (`initGoals`, no brain), so an override there would be dead code.
+ * Note: `AbstractSkeleton#canUseNonMeleeWeapon` is NOT hooked here. On 26.1.2 that method is
+ * only ever called from brain tasks (`MeleeAttack`, `BehaviorUtils.isWithinAttackRange`),
+ * and skeletons are goal-driven (`registerGoals`, no brain), so an override there would be dead code.
  */
 @Mixin(AbstractSkeleton.class)
 public class AbstractSkeletonEntityMixin {

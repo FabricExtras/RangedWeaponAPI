@@ -25,8 +25,9 @@ import java.util.function.Consumer;
 abstract class RangedWeaponItemMixin {
 
     /**
-     * Velocity: scale the launch `speed` argument of `shootAll` by the shooter's `ranged_weapon:velocity` attribute.
-     * (Since 1.21.2 the per-projectile `shoot` call happens inside a lambda, so the argument is scaled up front.)
+     * Velocity: scale the launch `speed` argument of `ProjectileWeaponItem#shoot` by the shooter's
+     * `ranged_weapon:velocity` attribute. (Since 1.21.2 the per-projectile launch happens inside the
+     * `beforeSpawn` lambda handed to `Projectile.spawnProjectile`, so the argument is scaled up front.)
      */
     @ModifyVariable(method = "shoot", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float applyCustomVelocity_RWA(float speed, ServerLevel world, LivingEntity shooter, InteractionHand hand, ItemStack stack) {
@@ -48,7 +49,7 @@ abstract class RangedWeaponItemMixin {
             // Wrapped call parameters
             Projectile projectile, ServerLevel world, ItemStack projectileStack, Consumer<Projectile> beforeSpawn,
             Operation<Projectile> original,
-            // Context parameters (enclosing `shootAll`)
+            // Context parameters (enclosing `shoot`)
             ServerLevel world_, LivingEntity shooter, InteractionHand hand, ItemStack stack, List<ItemStack> projectiles, float speed, float divergence, boolean critical, @Nullable LivingEntity target) {
         var properties = RangedWeaponProperties.get(stack);
         if (properties == null) {

@@ -21,6 +21,9 @@ public class AbstractSkeletonEntityRendererMixin {
                     "extractRenderState(Lnet/minecraft/world/entity/monster/skeleton/AbstractSkeleton;Lnet/minecraft/client/renderer/entity/state/SkeletonRenderState;F)V",
                     "getArmPose(Lnet/minecraft/world/entity/monster/skeleton/AbstractSkeleton;Lnet/minecraft/world/entity/HumanoidArm;)Lnet/minecraft/client/model/HumanoidModel$ArmPose;"
             },
+            // One `is` call in each of the two listed methods; `require` is aggregate over them, so
+            // without pinning the count a drift in either descriptor would silently drop half the feature.
+            require = 2,
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z"))
     private boolean bowPoseForCustomBows_RWA(ItemStack stack, Object item, Operation<Boolean> original) {
         return original.call(stack, item) || MobWeaponUtil.matchesKind(stack, item);

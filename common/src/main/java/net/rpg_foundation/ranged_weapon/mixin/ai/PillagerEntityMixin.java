@@ -9,9 +9,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Note: `PillagerEntity.canUseRangedWeapon` is NOT hooked here. On 1.21.11 that method is only ever
- * called from brain tasks (`MeleeAttackTask`, `TargetUtil.isTargetWithinAttackRange`), and pillagers
- * are goal-driven (`initGoals`, no brain), so an override there would be dead code.
+ * Note: `Pillager#canUseNonMeleeWeapon` is NOT hooked here. On 26.1.2 that method is only ever
+ * called from brain tasks (`MeleeAttack`, `BehaviorUtils.isWithinAttackRange`), and pillagers
+ * are goal-driven (`registerGoals`, no brain), so an override there would be dead code.
  * (`PiglinEntityMixin` does hook it — piglins are brain-driven.)
  */
 @Mixin(Pillager.class)

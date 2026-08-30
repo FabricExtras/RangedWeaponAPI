@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.rpg_foundation.ranged_weapon.api.RangedWeaponProperties;
 import net.rpg_foundation.ranged_weapon.internal.MobWeaponUtil;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -78,9 +79,9 @@ public class BowAttackGoalMixin {
 
     // --- Safety net for the `require = 0` pairing above ---
 
-    private static volatile boolean rwa_pullTimeHookFired = false;
-    private static boolean rwa_pullTimeHookWarned = false;
-    private static int rwa_bowGoalTicks = 0;
+    @Unique private static volatile boolean rwa_pullTimeHookFired = false;
+    @Unique private static boolean rwa_pullTimeHookWarned = false;
+    @Unique private static int rwa_bowGoalTicks = 0;
 
     /**
      * `tick` only runs while some mob is actively running a bow attack goal, and any tick spent

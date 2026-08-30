@@ -13,25 +13,9 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 public final class NeoForgeMod {
     public NeoForgeMod() {
         RangedWeaponMod.init();
-        
-        // Reset happens via mixin
-        // `clearActiveItem`
 
-//        NeoForge.EVENT_BUS.addListener(LivingEntityUseItemEvent.Start.class, (event) -> {
-//            var entity = event.getEntity();
-//            ((RangedHasteEntity)entity).resetPartialHasteTicks();
-//        });
-
-//        NeoForge.EVENT_BUS.addListener(LivingEntityUseItemEvent.Stop.class, (event) -> {
-//            var entity = event.getEntity();
-//            ((RangedHasteEntity)entity).resetPartialHasteTicks();
-//        });
-
-//        NeoForge.EVENT_BUS.addListener(LivingEntityUseItemEvent.Finish.class, (event) -> {
-//            var entity = event.getEntity();
-//            ((RangedHasteEntity)entity).resetPartialHasteTicks();
-//        });
-
+        // The accumulator is reset by `attribute/LivingEntityMixin#clearActiveItem_RWA` (`stopUsingItem` TAIL),
+        // not by a `LivingEntityUseItemEvent.Start/Stop/Finish` listener.
         NeoForge.EVENT_BUS.addListener(LivingEntityUseItemEvent.Tick.class, (event) -> {
             var entity = event.getEntity();
             var activeItemStack = entity.getUseItem();
