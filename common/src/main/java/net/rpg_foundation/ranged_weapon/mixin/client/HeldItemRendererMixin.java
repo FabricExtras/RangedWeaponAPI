@@ -71,9 +71,9 @@ public class HeldItemRendererMixin {
     }
 
     @WrapOperation(
-            method = "renderArmWithItem",
+            method = "submitArmWithItem",
             require = 0, // NeoForge rewrites this branch to `itemStack.getItem() instanceof CrossbowItem`
-                         // (verified on 26.1.2.94), so there is no `is` call to wrap there.
+                         // (verified on 26.2.0.75), so there is no `is` call to wrap there.
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z")
     )
     private boolean renderFirstPersonItem_ItemStack_IsOf_Crossbow(ItemStack itemStack, Object item, Operation<Boolean> original) {
