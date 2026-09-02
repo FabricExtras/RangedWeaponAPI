@@ -15,7 +15,7 @@ Allows creating bows and crossbows, with just a few line of code
 [[dependencies.ranged_weapon_api]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.1,)"
+versionRange = "[26.2,)"
 ordering = "NONE"
 side = "BOTH"
 
