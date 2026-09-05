@@ -2,6 +2,7 @@
 
 Package and maven group reworked, no functional change.
 
+- Minecraft 26.2 support
 - Minecraft 26.1.2 support (Java 25).
 - Jars are no longer remapped: the shipped jar is the shaded platform jar
 - `ranged_weapon:properties` and the config-derived attribute modifiers now bind at resource reload (components are empty until the first reload)
