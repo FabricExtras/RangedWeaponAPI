@@ -5,21 +5,18 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "PersistentProjectileEntityMixin",
-    "attribute.EntityAttributesMixin",
     "attribute.LivingEntityMixin",
-    "attribute.StatusEffectsMixin",
     "item.BowItemMixin",
-    "item.ComponentMapBuilderAccessor",
     "item.CrossbowItemMixin",
     "item.ItemSettingMixin",
     "item.ProjectileUtilMixin",
     "item.RangedWeaponItemMixin"
   ],
   "client": [
-    "ModelPredicateProviderRegistryInvoker",
     "client.AbstractClientPlayerEntityMixin",
+    "client.ModelPredicateProviderRegistryInvoker",
     "client.HeldItemRendererMixin",
-    "client.ItemStackMixin",
+    "client.ItemStackTooltipMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin"
   ],

@@ -11,4 +11,4 @@ rootProject.name = 'ranged_weapon_api'
 
 include 'common'
 include 'fabric'
-include 'neoforge'
+include 'forge'

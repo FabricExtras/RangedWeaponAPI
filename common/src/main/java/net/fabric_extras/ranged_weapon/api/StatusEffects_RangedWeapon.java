@@ -5,6 +5,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -17,14 +19,23 @@ public class StatusEffects_RangedWeapon {
         public final Identifier id;
         public final StatusEffect effect;
 
+        /// Filled in by {@link #register()}. On 1.20.1 the raw {@link #effect} is what the vanilla
+        /// APIs take; this is kept for source compatibility with the 2.x API.
         @Nullable public RegistryEntry<StatusEffect> entry;
 
         public Entry(String name, int color) {
-            this.id = Identifier.of(NAMESPACE, name);
+            this.id = new Identifier(NAMESPACE, name);
             this.effect = new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, color);
         }
 
+        /// Idempotent: safe to call from every platform's registration window.
         public void register() {
+            if (Registries.STATUS_EFFECT.containsId(id)) {
+                if (entry == null) {
+                    entry = Registries.STATUS_EFFECT.getEntry(RegistryKey.of(RegistryKeys.STATUS_EFFECT, id)).orElse(null);
+                }
+                return;
+            }
             entry = Registry.registerReference(Registries.STATUS_EFFECT, id, effect);
         }
     }

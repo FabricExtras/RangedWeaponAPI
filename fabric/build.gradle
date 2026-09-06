@@ -44,38 +44,24 @@ loom {
     }
 }
 
-repositories {
-    maven {
-        name = 'Modrinth'
-        url = 'https://api.modrinth.com/maven'
-        content {
-            includeGroup 'maven.modrinth'
-        }
-    }
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-    }
-}
-
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-
-    // EMI integration
-    modCompileOnly "dev.emi:emi-${platform}:${emi_version}"
-    modLocalRuntime "dev.emi:emi-${platform}:${emi_version}"
+    // Fabric API is NOT a dependency: the mod is loader-neutral and hooks vanilla directly.
+    // (There is no Forgified Fabric API on the 1.20.1 line, so `common/` must stay Fabric-API free.)
 }
 
 processResources {
     inputs.property 'version', project.version
+    inputs.property 'fabric_loader_version', rootProject.fabric_loader_version
+    inputs.property 'minecraft_compat_version', rootProject.minecraft_compat_version
 
     filesMatching("fabric.mod.json") {
-        expand(project.properties)
+        expand version: inputs.properties.version,
+                fabric_loader_version: inputs.properties.fabric_loader_version,
+                minecraft_compat_version: inputs.properties.minecraft_compat_version
     }
 }
 
@@ -114,31 +100,24 @@ publishMods {
         projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")   // numeric id
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        minecraftVersions.add(project.minecraft_compat_version)
         client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
         server = true
         changelogType = "markdown"
-        // EMI is `modCompileOnly`; the recipe-viewer plugin is an optional entrypoint.
-        optional("emi")
     }
 
     modrinth {
         projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        minecraftVersions.add(project.minecraft_compat_version)
-        optional { slug = "emi" }
     }
 
     // Each platform publishes its own GitHub release under a distinct, platform-suffixed
-    // tag (e.g. `2.3.4+1.21.1-fabric`), so the two publish jobs don't collide.
+    // tag (e.g. `2.3.4.001+1.20.1-fabric`), so the two publish jobs don't collide.
     github {
         repository = providers.environmentVariable("GH_OWNER")
                 .zip(providers.environmentVariable("GH_REPO")) { owner, repo -> "$owner/$repo" }
         accessToken = providers.environmentVariable("GH_API_KEY")
         tagName = "${project.version}-${platform}"
-        // `commitish` is REQUIRED by the plugin. GITHUB_SHA is set automatically by GitHub
-        // Actions to the triggering commit — valid even in a detached-HEAD checkout.
         commitish = providers.environmentVariable("GITHUB_SHA")
     }
 }

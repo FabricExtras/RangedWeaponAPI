@@ -2,10 +2,11 @@ package net.fabric_extras.ranged_weapon.api;
 
 import net.fabric_extras.ranged_weapon.Platform;
 import net.fabric_extras.ranged_weapon.internal.NeoAttribute;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -27,12 +28,16 @@ public class EntityAttributes_RangedWeapon {
     public static class Entry {
         public final Identifier id;
         public final String translationKey;
+        /// The raw attribute. **1.20.1**: this is what `LivingEntity#getAttributeValue` and
+        /// `DefaultAttributeContainer.Builder#add` take — prefer it over {@link #entry}.
         public final EntityAttribute attribute;
         public final double baseValue;
+        /// Filled in by {@link #register()}. Kept for source compatibility with the 2.x API; on 1.20.1
+        /// nothing in the vanilla attribute API accepts a `RegistryEntry`, so this is informational only.
         @Nullable public RegistryEntry<EntityAttribute> entry;
 
         public Entry(String name, double minValue, double baseValue, boolean tracked) {
-            this.id = Identifier.of(NAMESPACE, name);
+            this.id = new Identifier(NAMESPACE, name);
             this.translationKey = "attribute.name." + NAMESPACE + "." + name;
             this.attribute = Platform.util().makeAttribute(translationKey, baseValue, minValue, 2048).setTracked(tracked);
             this.baseValue = baseValue;
@@ -42,7 +47,14 @@ public class EntityAttributes_RangedWeapon {
             return attributeValue / baseValue;
         }
 
+        /// Idempotent: safe to call from every platform's registration window.
         public void register() {
+            if (Registries.ATTRIBUTE.containsId(id)) {
+                if (entry == null) {
+                    entry = Registries.ATTRIBUTE.getEntry(RegistryKey.of(RegistryKeys.ATTRIBUTE, id)).orElse(null);
+                }
+                return;
+            }
             entry = Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
         }
 

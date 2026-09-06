@@ -24,7 +24,7 @@ public class TestMod implements ModInitializer {
         );
         Registry.register(
                 Registries.ITEM,
-                Identifier.of(NAMESPACE, "custom_longbow"),
+                new Identifier(NAMESPACE, "custom_longbow"),
                 bow
         );
     }

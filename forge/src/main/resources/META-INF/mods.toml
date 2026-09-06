@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[4,)"
+loaderVersion = "[47,)"
 issueTrackerURL = "https://github.com/FabricExtras/RangedWeaponAPI/issues"
 license = "MIT"
 
@@ -11,20 +11,18 @@ authors = "Daedelus"
 description = '''
 Allows creating bows and crossbows, with just a few line of code
 '''
+logoFile = "assets/ranged_weapon/icon.png"
 
 [[dependencies.ranged_weapon_api]]
-modId = "neoforge"
-type = "required"
-versionRange = "[21.1,)"
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ranged_weapon_api]]
 modId = "minecraft"
-type = "required"
-versionRange = "[1.21.1,)"
+mandatory = true
+versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
-
-[[mixins]]
-config = "ranged_weapon_api.mixins.json"

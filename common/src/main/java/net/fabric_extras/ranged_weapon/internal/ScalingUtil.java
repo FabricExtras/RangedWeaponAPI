@@ -3,7 +3,6 @@ package net.fabric_extras.ranged_weapon.internal;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class ScalingUtil {
 
@@ -16,17 +15,6 @@ public class ScalingUtil {
     public static final Scaling CROSSBOW_BASELINE = new Scaling(STANDARD_CROSSBOW_VELOCITY, STANDARD_CROSSBOW_DAMAGE);
 
     public record Scaling(double velocity, double damage) { }
-
-//    public static Scaling scaling(Item item, double bonusVelocity, double damage) {
-//        var baseline = baselineFor(item);
-//
-//        double velocityMultiplier = 1;
-//        if (customVelocity > 0) {
-//            velocityMultiplier = arrowVelocityMultiplier(baseline.velocity, customVelocity);
-//        }
-//        var damageMultiplier = arrowDamageMultiplier(baseline.damage, damage, baseline.velocity, 0);
-//        return new Scaling(velocityMultiplier, damageMultiplier);
-//    }
 
     public static Scaling baselineFor(Item item) {
         if (item instanceof BowItem) {

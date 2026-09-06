@@ -2,21 +2,14 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
-repositories {
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-    }
-}
-
-
-def platform = "fabric";
-
 dependencies {
     // We depend on Fabric Loader here to use the Fabric @Environment annotations,
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
-    modCompileOnly "dev.emi:emi-${platform}:${emi_version}"
+    // MixinExtras annotation processor: lets the Mixin AP refmap the @WrapOperation targets, which the
+    // Forge production jar needs (SRG names at runtime). Fabric Loader bundles the runtime; the
+    // forge module jar-in-jars `mixinextras-forge`.
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
 }

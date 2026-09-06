@@ -19,17 +19,16 @@
     ],
     "main": [
       "net.fabric_extras.ranged_weapon.fabric.FabricMod"
-    ],
-    "emi": [
-      "net.fabric_extras.ranged_weapon.compat.emi.RangedWeaponEmiPlugin"
     ]
   },
   "mixins": [
-    "ranged_weapon_api.mixins.json"
+    "ranged_weapon_api.mixins.json",
+    "ranged_weapon_api.fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
-    "minecraft": ">=${minecraft_compat_version}"
+    "minecraft": "~1.20.1",
+    "java": ">=17"
   },
   "custom": {
     "modmenu": {

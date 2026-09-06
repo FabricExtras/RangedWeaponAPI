@@ -1,90 +1,95 @@
 package net.fabric_extras.ranged_weapon.mixin.item;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fabric_extras.ranged_weapon.api.AttributeModifierIDs;
+import com.google.common.collect.Multimap;
 import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
-import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.api.RangedConfig;
-import net.fabric_extras.ranged_weapon.internal.ArrowExtension;
-import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
-import net.fabric_extras.ranged_weapon.internal.ScalingUtil;
 import net.fabric_extras.ranged_weapon.internal.AttributeUtils;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.LivingEntity;
+import net.fabric_extras.ranged_weapon.internal.RangedItemSettings;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.item.BowItem;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.RangedWeaponItem;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/// 1.20.1 shape of 2.3.4's `RangedWeaponItemMixin`.
+///
+/// 2.3.4 turned the `RangedConfig` into an `AttributeModifiersComponent` inside a `@ModifyVariable`
+/// on the `Item.Settings` constructor argument (once per concrete class: `BowItem`, `CrossbowItem`,
+/// `RangedWeaponItem`). There are no data components on 1.20.1, so instead a single `<init>`-TAIL
+/// injection on the shared `RangedWeaponItem` constructor builds a Guava `Multimap` and the item
+/// serves it from `getAttributeModifiers(EquipmentSlot)`. At TAIL `this` is already the concrete
+/// instance, so the weapon-type baseline can be picked with a plain `instanceof` — one injection
+/// point instead of three constructor-local rewrites.
+///
+/// Forge honours this: `IForgeItem#getAttributeModifiers(EquipmentSlot, ItemStack)` delegates to the
+/// vanilla `getAttributeModifiers(EquipmentSlot)` by default.
 @Mixin(RangedWeaponItem.class)
 abstract class RangedWeaponItemMixin extends Item implements CustomRangedWeapon {
+
     RangedWeaponItemMixin(Settings settings) {
         super(settings);
     }
 
-    @ModifyVariable(method = "<init>", at = @At("HEAD"), ordinal = 0)
-    private static Item.Settings applyDefaultAttributes(Item.Settings settings) {
-        var rangedSettings = ((RangedItemSettings) settings);
-        var config = rangedSettings.getRangedAttributes();
-        if (config != null) {
-            AttributeModifiersComponent existingAttributes = null;
-            var componentBuilder = rangedSettings.rwa_getComponentBuilder();
-            if (componentBuilder != null) {
-                var existingComponents = ((ComponentMapBuilderAccessor) componentBuilder).rwa_components();
-                var existing = existingComponents.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-                if (existing instanceof AttributeModifiersComponent attributeModifiers) {
-                    existingAttributes = attributeModifiers;
-                }
-            }
-            var rangedAttributes = AttributeUtils.fromRangedConfig(config);
-            var applicableAttributes = AttributeUtils.mergeComponents(rangedAttributes, existingAttributes);
-            return settings.attributeModifiers(applicableAttributes);
-        } else {
-            return settings;
+    @Unique @Nullable private Multimap<EntityAttribute, EntityAttributeModifier> rwa_modifiers = null;
+    @Unique private RangedConfig rwa_typeBaseline = RangedConfig.BOW;
+    @Unique private RangedConfig rwa_config = RangedConfig.EMPTY;
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void rwa_init(Item.Settings settings, CallbackInfo ci) {
+        Object self = this;
+        // Weapon-type baseline: what a vanilla weapon of this kind would do, the reference every
+        // multiplier is computed against.
+        if (self instanceof CrossbowItem) {
+            this.rwa_typeBaseline = RangedConfig.CROSSBOW;
+        } else if (self instanceof BowItem) {
+            this.rwa_typeBaseline = RangedConfig.BOW;
         }
+
+        var config = ((RangedItemSettings) settings).getRangedAttributes();
+        if (config == null) {
+            // Vanilla bows/crossbows (and any subclass built without a RangedConfig) get the baseline,
+            // so `ranged_weapon:damage` / `pull_time` are meaningful for them too.
+            config = this.rwa_typeBaseline;
+        }
+        setRangedWeaponConfig(config);
     }
 
-    // CustomRangedWeapon
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+        var isHandSlot = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+        return (isHandSlot && this.rwa_modifiers != null)
+                ? this.rwa_modifiers
+                : super.getAttributeModifiers(slot);
+    }
 
-    private RangedConfig typeBaseLine = RangedConfig.BOW;
+    // MARK: CustomRangedWeapon
 
+    @Override
     public void setTypeBaseline(RangedConfig config) {
-        this.typeBaseLine = config;
+        this.rwa_typeBaseline = config;
     }
 
+    @Override
     public RangedConfig getTypeBaseline() {
-        return this.typeBaseLine;
+        return this.rwa_typeBaseline;
     }
 
-    @WrapOperation(
-            method = "shootAll",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/RangedWeaponItem;shoot(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/projectile/ProjectileEntity;IFFFLnet/minecraft/entity/LivingEntity;)V"))
-    private void applyCustomVelocity_RWA(
-            RangedWeaponItem instance, LivingEntity shooter, ProjectileEntity projectile, int index, float speed, float divergence, float yaw, @Nullable LivingEntity target,
-            Operation<Void> original) {
-        var bonusVelocity = shooter.getAttributeValue(EntityAttributes_RangedWeapon.VELOCITY.entry);
-        var velocityMultiplier = ScalingUtil.arrowVelocityMultiplier(instance, bonusVelocity);
-//        System.out.println("Velocity multiplier: " + velocityMultiplier);
-        speed *= (float) velocityMultiplier;
-        original.call(instance, shooter, projectile, index, speed, divergence, yaw, target);
+    @Override
+    public RangedConfig getRangedWeaponConfig() {
+        return this.rwa_config;
+    }
 
-        if (projectile instanceof PersistentProjectileEntity projectileEntity
-            && !((ArrowExtension)projectile).rwa_isModified() ) {
-            var rangedDamage = shooter.getAttributeValue(EntityAttributes_RangedWeapon.DAMAGE.entry);
-            if (rangedDamage > 0) {
-                var multiplier = ScalingUtil.arrowDamageMultiplier(getTypeBaseline().damage(), rangedDamage, velocityMultiplier);
-                var finalDamage = projectileEntity.getDamage() * multiplier;
-                projectileEntity.setDamage(finalDamage);
-                ((ArrowExtension)projectile).rwa_markModified(true);
-            }
-        }
+    @Override
+    public void setRangedWeaponConfig(RangedConfig config) {
+        this.rwa_config = config != null ? config : RangedConfig.EMPTY;
+        this.rwa_modifiers = AttributeUtils.fromRangedConfig(this.rwa_config);
     }
 }

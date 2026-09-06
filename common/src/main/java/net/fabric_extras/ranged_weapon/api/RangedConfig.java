@@ -29,12 +29,17 @@ public record RangedConfig(float damage, float pull_time_bonus, float velocity_b
         return new RangedConfig(damage, pull_time_bonus, velocity_bonus, attributes);
     }
     public RangedConfig withAttribute(Identifier attributeId, Identifier modifierId, EntityAttributeModifier.Operation operation, double value) {
-        var list = new ArrayList<>(attributes != null ? attributes : List.of());
+        var list = new ArrayList<>(attributes != null ? attributes : List.<Attribute>of());
         var newEntry = new Attribute(attributeId.toString(), new Modifier(modifierId.toString(), operation, value));
         list.add(newEntry);
         return new RangedConfig(damage, pull_time_bonus, velocity_bonus, list);
     }
     public RangedConfig withAttribute(Identifier attributeId, EntityAttributeModifier.Operation operation, double value) {
         return withAttribute(attributeId, AttributeModifierIDs.OTHER_BONUS_ID, operation, value);
+    }
+
+    /** Pull time in ticks, as vanilla measures it: the 1 second baseline plus this config's bonus. */
+    public int pullTimeTicks() {
+        return Math.max(1, Math.round((1F + pull_time_bonus) * 20F));
     }
 }

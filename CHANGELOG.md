@@ -1,3 +1,9 @@
+# 2.3.4.001+1.20.1
+
+- Ported to Minecraft 1.20.1, Fabric + **Forge 47** (first Forge build)
+- 2.x public API preserved; deltas documented in the port notes
+- EMI anvil-repair integration is not available on this game version
+
 # 2.3.4
 
 - Fully translated content, now supporting 20 languages

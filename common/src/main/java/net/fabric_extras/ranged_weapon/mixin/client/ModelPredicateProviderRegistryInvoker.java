@@ -1,4 +1,4 @@
-package net.fabric_extras.ranged_weapon.mixin;
+package net.fabric_extras.ranged_weapon.mixin.client;
 
 import net.minecraft.client.item.ClampedModelPredicateProvider;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -7,6 +7,9 @@ import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
+/// `ModelPredicateProviderRegistry.register(Item, Identifier, ClampedModelPredicateProvider)` is
+/// `private static` in 1.20.1 (the Yarn javadoc tree renders it as public, the compiled class is not),
+/// so it is reached through an invoker rather than an access widener.
 @Mixin(ModelPredicateProviderRegistry.class)
 public interface ModelPredicateProviderRegistryInvoker {
     @Invoker("register")

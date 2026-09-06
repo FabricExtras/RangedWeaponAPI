@@ -30,4 +30,3 @@ public class CustomBow extends BowItem {
         return repairIngredientSupplier;
     }
 }
-
