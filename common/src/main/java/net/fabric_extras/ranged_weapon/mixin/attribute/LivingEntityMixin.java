@@ -1,5 +1,6 @@
 package net.fabric_extras.ranged_weapon.mixin.attribute;
 
+import net.fabric_extras.ranged_weapon.api.CrossbowMechanics;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,14 @@ public abstract class LivingEntityMixin {
         var maxUseTime = activeItemStack.getMaxUseTime();
         var progress = maxUseTime - itemUseTimeLeft;
         var haste = entity.getAttributeValue(EntityAttributes_RangedWeapon.HASTE.attribute);
-        var newProgress = (int) (progress * EntityAttributes_RangedWeapon.HASTE.asMultiplier((float) haste));
+        var multiplier = EntityAttributes_RangedWeapon.HASTE.asMultiplier((float) haste);
+        // Quick Charge's haste half. On 1.21.1 the rebalanced `quick_charge.json` grants
+        // `ranged_weapon:haste` `add_multiplied_base 0.10` per level from the `mainhand` slot; there is no
+        // enchantment registry to override here, so the same factor is folded in at the one place the
+        // attribute is consumed. `add_multiplied_base` multiplies the attribute's post-`ADD_VALUE` total,
+        // which is exactly `multiplier` above. See CrossbowMechanics.QuickCharge.
+        multiplier *= CrossbowMechanics.QuickCharge.hasteMultiplier(entity.getMainHandStack());
+        var newProgress = (int) (progress * multiplier);
         info.setReturnValue(maxUseTime - newProgress);
     }
 }

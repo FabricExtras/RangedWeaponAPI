@@ -2,6 +2,7 @@ package net.fabric_extras.ranged_weapon.mixin.item;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.fabric_extras.ranged_weapon.api.BowMechanics;
 import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabric_extras.ranged_weapon.internal.ArrowExtension;
@@ -85,5 +86,25 @@ public class BowItemMixin {
             }
         }
         return original.call(instance, entity);
+    }
+
+    /**
+     * Percentage-based Power — see {@link BowMechanics.Power}.
+     * <p>
+     * The only {@code setDamage} call in `onStoppedUsing` is vanilla's Power block
+     * (`arrow.setDamage(arrow.getDamage() + level * 0.5 + 0.5)`, guarded by `level > 0`), in both the
+     * vanilla and the Forge-patched class. The wrapped value is discarded and the arrow's *pre-Power*
+     * damage — `setDamage` has not run yet, so `getDamage()` still reads it — is scaled instead.
+     */
+    @WrapOperation(
+            method = "onStoppedUsing",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;setDamage(D)V")
+    )
+    private void rwa_applyPercentagePower(
+            // Mixin parameters
+            PersistentProjectileEntity instance, double vanillaDamage, Operation<Void> original,
+            // Context parameters
+            ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+        original.call(instance, instance.getDamage() * BowMechanics.Power.damageMultiplier(stack));
     }
 }
