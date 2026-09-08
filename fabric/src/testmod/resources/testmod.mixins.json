@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.testmod.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ItemsMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

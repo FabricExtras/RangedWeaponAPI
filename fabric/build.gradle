@@ -41,6 +41,13 @@ loom {
             name "Test Mod Client"
             source sourceSets.testmod
         }
+        // Headless counterpart: lets the mob-AI hooks be regression-tested from the server console
+        // (summon a mob holding a testmod weapon, then assert the projectile entity exists).
+        testmodServer {
+            inherit server
+            name "Test Mod Server"
+            source sourceSets.testmod
+        }
     }
 }
 

@@ -16,6 +16,7 @@
     ]
   },
   "mixins": [
+    "testmod.mixins.json"
   ],
   "depends": {
   },

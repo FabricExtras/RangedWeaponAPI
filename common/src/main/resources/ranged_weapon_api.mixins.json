@@ -9,6 +9,7 @@
     "ai.BowAttackGoalMixin",
     "ai.CrossbowAttackGoalMixin",
     "ai.CrossbowAttackTaskMixin",
+    "ai.CrossbowUserMixin",
     "ai.PiglinEntityMixin",
     "ai.PillagerEntityMixin",
     "ai.ProjectileUtilHandMixin",
