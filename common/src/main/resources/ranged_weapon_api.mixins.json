@@ -5,6 +5,13 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "PersistentProjectileEntityMixin",
+    "ai.AbstractSkeletonEntityMixin",
+    "ai.BowAttackGoalMixin",
+    "ai.CrossbowAttackGoalMixin",
+    "ai.CrossbowAttackTaskMixin",
+    "ai.PiglinEntityMixin",
+    "ai.PillagerEntityMixin",
+    "ai.ProjectileUtilHandMixin",
     "attribute.LivingEntityMixin",
     "item.BowItemMixin",
     "item.CrossbowItemMixin",
@@ -13,6 +20,7 @@
     "item.RangedWeaponItemMixin"
   ],
   "client": [
+    "ai.SkeletonEntityModelMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.ModelPredicateProviderRegistryInvoker",
     "client.HeldItemRendererMixin",
