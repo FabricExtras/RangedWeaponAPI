@@ -10,7 +10,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RangedWeaponMod {
 
@@ -43,14 +45,34 @@ public class RangedWeaponMod {
         }
     }
 
+    /// Populates the `entry` fields of {@link EntityAttributes_RangedWeapon} from the registry, for a loader
+    /// that registered the attributes itself rather than through {@link #registerAttributes()}.
+    ///
+    /// Fabric gets those as the return value of `Registry.registerReference`; Forge's `RegisterEvent` helper
+    /// returns void, so the Forge entrypoint calls this straight after its registration loop instead, keeping
+    /// the public API identical on both loaders. Idempotent.
+    public static void linkAttributeEntries() {
+        for (var entry : EntityAttributes_RangedWeapon.all) {
+            entry.link();
+        }
+    }
+
     public static void registerStatusEffects() {
         for (var entry : StatusEffects_RangedWeapon.all) {
             entry.register();
         }
     }
 
+    /// {@link #linkAttributeEntries()} for {@link StatusEffects_RangedWeapon}.
+    public static void linkStatusEffectEntries() {
+        for (var entry : StatusEffects_RangedWeapon.all) {
+            entry.link();
+        }
+    }
+
     private static boolean potionsRequested = false;
     private static boolean potionsRegistered = false;
+    private static Map<Identifier, Potion> potionsToRegister = null;
 
     /**
      * Opt-in: registers a long-duration potion for each RangedWeaponAPI status effect.
@@ -58,36 +80,59 @@ public class RangedWeaponMod {
      * 1.20.1 delta: vanilla registries are locked outside their registration window on Forge, so this
      * cannot always register immediately. Calling it flags the request; the actual registration then
      * happens inside the platform's potion registration window
-     * (Fabric: {@code Potions.<clinit>} TAIL, Forge: {@code RegisterEvent(POTIONS)}). If the window has
-     * already passed (Fabric), the registration happens right away. Idempotent.
+     * (Fabric: {@code Potions.<clinit>} TAIL, Forge: {@code RegisterEvent(POTIONS)}). On Fabric, if that
+     * window has already passed, the registration happens right away. Idempotent.
+     * <p>
+     * <b>On Forge the request must be made before {@code RegisterEvent(POTIONS)} is posted</b> — from the
+     * consumer's {@code @Mod} constructor, say. There is no way to write into a vanilla registry outside its
+     * own event on Forge 47.0-47.3, so a later request cannot be honoured.
      */
     public static void registerPotions() {
         potionsRequested = true;
+        if (!Platform.Fabric) {
+            // Forge registers these through the `RegisterEvent(POTIONS)` helper — see `ForgeMod`. A plain
+            // `Registry.register` throws "Can not register to a locked registry" on 47.0-47.3, event or not.
+            return;
+        }
         if (Registries.POTION.getIds().isEmpty()) {
-            // The vanilla `Potions` holder class has not run yet — wait for the platform window.
+            // The vanilla `Potions` holder class has not run yet — wait for the `Potions.<clinit>` TAIL hook.
             return;
         }
         registerPotionsIfRequested();
     }
 
-    /** Called from each platform's potion registration window. Does nothing unless opted in. */
+    /// Every potion RangedWeaponAPI adds, keyed by the id it registers under; empty unless
+    /// {@link #registerPotions()} was called. Creation only — nothing is registered here, so a loader that
+    /// registers potions itself iterates this instead of duplicating the construction. Built once.
+    public static Map<Identifier, Potion> potionsToRegister() {
+        if (!potionsRequested) {
+            return Map.of();
+        }
+        if (potionsToRegister == null) {
+            var potions = new LinkedHashMap<Identifier, Potion>();
+            var entries = List.of(
+                    StatusEffects_RangedWeapon.DAMAGE,
+                    StatusEffects_RangedWeapon.HASTE
+            );
+            for (var entry : entries) {
+                potions.put(potionId(entry.id), new Potion(new StatusEffectInstance(entry.effect, 3600)));
+            }
+            potionsToRegister = potions;
+        }
+        return potionsToRegister;
+    }
+
+    /** Called from Fabric's potion registration window. Does nothing unless opted in. */
     public static void registerPotionsIfRequested() {
         if (!potionsRequested || potionsRegistered) {
             return;
         }
         potionsRegistered = true;
-        var entries = List.of(
-                StatusEffects_RangedWeapon.DAMAGE,
-                StatusEffects_RangedWeapon.HASTE
-        );
-        for (var entry : entries) {
-            var id = potionId(entry.id);
-            if (Registries.POTION.containsId(id)) {
-                continue;
+        potionsToRegister().forEach((id, potion) -> {
+            if (!Registries.POTION.containsId(id)) {
+                Registry.register(Registries.POTION, id, potion);
             }
-            var potion = new Potion(new StatusEffectInstance(entry.effect, 3600));
-            Registry.register(Registries.POTION, id, potion);
-        }
+        });
     }
 
     public static Identifier potionId(Identifier id) {

@@ -58,6 +58,18 @@ public class EntityAttributes_RangedWeapon {
             entry = Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
         }
 
+        /// Reads {@link #entry} back out of the registry, for a loader that registered the attribute
+        /// itself rather than through {@link #register()} — see `RangedWeaponMod#linkAttributeEntries()`.
+        /// Idempotent, and safe to call when the entry is already linked.
+        public void link() {
+            if (entry == null) {
+                entry = Registries.ATTRIBUTE
+                        .getEntry(RegistryKey.of(RegistryKeys.ATTRIBUTE, id))
+                        .orElseThrow(() -> new IllegalStateException(
+                                "RangedWeaponAPI attribute " + id + " is not in the registry — register it first"));
+            }
+        }
+
         public Entry setBaseAttributeId(Identifier id) {
             if (attribute instanceof NeoAttribute neo) {
                 neo.setBaseModifierId(id);

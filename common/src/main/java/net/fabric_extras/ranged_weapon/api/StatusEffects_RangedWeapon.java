@@ -38,6 +38,18 @@ public class StatusEffects_RangedWeapon {
             }
             entry = Registry.registerReference(Registries.STATUS_EFFECT, id, effect);
         }
+
+        /// Reads {@link #entry} back out of the registry, for a loader that registered the effect itself
+        /// rather than through {@link #register()} — see `RangedWeaponMod#linkStatusEffectEntries()`.
+        /// Idempotent, and safe to call when the entry is already linked.
+        public void link() {
+            if (entry == null) {
+                entry = Registries.STATUS_EFFECT
+                        .getEntry(RegistryKey.of(RegistryKeys.STATUS_EFFECT, id))
+                        .orElseThrow(() -> new IllegalStateException(
+                                "RangedWeaponAPI status effect " + id + " is not in the registry — register it first"));
+            }
+        }
     }
 
     public static final ArrayList<Entry> all = new ArrayList<>();
