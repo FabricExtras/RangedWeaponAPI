@@ -113,6 +113,7 @@ publishMods {
     }
 
     modrinth {
+        environment = me.modmuss50.mpp.platforms.modrinth.ModrinthEnvironment.CLIENT_AND_SERVER
         projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
@@ -127,4 +128,10 @@ publishMods {
         tagName = "${project.version}-${platform}"
         commitish = providers.environmentVariable("GITHUB_SHA")
     }
+}
+
+// GitHub release last: a failed mod upload aborts the build before the release exists.
+// Ordering only -- unselected tasks are ignored. Must sit after the publishMods block.
+tasks.named("publishGithub") {
+    mustRunAfter(tasks.named("publishCurseforge"), tasks.named("publishModrinth"))
 }
