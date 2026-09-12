@@ -12,6 +12,10 @@ import java.util.List;
 public class TooltipUtil {
     /// Appends a `x.y sec Pull Time` line after the weapon's attribute block.
     /// Not wired up by default (2.3.4 left it dormant too); kept as public API for consumers that want it.
+    ///
+    /// Since the pull time fix, `TooltipHelper` already renders an absolute ` x.y sec Pull Time` line inside
+    /// the attribute block of every bow and crossbow, so calling this adds a SECOND, differently worded line.
+    @Deprecated
     public static void addPullTime(ItemStack itemStack, List<Text> lines) {
         var pullTime = readablePullTime(itemStack);
         if (pullTime > 0) {
