@@ -1,4 +1,4 @@
-# 2.3.4.001+1.20.1
+# 2.3.4+1.20.1
 
 - Ported to Minecraft 1.20.1, Fabric + **Forge 47** (first Forge build)
 - 2.x public API preserved; deltas documented in the port notes
