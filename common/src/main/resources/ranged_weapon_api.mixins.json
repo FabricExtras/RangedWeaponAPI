@@ -27,6 +27,7 @@
     "client.AbstractClientPlayerEntityMixin",
     "client.AbstractSkeletonEntityRendererMixin",
     "client.AttributeDisplayMixin",
+    "client.FirstPersonHandsAndItemsMixin",
     "client.HeldItemRendererMixin",
     "client.PlayerEntityRendererMixin",
     "client.UseDurationPropertyMixin"
